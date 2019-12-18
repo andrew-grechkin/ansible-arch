@@ -1,0 +1,5 @@
+- name: Install google-chrome
+  aur:
+    skip_installed: yes
+    name:
+      - google-chrome

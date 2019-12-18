@@ -1,0 +1,22 @@
+- name: Install plymouth
+  aur:
+    skip_installed: yes
+    name:
+      - plymouth
+
+#function arch-system-plymouth() {
+#	_install_packages_aur "plymouth-git"
+#
+#	if grep -q 'plymouth' /etc/mkinitcpio.conf; then
+#		echo 'Plymouth is aready in mkinitcpio.conf, skipping...'
+#	else
+#		echo 'Adding plymouth to mkinitcpio.conf...'
+#		sudo sed -i 's|(base udev|(base udev plymouth|' /etc/mkinitcpio.conf
+#		sudo sed -i 's|encrypt|plymouth-encrypt|'       /etc/mkinitcpio.conf
+#	fi
+#
+#	sudo plymouth-set-default-theme -R spinfinity
+#
+#	_disable_services lightdm
+#	_enable_services  lightdm-plymouth
+#}

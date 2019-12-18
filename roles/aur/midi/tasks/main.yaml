@@ -1,0 +1,12 @@
+- name: Install midi support
+  aur:
+    skip_installed: yes
+    name:
+      - timidity++
+      - soundfont-generaluser
+      #- timidity-freepats
+      #- soundfont-fluid
+
+#echo "soundfont /usr/share/soundfonts/GeneralUser.sf2"       | sudo tee --append /etc/timidity++/timidity.cfg > /dev/null
+##echo "soundfont /usr/share/soundfonts/timidity-freepats.sf2" | sudo tee --append /etc/timidity++/timidity.cfg > /dev/null
+##echo "soundfont /usr/share/soundfonts/FluidR3_GM.sf2"        | sudo tee --append /etc/timidity++/timidity.cfg > /dev/null

@@ -1,0 +1,58 @@
+- name: Install KDE Plasma
+  become: yes
+  pacman:
+    state: present
+    name:
+      - cronie
+      - kde-gtk-config
+      - partitionmanager
+      - plasma-meta
+      - packagekit-qt5
+      #- kde-applications-meta
+      - kdeadmin-meta
+      #- kdebase-meta
+      - dolphin
+      - kdialog
+      - kfind
+      - konsole
+      #- kdegraphics-meta
+      - gwenview
+      - kamera
+      - kipi-plugins
+      - kolourpaint
+      - kdegraphics-mobipocket
+      - okular
+      - spectacle
+      - svgpart
+      - kdegraphics-thumbnailers
+      #- kdemultimedia-meta
+      - audiocd-kio
+      - ffmpegthumbs
+      - k3b
+      #- kdenetwork-meta
+      - kdenetwork-filesharing
+      - krdc
+      - krfb
+      - zeroconf-ioslave
+      - kio-extras
+      #- kdepim-meta
+      - kleopatra
+      - kdepim-addons
+      - kdeutils-meta
+      - krusader
+
+- name: Populate service facts
+  service_facts:
+
+- name: Enable sddm service
+  become: yes
+  service:
+    name: sddm
+    enabled: yes
+
+- name: Disable lightdm service
+  become: yes
+  service:
+    name: lightdm
+    enabled: no
+  when: "'lightdm' in services"

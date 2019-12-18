@@ -1,0 +1,9 @@
+- name: Update pacman mirrors
+  become: yes
+  shell: reflector --country Netherlands --latest 8 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+
+- name: Full Arch system upgrade
+  become: yes
+  pacman:
+    update_cache: yes
+    upgrade: yes

@@ -1,0 +1,29 @@
+- name: Install motion
+  aur:
+    skip_installed: yes
+    name:
+      - motion
+
+- name: Allow RSYNC for new super user without SUDO password
+  become: yes
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    insertafter: '^%sudo'
+    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
+
+- name: Copy motion configs
+  become: yes
+  synchronize:
+    src: motion
+    dest: /etc/
+    archive: no
+    compress: no
+    recursive: yes
+
+- name: Disallow RSYNC for new super user without SUDO password
+  become: yes
+  lineinfile:
+    path: /etc/sudoers
+    state: absent
+    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"

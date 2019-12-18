@@ -1,0 +1,17 @@
+- name: Install webcam tools
+  aur:
+    skip_installed: yes
+    name:
+      - guvcview
+      - v4l-utils
+      - motion
+      - v4l2loopback-dkms-git
+#[[ -d /home/motion ]] && sudo chown -R motion /home/motion
+
+- name: Install webcam Logitech-c920
+  aur:
+    skip_installed: yes
+    name:
+      - libwebcam-git
+#sudo uvcdynctrl -c --addctrl=046d:082d
+##uvcdynctrl -s 'LED1 Mode' 0

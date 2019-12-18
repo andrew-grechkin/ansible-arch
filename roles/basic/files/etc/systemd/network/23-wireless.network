@@ -1,0 +1,12 @@
+[Match]
+Name=wl*
+
+[Link]
+Unmanaged=no
+
+[Network]
+DHCP=yes
+
+[DHCP]
+RouteMetric=20
+UseDomains=yes

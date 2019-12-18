@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ansible-role roles/system/upgrade -i roles/private/hosts --hosts all -K

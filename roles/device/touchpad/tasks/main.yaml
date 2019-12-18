@@ -1,0 +1,5 @@
+- name: Install touchpad
+  become: yes
+  pacman:
+    state: present
+    name: [xf86-input-synaptics]

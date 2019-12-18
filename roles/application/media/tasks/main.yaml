@@ -1,0 +1,61 @@
+- name: Install media info
+  become: yes
+  pacman:
+    state: present
+    name: [mediainfo]
+
+- name: Install audio encoding support
+  become: yes
+  pacman:
+    state: present
+    name: [ffmpeg, ffmpegthumbnailer, flac, mac, wavpack, libmad, libvorbis]
+
+- name: Install video encoding support
+  become: yes
+  pacman:
+    state: present
+    name: [gstreamer, gst-libav, gst-plugins-base, gst-plugins-good, gst-plugins-bad, gst-plugins-ugly]
+#a52dec jasper libdca libdv libmpeg2 libtheora libxv
+
+- name: Install image encoding support
+  become: yes
+  pacman:
+    state: present
+    name: [imagemagick, vimiv]
+### image viewers
+#	mirage
+#	qiv
+#	gpicview
+#	eog eog-plugins
+#	viewnior
+### image viewers good but big
+#	nomacs
+
+- name: Install cd support
+  become: yes
+  pacman:
+    state: present
+    name: [cdparanoia, abcde]
+
+- name: Install media decoding/ripping support
+  become: yes
+  pacman:
+    state: present
+    name: [libdvdcss, libdvdread, libdvdnav, dvd+rw-tools, dvdauthor, dvgrab, cdrtools, cdrdao, vcdimager, transcode, sox, emovix]
+
+- name: Install audio players
+  become: yes
+  pacman:
+    state: present
+    name: [cmus, deadbeef]
+      #-
+      #- mpd ncmpcpp mpc
+      #- gmpc
+#mkdir -p ~/.cache/mpd
+#_enable_user_services mpd
+
+- name: Install video players
+  become: yes
+  pacman:
+    state: present
+    name: [mpv]

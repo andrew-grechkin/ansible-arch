@@ -1,0 +1,23 @@
+- name: Install base devel
+  become: yes
+  pacman:
+    state: present
+    name:
+      - base-devel
+
+- name: Install trizen
+  script: install-trizen.sh
+  args:
+    creates: /usr/bin/trizen
+
+- name: Install ansible aur module
+  shell: trizen -S --needed --noedit --noconfirm ansible-aur-git python-ansible-toolbox
+  args:
+    creates: /usr/share/ansible/plugins/modules/aur.py
+
+#- name: Install trizen using makepkg, skip if trizen is already installed
+#  become: yes
+#  aur:
+#    name: trizen
+#    use: makepkg
+#    skip_installed: true

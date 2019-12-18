@@ -1,0 +1,16 @@
+- hosts: [arch]
+  roles:
+    - private/users
+    - x/kde
+    - application/snapper
+    - aur/trizen
+    - device/printer
+    - device/scanner
+    - device/touchpad
+    - device/video
+    - network/internet
+    - application/media
+    - application/virtualbox
+    - aur/google-chrome
+    - aur/pamac
+    - aur/skype

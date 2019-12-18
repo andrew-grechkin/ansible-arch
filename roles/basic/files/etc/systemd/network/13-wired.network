@@ -1,0 +1,12 @@
+[Match]
+Name=e*
+
+[Link]
+Unmanaged=no
+
+[Network]
+DHCP=yes
+
+[DHCP]
+RouteMetric=10
+UseDomains=yes

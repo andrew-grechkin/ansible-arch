@@ -1,0 +1,14 @@
+- name: Install yubikey
+  become: yes
+  pacman:
+    state: present
+    name:
+      - yubikey-manager
+      - yubikey-personalization
+
+- name: Install yubikey gui
+  become: yes
+  pacman:
+    state: present
+    name:
+      - yubikey-personalization-gui

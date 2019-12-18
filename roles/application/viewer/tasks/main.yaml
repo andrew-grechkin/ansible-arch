@@ -1,0 +1,17 @@
+- name: Install pdf viewers
+  become: yes
+  pacman:
+    state: present
+    name: [zathura, zathura-djvu, zathura-pdf-poppler, poppler]
+
+#- name: Install fb2 viewers
+#  become: yes
+#  pacman:
+#    state: present
+#    name:
+#      ### library
+#      #- freelib
+#      #- fb2index
+#      ### eBook
+#      #- coolreader
+#      #- fbreader

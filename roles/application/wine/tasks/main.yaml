@@ -1,0 +1,51 @@
+- name: Install wine
+  become: yes
+  pacman:
+    state: present
+    name:
+      - wine-staging
+
+#function arch-app-wine() {
+## enable multilib
+#	local PACKAGES=()
+##	PACKAGES+=(wine)
+#	PACKAGES+=(wine-staging)
+#	PACKAGES+=(wine_gecko wine-mono)
+#	PACKAGES+=(lib32-mesa)
+#	PACKAGES+=(lib32-alsa-lib lib32-alsa-plugins lib32-libpulse)
+#	PACKAGES+=(lib32-libxml2 lib32-mpg123 lib32-lcms2 lib32-giflib lib32-libpng lib32-gnutls)
+#	PACKAGES+=(lib32-gst-plugins-base lib32-gst-plugins-good)
+#
+#	# lutris works really well, it able to install battle.net and run blizzard games
+#	PACKAGES+=(lutris)
+##	PACKAGES+=(playonlinux)
+#	PACKAGES+=(winetricks)
+#	PACKAGES+=(zenity)
+#
+#	_install_packages "${PACKAGES[@]}"
+##	sudo pacman -S --asdeps $(pactree -l wine-staging)
+##https://appdb.winehq.org/objectManager.php?sClass=version&iId=25478
+##As usual, create a new Wine prefix (for most applications, it's better to set its own prefix):
+##$ env WINEPREFIX=$HOME/winedotnet wineboot --init
+##If Wine prompts for installing Mono, click Cancel.
+##
+##Install .NET Framework (and optionally install corefonts):
+##
+##$ env WINEPREFIX=$HOME/winedotnet ~/winetricks dotnet40 corefonts
+##Use dotnet40 to install .NET Framework 4.0. To install another version of 4.x series, change it to one of the following list:
+##
+##dotnet45   to install .NET Framework 4.5
+##dotnet451  to install .NET Framework 4.5.1
+##dotnet452  to install .NET Framework 4.5.2
+##dotnet46   to install .NET Framework 4.6
+##dotnet461  to install .NET Framework 4.6.1
+##dotnet462  to install .NET Framework 4.6.2
+##dotnet47   to install .NET Framework 4.7
+##dotnet471  to install .NET Framework 4.7.1
+##dotnet472  to install .NET Framework 4.7.2
+##dotnet48   to install .NET Framework 4.8
+##... And so on. For example, to install .NET Framework 4.5.2:
+##
+##$ env WINEPREFIX=$HOME/winedotnet ~/winetricks dotnet452 corefonts
+##If this doesn't work or you need to install a version not supported by winetricks, try a manual installation (explained below).
+#}

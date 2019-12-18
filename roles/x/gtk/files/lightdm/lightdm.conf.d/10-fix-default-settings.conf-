@@ -1,0 +1,5 @@
+# Fix default lightdm settings
+# vim: syntax=conf
+#
+[LightDM]
+user-authority-in-system-dir=true                                              # move .Xauthority to /run/lightdm

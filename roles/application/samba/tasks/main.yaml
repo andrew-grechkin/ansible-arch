@@ -1,0 +1,14 @@
+- name: Install samba
+  become: yes
+  pacman:
+    state: present
+    name:
+      - samba
+
+- name: Enable samba services
+  become: yes
+  service:
+    name:
+      - smb
+      - nmb
+    enabled: yes

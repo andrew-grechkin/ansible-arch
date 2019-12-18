@@ -1,0 +1,43 @@
+- name: Install devel packages
+  become: yes
+  pacman:
+    state: present
+    name:
+      #- apache
+      - gdb
+      - perf
+      - cmake
+      - extra-cmake-modules
+      - ninja
+      - ctags
+      - clang
+      - llvm
+      - python-pylint
+      - python2-pylint
+      - meld
+      - bat
+      - pygmentize
+      - retext
+      - tig
+      - zeal
+
+#- name: Install VScode
+#  pacman:
+#    state: present
+#    name:
+#      - code
+#
+#- name: Install go packages
+#  pacman:
+#    state: present
+#    name:
+#      - go
+#      - go-tools
+#      - delve
+#
+#- name: Install emacs
+#  pacman:
+#    state: present
+#    name:
+#      - emacs
+#      - adobe-source-code-pro-fonts

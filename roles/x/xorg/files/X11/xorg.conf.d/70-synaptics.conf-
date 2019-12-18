@@ -1,0 +1,22 @@
+Section "InputClass"
+	MatchIsTouchpad "yes"
+	Identifier      "Touchpad"
+	Driver          "synaptics"
+
+	Option          "TapButton1"            "1"
+	Option          "TapButton2"            "3"
+	Option          "TapButton3"            "2"
+
+	Option          "ClickFinger1"          "1"
+	Option          "ClickFinger2"          "3"
+	Option          "ClickFinger3"          "2"
+
+	Option          "CircScrollTrigger"     "0"
+	Option          "CircularScrolling"     "1"
+
+	Option          "CoastingSpeed"         "5"
+	Option          "CoastingFriction"      "20"
+
+	Option          "HorizTwoFingerScroll"  "1"
+	Option          "VertTwoFingerScroll"   "1"
+EndSection

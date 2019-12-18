@@ -1,0 +1,5 @@
+- name: Install webmin
+  aur:
+    skip_installed: yes
+    name:
+      - webmin

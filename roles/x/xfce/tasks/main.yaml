@@ -1,0 +1,31 @@
+- name: Install XFCE
+  become: yes
+  pacman:
+    state: present
+    name:
+      - xfce4
+      - xfce4-clipman-plugin
+      - xfce4-notifyd
+      - xfce4-screenshooter
+      - thunar-archive-plugin
+      - thunar-media-tags-plugin
+      - xfce4-cpugraph-plugin
+      - xfce4-mpc-plugin
+      - xfce4-netload-plugin
+      - xfce4-pulseaudio-plugin
+      - xfce4-whiskermenu-plugin
+      - xfce4-xkb-plugin
+      - light-locker
+      #- xscreensaver
+
+- name: Clean unnecessary packages
+  become: yes
+  pacman:
+    state: absent
+    name: [orage, xfce4-dict, xfce4-artwork, xfburn, parole, ristretto, mousepad]
+
+#### disable save session
+#xfconf-query -c xfce4-session -p /general/SaveOnExit        -n -t bool   -s false
+#xfconf-query -c xfce4-session -p /startup/ssh-agent/enabled -n -t bool   -s false
+#xfconf-query -c xfce4-session -p /startup/gpg-agent/enabled -n -t bool   -s false
+#xfconf-query -c xfce4-session -p /general/LockCommand       -n -t string -s "light-locker-command --lock"

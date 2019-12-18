@@ -1,0 +1,94 @@
+- name: Install xorg
+  become: yes
+  pacman:
+    state: present
+    name:
+      - xorg-server
+      - xorg-xinit
+      - xorg-xev
+      - xorg-xinput
+      - xorg-fonts
+      - xorg-fonts-cyrillic
+      - xorg-fonts-misc
+      - accountsservice
+      - xdotool
+      - rofi
+      - sxhkd
+      - xclip
+      - xsel
+
+- name: Install keyring (needed by many apps)
+  become: yes
+  pacman:
+    state: present
+    name: [gnome-keyring, seahorse]
+
+- name: Install vital
+  become: yes
+  pacman:
+    state: present
+    name: [exo]
+
+- name: Install xdg
+  become: yes
+  pacman:
+    state: present
+    name: [xdg-user-dirs, xdg-utils]
+
+- name: Install themes
+  become: yes
+  pacman:
+    state: present
+    name: [archlinux-wallpaper, papirus-icon-theme]
+#- adapta-gtk-theme
+##arc-gtk-theme arc-icon-theme arc-solid-gtk-theme
+##gnome-icon-theme gnome-icon-theme-extras gnome-icon-theme-symbolic
+#gnome-themes-extra
+#xdg-user-dirs-update
+#xdg-user-dirs-gtk-update
+
+- name: Update keyboard mapping
+  become: yes
+  shell: localectl set-x11-keymap us,ru pc105 , grp:lctrl_lshift_toggle --no-convert
+
+- name: Install fonts
+  become: yes
+  pacman:
+    state: present
+    name: [opendesktop-fonts, powerline-fonts, ttf-dejavu, ttf-font-awesome, ttf-liberation]
+
+- name: Install additional fonts
+  become: yes
+  pacman:
+    state: present
+    name: [adobe-source-han-sans-cn-fonts, adobe-source-han-sans-jp-fonts, adobe-source-han-sans-kr-fonts, font-mathematica, ttf-indic-otf]
+
+- name: Install emoji support
+  become: yes
+  pacman:
+    state: present
+    name: [noto-fonts-emoji, unicode-emoji, ttf-joypixels]
+
+- name: Allow RSYNC for new super user without SUDO password
+  become: yes
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    insertafter: '^%sudo'
+    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
+
+- name: Copy configs
+  become: yes
+  synchronize:
+    src: X11
+    dest: /etc/
+    archive: no
+    compress: no
+    recursive: yes
+
+- name: Disallow RSYNC for new super user without SUDO password
+  become: yes
+  lineinfile:
+    path: /etc/sudoers
+    state: absent
+    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"

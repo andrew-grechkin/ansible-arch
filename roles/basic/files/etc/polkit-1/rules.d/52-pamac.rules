@@ -1,0 +1,8 @@
+/* Allow users in wheel group to use pamac authentication */
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.manjaro.pamac.commit" &&
+        subject.isInGroup("wheel"))
+    {
+        return polkit.Result.YES;
+    }
+});

@@ -1,0 +1,101 @@
+- name: Read device information (always use unit when probing)
+  parted: device=/dev/sda unit=GiB
+  register: sda_info
+- name: Check /dev/sda is clean
+  when: sda_info.partitions != []
+  fail:
+    msg: The system may not be installed, /dev/sda is not empty
+- name: Create a new primary partition with a size of 1GiB
+  parted:
+    device: /dev/sda
+    number: 1
+    label: gpt
+    state: present
+    part_end: 1025MiB
+    flags: [esp]
+- name: Create a new primary partition for LVM
+  parted:
+    device: /dev/sda
+    number: 2
+    label: gpt
+    flags: [lvm]
+    state: present
+    part_start: 1025MiB
+
+- name: Create a volume group on top of /dev/sda2
+  lvg: vg=vg-arch pvs=/dev/sda2
+- name: Create swap logical volume
+  lvol: vg=vg-arch lv=swap size=2g
+- name: Create root logical volume
+  lvol: vg=vg-arch lv=root size=10g
+- name: Create home logical volume
+  lvol: vg=vg-arch lv=home size=100%FREE
+
+- name: Create a EFI filesystem on /dev/sda1
+  filesystem: dev=/dev/sda1 fstype=vfat opts='-n EFI'
+- name: Create a swap filesystem on vg-arch-swap
+  filesystem: dev=/dev/vg-arch/swap fstype=swap opts='-L swap'
+- name: Create a root filesystem on vg-arch-root
+  filesystem: dev=/dev/vg-arch/root fstype=btrfs opts='-L root'
+- name: Create a home filesystem on vg-arch-home
+  filesystem: dev=/dev/vg-arch/home fstype=btrfs opts='-L home'
+
+- name: Prepare btrfs root partition
+  script: prepare-btrfs-root.sh root '@'
+- name: Prepare btrfs home partition
+  script: prepare-btrfs-home.sh home '@'
+
+- name: Mount root subvolume structure /
+  mount: fstype=btrfs state=mounted src=LABEL=root opts=subvol=@/.snapshots/init/snapshot path=/mnt
+- name: Mount root subvolume structure /opt
+  mount: fstype=btrfs state=mounted src=LABEL=root opts=subvol=@/opt path=/mnt/opt
+- name: Mount root subvolume structure /srv
+  mount: fstype=btrfs state=mounted src=LABEL=root opts=subvol=@/srv path=/mnt/srv
+- name: Mount root subvolume structure /var
+  mount: fstype=btrfs state=mounted src=LABEL=root opts=subvol=@/var path=/mnt/var
+- name: Mount root subvolume structure /.snapshots
+  mount: fstype=btrfs state=mounted src=LABEL=root opts=subvol=@/.snapshots path=/mnt/.snapshots
+- name: Mount home subvolume structure /home
+  mount: fstype=btrfs state=mounted src=LABEL=home opts=subvol=@/.snapshots/init/snapshot path=/mnt/home
+- name: Mount home subvolume structure /home/.snapshots
+  mount: fstype=btrfs state=mounted src=LABEL=home opts=subvol=@/.snapshots path=/mnt/home/.snapshots
+- name: Mount esp partition
+  mount: fstype=vfat state=mounted src=LABEL=EFI path=/mnt/boot
+
+- name: Checkout ansible scripts
+  git:
+    repo: https://github.com/andrew-grechkin/ansible-arch.git
+    dest: /mnt/root/git/private/ansible-arch
+  ignore_errors: yes
+
+- name: Update pacman mirrors
+  shell: reflector --country Netherlands --latest 8 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+  args:
+    creates: /root/.cache/mirrorstatus.json
+
+- name: Run pacstrap
+  shell: pacstrap /mnt base linux linux-firmware sudo cryptsetup lvm2 mdadm btrfs-progs refind-efi avahi nss-mdns systemd-resolvconf inetutils networkmanager
+  args:
+    creates: /mnt/etc/pacman.conf
+
+- name: Install rEFInd
+  script: install-refind.sh
+  args:
+    creates: /boot/refind_linux.conf
+
+- name: Copy fstab
+  copy: src=fstab dest=/mnt/etc/fstab owner=root group=root mode='0644'
+
+- name: Use pacman mirrorlist
+  shell: cp -f /etc/pacman.d/mirrorlist /mnt/etc/pacman.d
+
+- name: Post install
+  script: post-install.sh
+  args:
+    creates: /mnt/etc/locale.conf
+
+- name: Update initcpio
+  script: update-initcpio.sh
+
+- name: Unmount all
+  shell: umount -R /mnt

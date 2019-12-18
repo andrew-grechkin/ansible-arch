@@ -1,0 +1,183 @@
+- name: Install essential tools
+  become: yes
+  pacman:
+    state: present
+    name: [sudo, git, neovim, tmux, bash-completion, zsh, zsh-completions, iw, crda, polkit]
+      #- reptyr
+
+- name: Install filesystem/partition tools
+  become: yes
+  pacman:
+    state: present
+    name: [btrfs-progs, exfat-utils, dosfstools, ntfs-3g, fuseiso, udftools, f2fs-tools, nilfs-utils, sshfs, gpart, parted]
+      #- davfs2
+      #- mtools
+
+- name: Install man/help
+  become: yes
+  pacman:
+    state: present
+    name: [man-db, man-pages, texinfo]
+
+- name: Install search
+  become: yes
+  pacman:
+    state: present
+    name: [ack, fd, fzf, ripgrep, the_silver_searcher]
+
+- name: Install boot tools
+  become: yes
+  pacman:
+    state: present
+    name: [intel-ucode, efibootmgr, refind-efi]
+
+- name: Install hdd tools
+  become: yes
+  pacman:
+    state: present
+    name: [smartmontools, hdparm]
+      #- hd-idle
+
+- name: Enable hdd smart service
+  become: yes
+  service:
+    name: smartd
+    enabled: yes
+
+- name: Install common tools
+  become: yes
+  pacman:
+    state: present
+    name: [libqalculate, hwinfo, iotop, htop, lsof, strace, lsb-release, neofetch]
+
+- name: Install network tools
+  become: yes
+  pacman:
+    state: present
+    name: [inetutils, nss-mdns, nfs-utils, cifs-utils, smbclient, socat, gnu-netcat, rsync]
+
+- name: Install pacman tools
+  become: yes
+  pacman:
+    state: present
+    name: [pacman-contrib, pcurses, pkgstats, reflector]
+
+- name: Install perl
+  become: yes
+  pacman:
+    state: present
+    name: [perl, perlbrew]
+
+- name: Install python
+  become: yes
+  pacman:
+    state: present
+    name: [swig, python, python-pip, python-dbus, python-pynvim, python2, python2-pip, python2-dbus]
+      #- pydf
+
+- name: Install ruby
+  become: yes
+  pacman:
+    state: present
+    name: [ruby]
+
+- name: Install file management tools
+  become: yes
+  pacman:
+    state: present
+    name: [vifm, jq, ncdu, cpio, lzop, p7zip, unrar, unzip]
+      #- progress
+      #- pv
+      #- inotify-tools
+
+- name: Install barcode/qrcode tools
+  become: yes
+  pacman:
+    state: present
+    name: [zbar]
+
+#- name: Install backup tools
+#  become: yes
+#  pacman:
+#    state: present
+#    name:
+#      - borg
+#      - restic
+
+- name: Install pulseaudio
+  become: yes
+  pacman:
+    state: present
+    name: [pulseaudio, pulseaudio-alsa, pulseaudio-zeroconf, paprefs, pamixer, pulsemixer]
+
+- name: Install alsa
+  become: yes
+  pacman:
+    state: present
+    name: [alsa-utils, alsa-plugins]
+      #- alsa-tools
+#	amixer sset Master    unmute
+#	amixer sset Speaker   unmute
+#	amixer sset Headphone unmute
+#	alsamixer
+#	speaker-test -c 2
+
+- name: Install bluetooth
+  become: yes
+  pacman:
+    state: present
+    name: [bluez, bluez-cups, bluez-utils, pulseaudio-bluetooth]
+
+- name: Enable bluetooth services
+  become: yes
+  service:
+    name: bluetooth
+    enabled: yes
+
+- name: Install search
+  become: yes
+  pacman:
+    state: present
+    name: [mlocate]
+
+- name: Enable search service
+  become: yes
+  service:
+    name: updatedb.timer
+    enabled: yes
+
+- name: Clean unnecessary packages
+  become: yes
+  pacman:
+    state: absent
+    name: []
+
+- name: Allow RSYNC for new super user without SUDO password
+  become: yes
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    insertafter: '^%sudo'
+    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
+
+- name: Copy configs
+  become: yes
+  synchronize:
+    src: etc
+    dest: /
+    archive: no
+    compress: no
+    recursive: yes
+
+- name: Disallow RSYNC for new super user without SUDO password
+  become: yes
+  lineinfile:
+    path: /etc/sudoers
+    state: absent
+    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
+
+- name: Enable reflector service
+  become: yes
+  service:
+    name: reflector.timer
+    enabled: yes

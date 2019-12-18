@@ -1,0 +1,9 @@
+- hosts: [arch]
+  roles:
+    - private/users
+    - x/kde
+    - application/snapper
+    - aur/trizen
+    - device/video
+    - network/internet
+    - application/media

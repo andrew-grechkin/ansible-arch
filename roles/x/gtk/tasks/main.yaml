@@ -1,0 +1,94 @@
+- name: Install default
+  become: yes
+  pacman:
+    state: present
+    name: [lightdm-gtk-greeter, lightdm-gtk-greeter-settings, exo, xdg-user-dirs-gtk]
+
+- name: Install pulseaudio
+  become: yes
+  pacman:
+    state: present
+    name: [pavucontrol]
+
+- name: Install bluetooth
+  become: yes
+  pacman:
+    state: present
+    name: [blueberry]
+      #- blueman
+
+- name: Install fuse
+  become: yes
+  pacman:
+    state: present
+    name: [gvfs, gvfs-nfs, gvfs-smb, gvfs-google, gvfs-gphoto2, gvfs-mtp]
+
+- name: Install applications
+  become: yes
+  pacman:
+    state: present
+    name:
+      - baobab
+      - catfish
+      - gnome-disk-utility
+      - geany
+      - geany-plugins
+      - qalculate-gtk
+      - gnome-characters
+      - gucharmap
+      - gnome-keyring
+      - seahorse
+#     - ghex
+      - gparted
+      - gthumb
+      - hardinfo
+      - lxappearance
+#     - onboard
+      - redshift
+      - xarchiver
+#     - file-roller
+      - xautolock
+      - freerdp
+      - libvncserver
+### polkit (better then polkit-gnome
+#     - lxsession
+
+- name: Populate service facts
+  service_facts:
+
+- name: Enable lightdm service
+  become: yes
+  service:
+    name: lightdm
+    enabled: yes
+
+- name: Disable sddm
+  become: yes
+  service:
+    name: sddm
+    enabled: no
+  when: "'sddm' in services"
+
+- name: Allow RSYNC for new super user without SUDO password
+  become: yes
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    insertafter: '^%sudo'
+    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
+
+- name: Copy lightdm configs
+  become: yes
+  synchronize:
+    src: lightdm
+    dest: /etc/
+    archive: no
+    compress: no
+    recursive: yes
+
+- name: Disallow RSYNC for new super user without SUDO password
+  become: yes
+  lineinfile:
+    path: /etc/sudoers
+    state: absent
+    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"

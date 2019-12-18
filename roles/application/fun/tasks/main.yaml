@@ -1,0 +1,25 @@
+- name: Install ascii
+  become: yes
+  pacman:
+    state: present
+    name: [aalib, libcaca, mplayer]
+      #- aview
+
+- name: Install fun packages
+# https://opensource.com/article/18/12/linux-toy-boxes
+# telnet towel.blinkenlights.nl
+  aur:
+    skip_installed: yes
+    name:
+      - boxes
+      - nudoku-git
+      - myman
+      - asciiquarium
+      - nyancat
+      - lolcat
+      - cowsay
+      - ponysay
+      - figlet
+      - sl
+      - espeak
+      - cmatrix

@@ -1,0 +1,11 @@
+- name: Install browsers
+  become: yes
+  pacman:
+    state: present
+    name: [opera, opera-ffmpeg-codecs]
+
+- name: Install helpers
+  become: yes
+  pacman:
+    state: present
+    name: [youtube-dl]

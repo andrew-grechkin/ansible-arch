@@ -1,0 +1,115 @@
+# Documentation:  /usr/share/doc/motion/motion_guide.html
+# vim: foldmethod=marker
+
+# => Capture device options -------------------------------------------------------------------------------------- {{{1
+
+camera_name           mjpeg-video0
+target_dir            /home/motion
+netcam_url            v4l2:///dev/v4l/by-id/usb-Chicony_Electronics_Co._Ltd._HP_HD_Webcam__Fixed__0x0001-video-index0
+# V4L2_PIX_FMT_MJPEG MJPG 8
+# V4L2_PIX_FMT_YUYV  YUYV 15
+# V4L2_PIX_FMT_H264  H264 21
+v4l2_palette          8
+;vid_control_params    ID09963794=1,"Gain"=50, "brightness"=30
+width                 1280
+height                720
+framerate             30
+
+# => Motion Detection Settings ----------------------------------------------------------------------------------- {{{1
+
+# Threshold for number of changed pixels in an image that triggers motion detection (default: 1500)
+#threshold             2500
+threshold_tune        on                                                       # Automatically tune the threshold down if possible (default: off)
+#noise_level           32                                                       # Noise threshold for the motion detection (default: 32)
+#noise_tune            off                                                      # Automatically tune the noise threshold (default: on)
+# Despeckle motion image using (e)rode or (d)ilate or (l)abel (Default: not defined)
+# Recommended value is EedDl. Any combination (and number of) of E, e, d, and D is valid.
+# (l)abeling must only be used once and the 'l' must be the last letter.
+# Comment out to disable
+despeckle_filter      EedDl
+# Picture frames must contain motion at least the specified number of frames
+# in a row before they are detected as true motion. At the default of 1, all
+# motion is detected. Valid range: 1 to thousands, recommended 1-5
+minimum_motion_frames 5
+# Event Gap is the seconds of no motion detection that triggers the end of an event.
+# An event is defined as a series of motion images taken within a short timeframe.
+# Recommended value is 60 seconds (Default). The value -1 is allowed and disables
+# events causing all Motion to be written to one single movie file and no pre_capture.
+# If set to 0, motion is running in gapless mode. Movies don't have gaps anymore. An
+# event ends right after no more motion is detected and post_capture is over.
+event_gap             60
+# Specifies the number of pre-captured (buffered) pictures from before motion
+# was detected that will be output at motion detection.
+# Recommended range: 0 to 5 (default: 0)
+# Do not use large values! Large values will cause Motion to skip video frames and
+# cause unsmooth movies. To smooth movies use larger values of post_capture instead.
+pre_capture           15
+post_capture          900                                                      # Number of frames to capture after motion is no longer detected (default: 0)
+
+# => Movie output ------------------------------------------------------------------------------------------------ {{{1
+
+emulate_motion        off
+movie_output          on
+movie_max_time        0
+;movie_bps             400000
+movie_quality         35
+movie_codec           mp4
+movie_passthrough     on
+movie_filename        motion-%Y-%m-%dT%H-%M-%S
+
+# Bool to enable or disable extpipe (default: off)
+movie_extpipe_use     off
+
+# External program (full path and opts) to pipe raw video to Generally, use '-' for STDIN...
+;movie_extpipe ffmpeg -y -f rawvideo -pix_fmt yuv420p -video_size %wx%h -framerate %fps -i pipe:0 -vcodec libx264 -preset ultrafast -f mp4 %f.mp4
+;movie_extpipe ffmpeg -y -f rawvideo -pix_fmt yuv420p -video_size %wx%h -framerate %fps -i pipe:0 -vaapi_device /dev/dri/renderD128 -vf 'format=nv12,hwupload' -c:v h264_vaapi -b:v 1M -maxrate 2M -bufsize 4M %f.mp4
+
+# Interval in seconds between timelapse captures.  Default: 0 = off
+timelapse_interval    3
+# Frame rate for timelapse playback
+timelapse_fps         30
+# Container/Codec for timelapse video. Valid values: mpg or mpeg4
+timelapse_codec       mpg
+timelapse_filename    timelapse-%Y-%m-%d
+
+;on_event_start /home/start-record.sh %w %h 30 motion-%Y-%m-%dT%H-%M-%S
+;on_event_end   /home/stop-record.sh
+
+# => Video Loopback Device (vloopback project) ------------------------------------------------------------------- {{{1
+
+# Output images to a video4linux loopback device Specify the device associated with the loopback device
+;video_pipe            /dev/video1
+
+# => Text Display ------------------------------------------------------------------------------------------------ {{{1
+
+# %Y = year, %m = month, %d = date,
+# %H = hour, %M = minute, %S = second, %T = HH:MM:SS,
+# %v = event, %q = frame number, %t = camera id number,
+# %D = changed pixels, %N = noise level, \n = new line,
+# %i and %J = width and height of motion area,
+# %K and %L = X and Y coordinates of motion center
+# %C = value defined by text_event - do not use with text_event!
+# You can put quotation marks around the text to allow
+# leading spaces
+
+# Draws the timestamp using same options as C function strftime(3)
+# Default: %Y-%m-%d\n%T = date in ISO format and time in 24 hour clock
+# Text is placed in lower right corner
+text_right %Y-%m-%d\n%T
+# Draw a user defined text on the images using same options as C function strftime(3)
+# Default: Not defined = no text
+# Text is placed in lower left corner
+;text_left CAMERA %t
+# Draw the number of changed pixed on the images (default: off)
+# Will normally be set to off except when you setup and adjust the motion settings
+# Text is placed in upper right corner
+;text_changes off
+# This option defines the value of the special event conversion specifier %C
+# You can use any conversion specifier in this option except %C. Date and time
+# values are from the timestamp of the first image in the current event.
+# Default: %Y%m%d%H%M%S
+# The idea is that %C can be used filenames and text_left/right for creating
+# a unique identifier for each event.
+text_event %Y%m%d%H%M%S
+# Draw characters at twice normal size on images. (default: 1)
+;text_scale 1

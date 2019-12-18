@@ -1,0 +1,5 @@
+- name: Install chrome-remote-desktop
+  aur:
+    skip_installed: yes
+    name:
+      - chrome-remote-desktop

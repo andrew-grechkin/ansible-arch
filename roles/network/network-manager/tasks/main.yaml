@@ -1,0 +1,32 @@
+- name: Install network packages
+  become: yes
+  pacman:
+    state: present
+    name:
+      - dhclient
+      - networkmanager
+      - network-manager-applet
+      - networkmanager-openconnect
+      - networkmanager-openvpn
+
+- name: Enable network services
+  become: yes
+  service:
+    name: [NetworkManager, systemd-resolved]
+    enabled: yes
+    state: started
+
+# - name: Install additional network-manager packages
+#   aur:
+#     skip_installed: yes
+#     name:
+#       - networkmanager-l2tp
+#       - networkmanager-libreswan
+#       - networkmanager-pptp
+#       - networkmanager-ssh-git
+#       - networkmanager-sstp
+#       - networkmanager-strongswan
+
+#/etc/NetworkManager/NetworkManager.conf
+#[main]
+#dhcp=dhclient
