@@ -38,7 +38,7 @@
       #- kdepim-meta
       - kleopatra
       - kdepim-addons
-      - kdeutils-meta
+      - kde-utilities-meta
       - krusader
 
 - name: Populate service facts
