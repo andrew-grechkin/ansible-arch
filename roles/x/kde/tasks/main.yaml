@@ -3,18 +3,14 @@
   pacman:
     state: present
     name:
-      - cronie
       - kde-gtk-config
       - partitionmanager
       - plasma-meta
       - packagekit-qt5
       #- kde-applications-meta
-      - kdeadmin-meta
+      - kde-system-meta
       #- kdebase-meta
-      - dolphin
       - kdialog
-      - kfind
-      - konsole
       #- kdegraphics-meta
       - gwenview
       - kamera
