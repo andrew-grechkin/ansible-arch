@@ -5,6 +5,7 @@
   when: sda_info.partitions != []
   fail:
     msg: The system may not be installed, /dev/sda is not empty
+
 - name: Create a new primary partition with a size of 1GiB
   parted:
     device: /dev/sda
@@ -74,7 +75,7 @@
     creates: /root/.cache/mirrorstatus.json
 
 - name: Run pacstrap
-  shell: pacstrap /mnt base linux linux-firmware sudo cryptsetup lvm2 mdadm btrfs-progs refind-efi avahi nss-mdns systemd-resolvconf inetutils networkmanager
+  shell: pacstrap /mnt base linux linux-firmware sudo cryptsetup lvm2 mdadm btrfs-progs refind avahi nss-mdns systemd-resolvconf inetutils networkmanager
   args:
     creates: /mnt/etc/pacman.conf
 
@@ -96,6 +97,11 @@
 
 - name: Update initcpio
   script: update-initcpio.sh
+
+- name: Update root password
+  user:
+    name: root
+    password: ''
 
 - name: Unmount all
   shell: umount -R /mnt

@@ -29,7 +29,7 @@
   become: yes
   pacman:
     state: present
-    name: [intel-ucode, efibootmgr, refind-efi]
+    name: [intel-ucode, efibootmgr, refind]
 
 - name: Install hdd tools
   become: yes

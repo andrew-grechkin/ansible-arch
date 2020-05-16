@@ -1,0 +1,5 @@
+- name: Install fonts
+  aur:
+    skip_installed: yes
+    name:
+      - nerd-fonts-dejavu-complete
