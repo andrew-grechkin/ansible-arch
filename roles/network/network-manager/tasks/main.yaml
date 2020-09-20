@@ -7,7 +7,7 @@
       - networkmanager
       - network-manager-applet
       - networkmanager-openconnect
-      - networkmanager-openvpn
+#      - networkmanager-openvpn
 
 - name: Enable network services
   become: yes

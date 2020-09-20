@@ -4,7 +4,6 @@
     state: present
     name:
       - yubikey-manager
-      - yubikey-personalization
 
 - name: Install yubikey gui
   become: yes

@@ -13,8 +13,6 @@
       - clang
       - llvm
       - python-pylint
-      - python2-pylint
-      - meld
       - bat
       - pygmentize
       - retext

@@ -2,4 +2,4 @@
   become: yes
   pacman:
     state: present
-    name: [qemu virt-manager ebtables edk2-ovmf dnsmasq]
+    name: [qemu, virt-manager, ebtables, edk2-ovmf, dnsmasq]

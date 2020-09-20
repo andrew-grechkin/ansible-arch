@@ -9,7 +9,7 @@
   become: yes
   pacman:
     state: present
-    name: [btrfs-progs, exfat-utils, dosfstools, ntfs-3g, fuseiso, udftools, f2fs-tools, nilfs-utils, sshfs, gpart, parted]
+    name: [btrfs-progs, exfat-utils, dosfstools, ntfs-3g, fuseiso, udftools, f2fs-tools, nilfs-utils, sshfs, gpart]
       #- davfs2
       #- mtools
 
@@ -17,7 +17,7 @@
   become: yes
   pacman:
     state: present
-    name: [man-db, man-pages, texinfo]
+    name: [man-db, man-pages]
 
 - name: Install search
   become: yes
@@ -54,7 +54,7 @@
   become: yes
   pacman:
     state: present
-    name: [inetutils, nss-mdns, nfs-utils, cifs-utils, smbclient, socat, gnu-netcat, rsync]
+    name: [inetutils, nss-mdns, nfs-utils, cifs-utils, socat, gnu-netcat, rsync]
 
 - name: Install pacman tools
   become: yes
@@ -72,7 +72,7 @@
   become: yes
   pacman:
     state: present
-    name: [swig, python, python-pip, python-dbus, python-pynvim, python2, python2-pip, python2-dbus]
+    name: [swig, python, python-pip, python-pynvim]
       #- pydf
 
 - name: Install ruby
@@ -85,7 +85,7 @@
   become: yes
   pacman:
     state: present
-    name: [vifm, jq, ncdu, cpio, lzop, p7zip, unrar, unzip]
+    name: [vifm, jq, ncdu, cpio, lzop, p7zip, unrar]
       #- progress
       #- pv
       #- inotify-tools

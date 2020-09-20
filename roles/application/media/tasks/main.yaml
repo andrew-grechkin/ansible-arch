@@ -21,7 +21,7 @@
   become: yes
   pacman:
     state: present
-    name: [imagemagick, vimiv]
+    name: [chafa, imagemagick, vimiv]
 ### image viewers
 #	mirage
 #	qiv
@@ -35,13 +35,13 @@
   become: yes
   pacman:
     state: present
-    name: [cdparanoia, abcde]
+    name: [abcde, cdparanoia, opus-tools]
 
 - name: Install media decoding/ripping support
   become: yes
   pacman:
     state: present
-    name: [libdvdcss, libdvdread, libdvdnav, dvd+rw-tools, dvdauthor, dvgrab, cdrtools, cdrdao, vcdimager, transcode, sox, emovix]
+    name: [libdvdcss, dvd+rw-tools, dvdauthor, dvgrab, cdrdao, vcdimager, transcode, sox, emovix]
 
 - name: Install audio players
   become: yes

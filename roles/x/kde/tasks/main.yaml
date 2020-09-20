@@ -11,16 +11,7 @@
       - kde-system-meta
       #- kdebase-meta
       - kdialog
-      #- kdegraphics-meta
-      - gwenview
-      - kamera
-      - kipi-plugins
-      - kolourpaint
-      - kdegraphics-mobipocket
-      - okular
-      - spectacle
-      - svgpart
-      - kdegraphics-thumbnailers
+      - kde-graphics-meta
       #- kdemultimedia-meta
       - audiocd-kio
       - ffmpegthumbs

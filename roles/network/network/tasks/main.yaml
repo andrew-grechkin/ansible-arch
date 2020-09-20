@@ -12,23 +12,23 @@
       #- proxychains
       #- qbittorrent
 
-- name: Install openvpn packages
-  become: yes
-  pacman:
-    state: present
-    name: [openvpn]
-
 - name: Install favorite network tools
   become: yes
   pacman:
     state: present
     name: [remmina, freerdp, libvncserver]
 
-- name: Install openvpn resolved updater
-  aur:
-    skip_installed: yes
-    name:
-      - openvpn-update-systemd-resolved
+#- name: Install openvpn packages
+  #become: yes
+  #pacman:
+    #state: present
+    #name: [openvpn]
+
+#- name: Install openvpn resolved updater
+  #aur:
+    #skip_installed: yes
+    #name:
+      #- openvpn-update-systemd-resolved
 
 #	### enable ip forwarding for correct vpns working
 #	sudo sysctl -w net.ipv4.conf.all.forwarding=1
