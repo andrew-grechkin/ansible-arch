@@ -16,6 +16,7 @@
     - application/security
     - application/viewer
     - application/virtualbox
+    - aur/archivemount
     - aur/google-chrome
     - aur/pamac
     - aur/skype

@@ -28,6 +28,27 @@
       - yamllint
       - vint
 
+- name: Arduino
+  become: true
+  pacman:
+    state: present
+    name:
+      - arduino-avr-core
+      - arduino-cli
+      - arduino-docs
+      - arm-none-eabi-gcc
+      - arm-none-eabi-newlib
+      - stlink
+
+- name: Mail
+  become: true
+  pacman:
+    state: present
+    name:
+      - isync
+      - lynx
+      - newsboat
+
 # - name: Install VScode
 #   pacman:
 #     state: present

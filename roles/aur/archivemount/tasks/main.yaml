@@ -1,0 +1,6 @@
+---
+- name: Install archivemount
+  aur:
+    skip_installed: true
+    name:
+      - archivemount

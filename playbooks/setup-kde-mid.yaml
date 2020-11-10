@@ -11,6 +11,7 @@
     - network/internet
     - application/media
     - application/virtualbox
+    - aur/archivemount
     - aur/google-chrome
     - aur/pamac
     - aur/skype

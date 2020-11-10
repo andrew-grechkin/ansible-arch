@@ -23,8 +23,9 @@ if [[ "$PREFIX" = "@" ]]; then
 	btrfs subvolume set-default   "/mnt-${LAB}/${PREFIX}/.snapshots/init/snapshot"
 fi
 
-btrfs quota enable                "/mnt-${LAB}"
-btrfs quota rescan -w             "/mnt-${LAB}"
+# quota makes btrfs slow
+# btrfs quota enable                "/mnt-${LAB}"
+# btrfs quota rescan -w             "/mnt-${LAB}"
 
 ROOT="/mnt-${LAB}/${PREFIX}/.snapshots/init/snapshot"
 mkdir  -p                         "/${ROOT}/"{efi,boot/efi,home,opt,srv,var,.snapshots}

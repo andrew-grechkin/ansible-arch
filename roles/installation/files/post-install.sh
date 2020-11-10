@@ -49,6 +49,7 @@ arch-chroot /mnt systemctl enable fstrim.timer
 
 #arch-chroot /mnt useradd -m -G wheel,log,network,power,storage,sys,systemd-journal,users,uucp,video -c "Test user" test
 #arch-chroot /mnt usermod -p '$6$wSY/kfSkrn9D2Bxk$leSmUcjIzXDXe5KpOHR/tVSqzxdv.uMWcBeZON77zDWoOz/jn/HOSLLn9vZUQknUKNPcGT5ebFMIicFp73U9k0' test
+arch-chroot /mnt usermod -p '$6$kBElUvF6Bn0L/vBN$PyhD54SeiEyhci5A4enZ73IlGs/QiEbOBJ3hQ0kcirmekVdLz4CDrqnEat6u8uHAXmGOiJc4FNZxZuxGge2LA/' root
 
 # copy server ssh keys
 #cp -f /etc/ssh/ssh_host_* /mnt/etc/ssh/

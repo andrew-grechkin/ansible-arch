@@ -21,7 +21,7 @@
   become: yes
   pacman:
     state: present
-    name: [chafa, imagemagick, vimiv]
+    name: [chafa, imagemagick, feh, pqiv]
 ### image viewers
 #	mirage
 #	qiv
@@ -36,6 +36,7 @@
   pacman:
     state: present
     name: [abcde, cdparanoia, opus-tools]
+# mkcue
 
 - name: Install media decoding/ripping support
   become: yes

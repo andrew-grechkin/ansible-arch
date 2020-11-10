@@ -1,3 +1,4 @@
+---
 - name: Install KDE Plasma
   become: yes
   pacman:
@@ -7,22 +8,22 @@
       - partitionmanager
       - plasma-meta
       - packagekit-qt5
-      #- kde-applications-meta
+      # - kde-applications-meta
       - kde-system-meta
-      #- kdebase-meta
+      # - kdebase-meta
       - kdialog
       - kde-graphics-meta
-      #- kdemultimedia-meta
+      # - kdemultimedia-meta
       - audiocd-kio
       - ffmpegthumbs
       - k3b
-      #- kdenetwork-meta
+      # - kdenetwork-meta
       - kdenetwork-filesharing
       - krdc
       - krfb
       - zeroconf-ioslave
       - kio-extras
-      #- kdepim-meta
+      # - kdepim-meta
       - kleopatra
       - kdepim-addons
       - kde-utilities-meta

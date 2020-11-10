@@ -1,3 +1,4 @@
+---
 - name: Read device information (always use unit when probing)
   parted: device=/dev/sda unit=GiB
   register: sda_info
@@ -14,30 +15,50 @@
     state: present
     part_end: 1025MiB
     flags: [esp]
-- name: Create a new primary partition for LVM
+- name: Create the second primary partition with a size of 1GiB
   parted:
     device: /dev/sda
     number: 2
     label: gpt
-    flags: [lvm]
     state: present
     part_start: 1025MiB
+    part_end: 2049MiB
+- name: Create a new primary partition for LVM
+  parted:
+    device: /dev/sda
+    number: 3
+    label: gpt
+    flags: [lvm]
+    state: present
+    part_start: 2049MiB
 
-- name: Create a volume group on top of /dev/sda2
-  lvg: vg=vg-arch pvs=/dev/sda2
-- name: Create swap logical volume
-  lvol: vg=vg-arch lv=swap size=2g
+# - name: Create and open the LUKS2 container
+#   community.crypto.luks_device:
+#     device: /dev/sda3
+#     label: lvm-encrypted
+#     name: lvm-encrypted
+#     passphrase: empty
+#     state: opened
+#     type: luks2
+# - name: Create a volume group on top of /dev/mapper/lvm-encrypted
+#   lvg: vg=vg-arch pvs=/dev/mapper/lvm-encrypted
+
+- name: Create a volume group on top of /dev/sda3
+  lvg: vg=vg-arch pvs=/dev/sda3
+
 - name: Create root logical volume
-  lvol: vg=vg-arch lv=root size=10g
+  lvol: vg=vg-arch lv=root size=48g
+- name: Create swap logical volume
+  lvol: vg=vg-arch lv=swap size=16g
 - name: Create home logical volume
-  lvol: vg=vg-arch lv=home size=100%FREE
+  lvol: vg=vg-arch lv=home size=80%FREE
 
 - name: Create a EFI filesystem on /dev/sda1
   filesystem: dev=/dev/sda1 fstype=vfat opts='-n EFI'
-- name: Create a swap filesystem on vg-arch-swap
-  filesystem: dev=/dev/vg-arch/swap fstype=swap opts='-L swap'
 - name: Create a root filesystem on vg-arch-root
   filesystem: dev=/dev/vg-arch/root fstype=btrfs opts='-L root'
+- name: Create a swap filesystem on vg-arch-swap
+  filesystem: dev=/dev/vg-arch/swap fstype=swap opts='-L swap'
 - name: Create a home filesystem on vg-arch-home
   filesystem: dev=/dev/vg-arch/home fstype=btrfs opts='-L home'
 
@@ -67,7 +88,7 @@
   git:
     repo: https://github.com/andrew-grechkin/ansible-arch.git
     dest: /mnt/root/git/private/ansible-arch
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: Update pacman mirrors
   shell: reflector --country Netherlands --latest 8 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
@@ -97,11 +118,6 @@
 
 - name: Update initcpio
   script: update-initcpio.sh
-
-- name: Update root password
-  user:
-    name: root
-    password: ''
 
 - name: Unmount all
   shell: umount -R /mnt

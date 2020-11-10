@@ -1,183 +1,183 @@
+---
 - name: Install essential tools
-  become: yes
+  become: true
   pacman:
     state: present
     name: [sudo, git, neovim, tmux, bash-completion, zsh, zsh-completions, iw, crda, polkit]
-      #- reptyr
 
 - name: Install filesystem/partition tools
-  become: yes
+  become: true
   pacman:
     state: present
     name: [btrfs-progs, exfat-utils, dosfstools, ntfs-3g, fuseiso, udftools, f2fs-tools, nilfs-utils, sshfs, gpart]
-      #- davfs2
-      #- mtools
+    # - davfs2
+    # - mtools
 
 - name: Install man/help
-  become: yes
+  become: true
   pacman:
     state: present
     name: [man-db, man-pages]
 
 - name: Install search
-  become: yes
+  become: true
   pacman:
     state: present
     name: [ack, fd, fzf, ripgrep, the_silver_searcher]
 
 - name: Install boot tools
-  become: yes
+  become: true
   pacman:
     state: present
     name: [intel-ucode, efibootmgr, refind]
 
 - name: Install hdd tools
-  become: yes
+  become: true
   pacman:
     state: present
     name: [smartmontools, hdparm]
-      #- hd-idle
+    # - hd-idle
 
 - name: Enable hdd smart service
-  become: yes
+  become: true
   service:
     name: smartd
-    enabled: yes
+    enabled: true
 
 - name: Install common tools
-  become: yes
+  become: true
   pacman:
     state: present
-    name: [libqalculate, hwinfo, iotop, htop, lsof, strace, lsb-release, neofetch]
+    name: [acpi, libqalculate, hwinfo, iotop, htop, lsof, strace, lsb-release, neofetch]
 
 - name: Install network tools
-  become: yes
+  become: true
   pacman:
     state: present
     name: [inetutils, nss-mdns, nfs-utils, cifs-utils, socat, gnu-netcat, rsync]
 
 - name: Install pacman tools
-  become: yes
+  become: true
   pacman:
     state: present
     name: [pacman-contrib, pcurses, pkgstats, reflector]
 
 - name: Install perl
-  become: yes
+  become: true
   pacman:
     state: present
     name: [perl, perlbrew]
 
 - name: Install python
-  become: yes
+  become: true
   pacman:
     state: present
-    name: [swig, python, python-pip, python-pynvim]
-      #- pydf
+    name: [swig, python, python-pip, python-neovim]
+    # - pydf
 
 - name: Install ruby
-  become: yes
+  become: true
   pacman:
     state: present
     name: [ruby]
 
 - name: Install file management tools
-  become: yes
+  become: true
   pacman:
     state: present
     name: [vifm, jq, ncdu, cpio, lzop, p7zip, unrar]
-      #- progress
-      #- pv
-      #- inotify-tools
+    # - progress
+    # - pv
+    # - inotify-tools
 
 - name: Install barcode/qrcode tools
-  become: yes
+  become: true
   pacman:
     state: present
     name: [zbar]
 
-#- name: Install backup tools
-#  become: yes
-#  pacman:
-#    state: present
-#    name:
-#      - borg
-#      - restic
+# - name: Install backup tools
+#   become: true
+#   pacman:
+#     state: present
+#     name:
+#       - borg
+#       - restic
 
 - name: Install pulseaudio
-  become: yes
+  become: true
   pacman:
     state: present
     name: [pulseaudio, pulseaudio-alsa, pulseaudio-zeroconf, paprefs, pamixer, pulsemixer]
 
 - name: Install alsa
-  become: yes
+  become: true
   pacman:
     state: present
     name: [alsa-utils, alsa-plugins]
-      #- alsa-tools
-#	amixer sset Master    unmute
-#	amixer sset Speaker   unmute
-#	amixer sset Headphone unmute
-#	alsamixer
-#	speaker-test -c 2
+    # alsa-tools
+    # amixer sset Master    unmute
+    # amixer sset Speaker   unmute
+    # amixer sset Headphone unmute
+    # alsamixer
+    # speaker-test -c 2
 
 - name: Install bluetooth
-  become: yes
+  become: true
   pacman:
     state: present
     name: [bluez, bluez-cups, bluez-utils, pulseaudio-bluetooth]
 
 - name: Enable bluetooth services
-  become: yes
+  become: true
   service:
     name: bluetooth
-    enabled: yes
+    enabled: true
 
 - name: Install search
-  become: yes
+  become: true
   pacman:
     state: present
     name: [mlocate]
 
 - name: Enable search service
-  become: yes
+  become: true
   service:
     name: updatedb.timer
-    enabled: yes
+    enabled: true
 
 - name: Clean unnecessary packages
-  become: yes
+  become: true
   pacman:
     state: absent
     name: []
 
 - name: Allow RSYNC for new super user without SUDO password
-  become: yes
+  become: true
   lineinfile:
     path: /etc/sudoers
     state: present
-    insertafter: '^%sudo'
+    insertafter: ^%sudo
     line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
 
 - name: Copy configs
-  become: yes
+  become: true
   synchronize:
     src: etc
     dest: /
-    archive: no
-    compress: no
-    recursive: yes
+    archive: false
+    compress: false
+    recursive: true
 
 - name: Disallow RSYNC for new super user without SUDO password
-  become: yes
+  become: true
   lineinfile:
     path: /etc/sudoers
     state: absent
     line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
 
 - name: Enable reflector service
-  become: yes
+  become: true
   service:
     name: reflector.timer
-    enabled: yes
+    enabled: true
