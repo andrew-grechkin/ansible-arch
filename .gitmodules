@@ -1,3 +1,3 @@
 [submodule "roles/private"]
 	path = roles/private
-	url = ssh://home/volume1/service/git/ansible-arch-private.git
+	url = ssh://home.ams/volume1/service/git/ansible-arch-private.git

@@ -1,9 +1,10 @@
+---
 - name: Install devel packages
-  become: yes
+  become: true
   pacman:
     state: present
     name:
-      #- apache
+      # - apache
       - gdb
       - perf
       - cmake
@@ -19,23 +20,31 @@
       - tig
       - zeal
 
-#- name: Install VScode
-#  pacman:
-#    state: present
-#    name:
-#      - code
+- name: Linting
+  become: true
+  pacman:
+    state: present
+    name:
+      - yamllint
+      - vint
+
+# - name: Install VScode
+#   pacman:
+#     state: present
+#     name:
+#       - code
 #
-#- name: Install go packages
-#  pacman:
-#    state: present
-#    name:
-#      - go
-#      - go-tools
-#      - delve
+# - name: Install go packages
+#   pacman:
+#     state: present
+#     name:
+#       - go
+#       - go-tools
+#       - delve
 #
-#- name: Install emacs
-#  pacman:
-#    state: present
-#    name:
-#      - emacs
-#      - adobe-source-code-pro-fonts
+# - name: Install emacs
+#   pacman:
+#     state: present
+#     name:
+#       - emacs
+#       - adobe-source-code-pro-fonts
