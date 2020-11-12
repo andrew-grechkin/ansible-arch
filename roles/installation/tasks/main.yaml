@@ -1,15 +1,15 @@
 ---
 - name: Read device information (always use unit when probing)
-  parted: device=/dev/sda unit=GiB
-  register: sda_info
-- name: Check /dev/sda is clean
-  when: sda_info.partitions != []
+  parted: device={{install_device}} unit=GiB
+  register: install_device_info
+- name: Check {{install_device}} is clean
+  when: install_device_info.partitions != []
   fail:
-    msg: The system may not be installed, /dev/sda is not empty
+    msg: The system may not be installed, {{install_device}} is not empty
 
 - name: Create a new primary partition with a size of 1GiB
   parted:
-    device: /dev/sda
+    device: {{install_device}}
     number: 1
     label: gpt
     state: present
@@ -17,7 +17,7 @@
     flags: [esp]
 - name: Create the second primary partition with a size of 1GiB
   parted:
-    device: /dev/sda
+    device: {{install_device}}
     number: 2
     label: gpt
     state: present
@@ -25,36 +25,39 @@
     part_end: 2049MiB
 - name: Create a new primary partition for LVM
   parted:
-    device: /dev/sda
+    device: {{install_device}}
     number: 3
     label: gpt
     flags: [lvm]
     state: present
     part_start: 2049MiB
 
-# - name: Create and open the LUKS2 container
-#   community.crypto.luks_device:
-#     device: /dev/sda3
-#     label: lvm-encrypted
-#     name: lvm-encrypted
-#     passphrase: empty
-#     state: opened
-#     type: luks2
-# - name: Create a volume group on top of /dev/mapper/lvm-encrypted
-#   lvg: vg=vg-arch pvs=/dev/mapper/lvm-encrypted
+- name: Create and open the LUKS2 container
+  when: install_encrypt
+  community.crypto.luks_device:
+    device: {{install_device}}
+    label: lvm-encrypted
+    name: lvm-encrypted
+    passphrase: empty
+    state: opened
+    type: luks2
+- name: Create a volume group on top of /dev/mapper/lvm-encrypted
+  when: install_encrypt
+  lvg: vg=vg-arch pvs=/dev/mapper/lvm-encrypted
 
-- name: Create a volume group on top of /dev/sda3
-  lvg: vg=vg-arch pvs=/dev/sda3
+- name: Create a volume group on top of {{install_device}}3
+  when: not install_encrypt
+  lvg: vg=vg-arch pvs={{install_device}}3
 
 - name: Create root logical volume
-  lvol: vg=vg-arch lv=root size=48g
+  lvol: vg=vg-arch lv=root size={{install_root_size}}
 - name: Create swap logical volume
-  lvol: vg=vg-arch lv=swap size=16g
+  lvol: vg=vg-arch lv=swap size={{install_swap_size}}
 - name: Create home logical volume
-  lvol: vg=vg-arch lv=home size=80%FREE
+  lvol: vg=vg-arch lv=home size={{install_home_size}}
 
-- name: Create a EFI filesystem on /dev/sda1
-  filesystem: dev=/dev/sda1 fstype=vfat opts='-n EFI'
+- name: Create a EFI filesystem on {{install_device}}1
+  filesystem: dev={{install_device}}1 fstype=vfat opts='-n EFI'
 - name: Create a root filesystem on vg-arch-root
   filesystem: dev=/dev/vg-arch/root fstype=btrfs opts='-L root'
 - name: Create a swap filesystem on vg-arch-swap
@@ -91,17 +94,17 @@
   ignore_errors: true
 
 - name: Update pacman mirrors
-  shell: reflector --country Netherlands --latest 8 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+  shell: reflector --country {{install_pacman_mirror_country}} --latest 8 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
   args:
     creates: /root/.cache/mirrorstatus.json
 
 - name: Run pacstrap
-  shell: pacstrap /mnt base linux linux-firmware sudo cryptsetup lvm2 mdadm btrfs-progs refind avahi nss-mdns systemd-resolvconf inetutils networkmanager
+  shell: pacstrap /mnt base linux linux-firmware sudo cryptsetup lvm2 mdadm btrfs-progs refind avahi nss-mdns systemd-resolvconf inetutils networkmanager zsh
   args:
     creates: /mnt/etc/pacman.conf
 
 - name: Install rEFInd
-  script: install-refind.sh
+  script: install-refind.sh {{install_encrypt}}
   args:
     creates: /boot/refind_linux.conf
 
@@ -117,7 +120,7 @@
     creates: /mnt/etc/locale.conf
 
 - name: Update initcpio
-  script: update-initcpio.sh
+  script: update-initcpio.sh {{install_encrypt}}
 
 - name: Unmount all
   shell: umount -R /mnt
