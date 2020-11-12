@@ -32,10 +32,10 @@
     state: present
     part_start: 2049MiB
 
-- name: Create and open the LUKS2 container
+- name: Create and open the LUKS2 container on {{install_device}}3
   when: install_encrypt
   community.crypto.luks_device:
-    device: "{{install_device}}"
+    device: "{{install_device}}3"
     label: lvm-encrypted
     name: lvm-encrypted
     passphrase: empty
