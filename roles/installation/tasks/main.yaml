@@ -99,7 +99,7 @@
     creates: /root/.cache/mirrorstatus.json
 
 - name: Run pacstrap
-  shell: pacstrap /mnt base linux linux-firmware sudo cryptsetup lvm2 mdadm btrfs-progs refind avahi nss-mdns systemd-resolvconf inetutils networkmanager zsh
+  shell: pacstrap /mnt base linux linux-firmware sudo cryptsetup lvm2 mdadm btrfs-progs refind avahi nss-mdns systemd-resolvconf inetutils networkmanager zsh tmux git vim
   args:
     creates: /mnt/etc/pacman.conf
 
