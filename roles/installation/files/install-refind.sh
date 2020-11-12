@@ -3,6 +3,9 @@
 #arch-chroot /mnt refind-install --root /mnt/boot/EFI
 arch-chroot /mnt refind-install --usedefault /dev/disk/by-label/EFI
 
+echo "$1" >> /mnt/params.txt
+echo "$@" >> /mnt/params.txt
+
 if [ "$1" = "true" ]; then
 {
 	echo '"Boot with crypt"    "rw root=LABEL=root resume=LABEL=swap nowatchdog cryptdevice=LABEL=lvm-encrypted:lvm:allow-discards"'
