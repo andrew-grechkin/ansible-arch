@@ -24,7 +24,7 @@ fi
 #btrfs quota rescan -w             "/mnt-${LAB}"
 
 ROOT="/mnt-${LAB}/${PREFIX}/.snapshots/init/snapshot"
-mkdir  -p                         "/${ROOT}/home/.snapshots"
+mkdir  -p                         "/${ROOT}/.snapshots"
 
 umount                            "/mnt-${LAB}"
 rmdir                             "/mnt-${LAB}"
