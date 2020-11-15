@@ -1,0 +1,5 @@
+---
+- hosts: [arch]
+  roles:
+    - private/users
+    - x/kde
