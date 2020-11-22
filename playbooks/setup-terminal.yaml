@@ -1,0 +1,7 @@
+---
+- hosts: [localhost]
+  roles:
+    - basic
+    - application/codecs
+    - application/encryption
+    - application/snapper

@@ -1,0 +1,32 @@
+---
+- name: Audio encoding
+  become: true
+  pacman:
+    name: [ffmpeg, ffmpegthumbnailer, mac, opus-tools, vorbis-tools, wavpack]
+
+- name: Video encoding
+  become: true
+  pacman:
+    name: [gstreamer, gst-plugins-bad, gst-plugins-ugly]
+# a52dec jasper libdca libdv libmpeg2 libtheora libxv
+
+- name: Image encoding
+  become: true
+  pacman:
+    name: [chafa, imagemagick]
+
+- name: CD ripping support
+  become: true
+  pacman:
+    name: [abcde, cdparanoia, cdrdao]
+# mkcue
+
+- name: Media decoding/ripping
+  become: true
+  pacman:
+    name: [libdvdcss, dvd+rw-tools, dvdauthor, dvgrab, vcdimager, transcode, sox, emovix]
+
+- name: Audio players (terminal)
+  become: true
+  pacman:
+    name: [cmus]

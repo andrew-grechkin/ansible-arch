@@ -4,21 +4,10 @@
   pacman:
     name: [mediainfo]
 
-- name: Audio encoding support
+- name: Image viewers
   become: true
   pacman:
-    name: [ffmpeg, ffmpegthumbnailer, mac, opus-tools, vorbis-tools, wavpack]
-
-- name: Video encoding support
-  become: true
-  pacman:
-    name: [gstreamer, gst-plugins-bad, gst-plugins-ugly]
-# a52dec jasper libdca libdv libmpeg2 libtheora libxv
-
-- name: Image encoding support
-  become: true
-  pacman:
-    name: [chafa, imagemagick, feh, pqiv]
+    name: [feh, pqiv]
 ### image viewers
 # 	mirage
 # 	qiv
@@ -28,21 +17,10 @@
 # ## image viewers good but big
 # 	nomacs
 
-- name: CD ripping support
-  become: true
-  pacman:
-    name: [abcde, cdparanoia, cdrdao]
-# mkcue
-
-- name: Media decoding/ripping support
-  become: true
-  pacman:
-    name: [libdvdcss, dvd+rw-tools, dvdauthor, dvgrab, vcdimager, transcode, sox, emovix]
-
 - name: Audio players
   become: true
   pacman:
-    name: [cmus, deadbeef]
+    name: [deadbeef]
     # - mpd ncmpcpp mpc
 # mkdir -p ~/.cache/mpd
 # _enable_user_services mpd

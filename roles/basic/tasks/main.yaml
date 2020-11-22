@@ -19,7 +19,7 @@
 - name: Install search
   become: true
   pacman:
-    name: [ack, fd, fzf, ripgrep, the_silver_searcher]
+    name: [ack, fd, fzf, ripgrep, the_silver_searcher, mlocate]
 
 - name: Install boot tools
   become: true
@@ -115,11 +115,6 @@
   service:
     name: bluetooth
     enabled: true
-
-- name: Install search
-  become: true
-  pacman:
-    name: [mlocate]
 
 - name: Enable search service
   become: true

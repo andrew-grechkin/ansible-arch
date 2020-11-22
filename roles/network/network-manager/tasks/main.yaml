@@ -3,11 +3,11 @@
   become: true
   pacman:
     name:
-      - systemd-resolvconf
       - dhclient
       - networkmanager
       - network-manager-applet
       - networkmanager-openconnect
+      - systemd-resolvconf
 #      - networkmanager-openvpn
 
 - name: Enable network services
