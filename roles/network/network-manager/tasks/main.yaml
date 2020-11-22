@@ -1,8 +1,9 @@
+---
 - name: Install network packages
-  become: yes
+  become: true
   pacman:
-    state: present
     name:
+      - systemd-resolvconf
       - dhclient
       - networkmanager
       - network-manager-applet
@@ -10,10 +11,10 @@
 #      - networkmanager-openvpn
 
 - name: Enable network services
-  become: yes
+  become: true
   service:
     name: [NetworkManager, systemd-resolved]
-    enabled: yes
+    enabled: true
     state: started
 
 # - name: Install additional network-manager packages
@@ -27,6 +28,6 @@
 #       - networkmanager-sstp
 #       - networkmanager-strongswan
 
-#/etc/NetworkManager/NetworkManager.conf
-#[main]
-#dhcp=dhclient
+# /etc/NetworkManager/NetworkManager.conf
+# [main]
+# dhcp=dhclient

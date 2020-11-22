@@ -1,29 +1,29 @@
+---
 - name: Install snapper
-  become: yes
+  become: true
   pacman:
-    state: present
     name: [snapper, snap-pac, snap-sync]
 
 - name: Copy conf.d files
-  become: yes
+  become: true
   copy: src={{ item }} dest=/etc/conf.d owner=root group=root mode='0644'
   with_fileglob:
     - etc/conf.d/*
 
 - name: Copy configs files
-  become: yes
+  become: true
   copy: src={{ item }} dest=/etc/snapper/configs owner=root group=root mode='0644'
   with_fileglob:
     - etc/snapper/configs/*
 
 - name: Enable snapper timeline timer
-  become: yes
+  become: true
   service:
     name: snapper-timeline.timer
-    enabled: yes
+    enabled: true
 
 - name: Enable snapper cleanup timer
-  become: yes
+  become: true
   service:
     name: snapper-cleanup.timer
-    enabled: yes
+    enabled: true

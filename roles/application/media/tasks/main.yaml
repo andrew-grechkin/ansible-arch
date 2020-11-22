@@ -1,62 +1,53 @@
-- name: Install media info
-  become: yes
+---
+- name: Media info
+  become: true
   pacman:
-    state: present
     name: [mediainfo]
 
-- name: Install audio encoding support
-  become: yes
+- name: Audio encoding support
+  become: true
   pacman:
-    state: present
-    name: [ffmpeg, ffmpegthumbnailer, flac, mac, wavpack, libmad, libvorbis]
+    name: [ffmpeg, ffmpegthumbnailer, mac, opus-tools, vorbis-tools, wavpack]
 
-- name: Install video encoding support
-  become: yes
+- name: Video encoding support
+  become: true
   pacman:
-    state: present
-    name: [gstreamer, gst-libav, gst-plugins-base, gst-plugins-good, gst-plugins-bad, gst-plugins-ugly]
-#a52dec jasper libdca libdv libmpeg2 libtheora libxv
+    name: [gstreamer, gst-plugins-bad, gst-plugins-ugly]
+# a52dec jasper libdca libdv libmpeg2 libtheora libxv
 
-- name: Install image encoding support
-  become: yes
+- name: Image encoding support
+  become: true
   pacman:
-    state: present
     name: [chafa, imagemagick, feh, pqiv]
 ### image viewers
-#	mirage
-#	qiv
-#	gpicview
-#	eog eog-plugins
-#	viewnior
-### image viewers good but big
-#	nomacs
+# 	mirage
+# 	qiv
+# 	gpicview
+# 	eog eog-plugins
+# 	viewnior
+# ## image viewers good but big
+# 	nomacs
 
-- name: Install cd support
-  become: yes
+- name: CD ripping support
+  become: true
   pacman:
-    state: present
-    name: [abcde, cdparanoia, opus-tools]
+    name: [abcde, cdparanoia, cdrdao]
 # mkcue
 
-- name: Install media decoding/ripping support
-  become: yes
+- name: Media decoding/ripping support
+  become: true
   pacman:
-    state: present
-    name: [libdvdcss, dvd+rw-tools, dvdauthor, dvgrab, cdrdao, vcdimager, transcode, sox, emovix]
+    name: [libdvdcss, dvd+rw-tools, dvdauthor, dvgrab, vcdimager, transcode, sox, emovix]
 
-- name: Install audio players
-  become: yes
+- name: Audio players
+  become: true
   pacman:
-    state: present
     name: [cmus, deadbeef]
-      #-
-      #- mpd ncmpcpp mpc
-      #- gmpc
-#mkdir -p ~/.cache/mpd
-#_enable_user_services mpd
+    # - mpd ncmpcpp mpc
+# mkdir -p ~/.cache/mpd
+# _enable_user_services mpd
 
-- name: Install video players
-  become: yes
+- name: Video players
+  become: true
   pacman:
-    state: present
     name: [mpv]

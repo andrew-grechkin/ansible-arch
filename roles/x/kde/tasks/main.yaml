@@ -1,8 +1,7 @@
 ---
 - name: Install KDE Plasma
-  become: yes
+  become: true
   pacman:
-    state: present
     name:
       - kde-gtk-config
       - partitionmanager
@@ -33,14 +32,14 @@
   service_facts:
 
 - name: Enable sddm service
-  become: yes
+  become: true
   service:
     name: sddm
-    enabled: yes
+    enabled: true
 
 - name: Disable lightdm service
-  become: yes
+  become: true
   service:
     name: lightdm
-    enabled: no
+    enabled: false
   when: "'lightdm' in services"

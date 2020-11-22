@@ -2,13 +2,11 @@
 - name: Install essential tools
   become: true
   pacman:
-    state: present
     name: [sudo, git, neovim, tmux, bash-completion, zsh, zsh-completions, iw, crda, polkit]
 
 - name: Install filesystem/partition tools
   become: true
   pacman:
-    state: present
     name: [btrfs-progs, exfat-utils, dosfstools, ntfs-3g, fuseiso, udftools, f2fs-tools, nilfs-utils, sshfs, gpart]
     # - davfs2
     # - mtools
@@ -16,25 +14,21 @@
 - name: Install man/help
   become: true
   pacman:
-    state: present
     name: [man-db, man-pages]
 
 - name: Install search
   become: true
   pacman:
-    state: present
     name: [ack, fd, fzf, ripgrep, the_silver_searcher]
 
 - name: Install boot tools
   become: true
   pacman:
-    state: present
     name: [intel-ucode, efibootmgr, refind]
 
 - name: Install hdd tools
   become: true
   pacman:
-    state: present
     name: [smartmontools, hdparm]
     # - hd-idle
 
@@ -47,44 +41,37 @@
 - name: Install common tools
   become: true
   pacman:
-    state: present
     name: [acpi, libqalculate, hwinfo, iotop, htop, lsof, strace, lsb-release, neofetch]
 
 - name: Install network tools
   become: true
   pacman:
-    state: present
     name: [inetutils, nss-mdns, nfs-utils, cifs-utils, socat, gnu-netcat, rsync]
 
 - name: Install pacman tools
   become: true
   pacman:
-    state: present
     name: [pacman-contrib, pcurses, pkgstats, reflector]
 
 - name: Install perl
   become: true
   pacman:
-    state: present
     name: [perl, perlbrew]
 
 - name: Install python
   become: true
   pacman:
-    state: present
     name: [swig, python, python-pip, python-neovim]
     # - pydf
 
 - name: Install ruby
   become: true
   pacman:
-    state: present
     name: [ruby]
 
 - name: Install file management tools
   become: true
   pacman:
-    state: present
     name: [vifm, jq, ncdu, cpio, lzop, p7zip, unrar]
     # - progress
     # - pv
@@ -93,13 +80,11 @@
 - name: Install barcode/qrcode tools
   become: true
   pacman:
-    state: present
     name: [zbar]
 
 # - name: Install backup tools
 #   become: true
 #   pacman:
-#     state: present
 #     name:
 #       - borg
 #       - restic
@@ -107,13 +92,11 @@
 - name: Install pulseaudio
   become: true
   pacman:
-    state: present
     name: [pulseaudio, pulseaudio-alsa, pulseaudio-zeroconf, paprefs, pamixer, pulsemixer]
 
 - name: Install alsa
   become: true
   pacman:
-    state: present
     name: [alsa-utils, alsa-plugins]
     # alsa-tools
     # amixer sset Master    unmute
@@ -125,7 +108,6 @@
 - name: Install bluetooth
   become: true
   pacman:
-    state: present
     name: [bluez, bluez-cups, bluez-utils, pulseaudio-bluetooth]
 
 - name: Enable bluetooth services
@@ -137,7 +119,6 @@
 - name: Install search
   become: true
   pacman:
-    state: present
     name: [mlocate]
 
 - name: Enable search service

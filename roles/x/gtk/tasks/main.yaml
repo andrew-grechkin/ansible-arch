@@ -1,32 +1,28 @@
+---
 - name: Install default
   become: yes
   pacman:
-    state: present
     name: [lightdm-gtk-greeter, lightdm-gtk-greeter-settings, exo, xdg-user-dirs-gtk]
 
 - name: Install pulseaudio
   become: yes
   pacman:
-    state: present
     name: [pavucontrol]
 
 - name: Install bluetooth
   become: yes
   pacman:
-    state: present
     name: [blueberry]
       #- blueman
 
 - name: Install fuse
   become: yes
   pacman:
-    state: present
     name: [gvfs, gvfs-nfs, gvfs-smb, gvfs-google, gvfs-gphoto2, gvfs-mtp]
 
 - name: Install applications
   become: yes
   pacman:
-    state: present
     name:
       - baobab
       - catfish

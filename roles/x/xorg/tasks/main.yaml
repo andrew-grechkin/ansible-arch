@@ -69,7 +69,12 @@
   become: yes
   pacman:
     state: present
-    name: [adobe-source-han-sans-cn-fonts, adobe-source-han-sans-jp-fonts, adobe-source-han-sans-kr-fonts, ttf-indic-otf]
+    name:
+      - noto-fonts-cjk
+      - adobe-source-han-sans-cn-fonts
+      - adobe-source-han-sans-jp-fonts
+      - adobe-source-han-sans-kr-fonts
+      - ttf-indic-otf
 
 - name: Install emoji support
   become: yes

@@ -1,42 +1,40 @@
+---
 - name: Install network packages
-  become: yes
+  become: true
   pacman:
-    state: present
     name: [net-tools, bind-tools]
 
 - name: Install monitoring packages
-  become: yes
+  become: true
   pacman:
-    state: present
     name: [iptraf-ng, mtr, nethogs, nload, iftop, vnstat, tcpdump, tcpflow]
-      #- proxychains
-      #- qbittorrent
+    # - proxychains
+    # - qbittorrent
 
 - name: Install favorite network tools
-  become: yes
+  become: true
   pacman:
-    state: present
     name: [remmina, freerdp, libvncserver]
 
-#- name: Install openvpn packages
-  #become: yes
-  #pacman:
-    #state: present
-    #name: [openvpn]
+# - name: Install openvpn packages
+#   become: true
+#   pacman:
+#     state: present
+#     name: [openvpn]
 
-#- name: Install openvpn resolved updater
-  #aur:
-    #skip_installed: yes
-    #name:
-      #- openvpn-update-systemd-resolved
+# - name: Install openvpn resolved updater
+#   aur:
+#     skip_installed: true
+#     name:
+#       - openvpn-update-systemd-resolved
 
-#	### enable ip forwarding for correct vpns working
-#	sudo sysctl -w net.ipv4.conf.all.forwarding=1
-#	sudo sysctl -w net.ipv6.conf.all.forwarding=1
+# 	### enable ip forwarding for correct vpns working
+# 	sudo sysctl -w net.ipv4.conf.all.forwarding=1
+# 	sudo sysctl -w net.ipv6.conf.all.forwarding=1
 
-#- name: Enable vnstat service
-#  become: yes
-#  service:
-#    name: vnstat
-#    enabled: yes
-#    state: started
+# - name: Enable vnstat service
+#   become: true
+#   service:
+#     name: vnstat
+#     enabled: true
+#     state: started

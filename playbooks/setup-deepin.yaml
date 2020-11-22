@@ -1,5 +1,5 @@
 ---
-- hosts: [arch]
+- hosts: [localhost]
   roles:
     - private/users
     - x/kde

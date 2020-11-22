@@ -1,11 +1,11 @@
-- name: Install encryption packages
-  become: yes
+---
+- name: Encryption support
+  become: true
   pacman:
-    state: present
     name: [encfs, gopass]
-      #- veracrypt
-      #- gpg-crypter
-      #- gpa
-      #- keepassxc
-      #- gnome-encfs-manager-bin
-      #- libgee
+    # - veracrypt
+    # - gpg-crypter
+    # - gpa
+    # - keepassxc
+    # - gnome-encfs-manager-bin
+    # - libgee

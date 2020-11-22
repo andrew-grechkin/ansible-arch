@@ -2,7 +2,6 @@
 - name: Install devel packages
   become: true
   pacman:
-    state: present
     name:
       # - apache
       - gdb
@@ -16,14 +15,13 @@
       - python-pylint
       - bat
       - pygmentize
-      - retext
+      # - retext
       - tig
       - zeal
 
 - name: Linting
   become: true
   pacman:
-    state: present
     name:
       - yamllint
       - vint
@@ -31,7 +29,6 @@
 - name: Arduino
   become: true
   pacman:
-    state: present
     name:
       - arduino-avr-core
       - arduino-cli
@@ -43,7 +40,6 @@
 - name: Mail
   become: true
   pacman:
-    state: present
     name:
       - isync
       - lynx
@@ -51,13 +47,11 @@
 
 # - name: Install VScode
 #   pacman:
-#     state: present
 #     name:
 #       - code
 #
 # - name: Install go packages
 #   pacman:
-#     state: present
 #     name:
 #       - go
 #       - go-tools
@@ -65,7 +59,6 @@
 #
 # - name: Install emacs
 #   pacman:
-#     state: present
 #     name:
 #       - emacs
 #       - adobe-source-code-pro-fonts
