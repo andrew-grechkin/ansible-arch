@@ -1,10 +1,8 @@
 ---
 - hosts: [localhost]
   roles:
-    - private/users
     - x/kde
     - application/snapper
-    - aur/trizen
     - device/printer
     - device/scanner
     - device/touchpad

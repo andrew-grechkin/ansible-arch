@@ -29,11 +29,6 @@
   pacman:
     name: [gnome-keyring, seahorse]
 
-- name: Install vital
-  become: true
-  pacman:
-    name: [exo]
-
 - name: Install xdg
   become: true
   pacman:
@@ -77,7 +72,7 @@
 - name: Install i3
   become: true
   pacman:
-    name: [i3, picom, feh]
+    name: [i3-gaps, i3lock, picom, feh]
     # - autorandr
     # - bc
     # - playerctl

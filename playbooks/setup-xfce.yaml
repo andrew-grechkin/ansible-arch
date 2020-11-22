@@ -1,5 +1,4 @@
 ---
 - hosts: [localhost]
   roles:
-    - private/users
     - x/xfce

@@ -12,7 +12,7 @@ mkdir  -p                         "/mnt-${LAB}/${PREFIX}/.snapshots/init"
 btrfs subvolume create            "/mnt-${LAB}/${PREFIX}/.snapshots/init/snapshot"
 btrfs subvolume create            "/mnt-${LAB}/${PREFIX}/.snapshots/init/snapshot/motion"
 chgrp video                       "/mnt-${LAB}/${PREFIX}/.snapshots/init/snapshot/motion"
-chmod u+rwXs,g+rwXs,o-rwx         "/mnt-${LAB}/${PREFIX}/.snapshots/init/snapshot/motion"
+chmod u+rwX,g+rwXs,o-rwx          "/mnt-${LAB}/${PREFIX}/.snapshots/init/snapshot/motion"
 chattr +C                         "/mnt-${LAB}/${PREFIX}/.snapshots/init/snapshot/motion"
 
 if [[ "$PREFIX" = "@" ]]; then
