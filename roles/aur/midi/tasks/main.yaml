@@ -1,6 +1,6 @@
+---
 - name: Install midi support
   aur:
-    skip_installed: yes
     name:
       - timidity++
       - soundfont-generaluser

@@ -1,6 +1,6 @@
 ---
-- name: Install archivemount
+- name: archivemount
   aur:
-    skip_installed: true
     name:
       - archivemount
+      - fuse3-p7zip-git

@@ -56,7 +56,7 @@
 - name: Install perl
   become: true
   pacman:
-    name: [perl, perlbrew]
+    name: [perl, perlbrew, perl-libwww, perl-lwp-protocol-https, perl-path-tiny]
 
 - name: Install python
   become: true

@@ -1,6 +1,6 @@
+---
 - name: Install plymouth
   aur:
-    skip_installed: yes
     name:
       - plymouth
 

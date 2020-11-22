@@ -18,6 +18,5 @@
 
 - name: Install dxvk
   aur:
-    skip_installed: yes
     name:
       - dxvk-bin

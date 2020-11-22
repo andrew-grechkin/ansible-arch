@@ -1,6 +1,5 @@
 - name: Install webcam tools
   aur:
-    skip_installed: yes
     name:
       - guvcview
       - v4l-utils
@@ -10,7 +9,6 @@
 
 - name: Install webcam Logitech-c920
   aur:
-    skip_installed: yes
     name:
       - libwebcam-git
 #sudo uvcdynctrl -c --addctrl=046d:082d

@@ -12,7 +12,6 @@
   become: yes
   become_user: {{ lookup('env','USER') }}
   aur:
-    skip_installed: yes
     name:
       - brother-mfc-l2710dw
 

@@ -1,5 +1,5 @@
+---
 - name: Install skype
   aur:
-    skip_installed: yes
     name:
       - skypeforlinux-stable-bin

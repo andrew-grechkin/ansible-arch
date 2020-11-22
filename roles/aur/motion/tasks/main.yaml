@@ -1,6 +1,6 @@
+---
 - name: Install motion
   aur:
-    skip_installed: yes
     name:
       - motion
 

@@ -5,3 +5,4 @@
     - application/codecs
     - application/encryption
     - application/snapper
+    - aur/archivemount

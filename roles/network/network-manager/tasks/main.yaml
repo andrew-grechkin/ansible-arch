@@ -19,7 +19,6 @@
 
 # - name: Install additional network-manager packages
 #   aur:
-#     skip_installed: yes
 #     name:
 #       - networkmanager-l2tp
 #       - networkmanager-libreswan

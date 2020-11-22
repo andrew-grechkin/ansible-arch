@@ -1,5 +1,5 @@
+---
 - name: Install pacmac
   aur:
-    skip_installed: yes
     name:
       - pamac-aur

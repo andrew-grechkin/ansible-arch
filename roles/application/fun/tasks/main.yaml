@@ -16,7 +16,6 @@
 # telnet towel.blinkenlights.nl
 - name: Install fun packages
   aur:
-    skip_installed: true
     name:
       - boxes
       - nudoku-git

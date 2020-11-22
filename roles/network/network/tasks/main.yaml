@@ -24,7 +24,6 @@
 
 # - name: Install openvpn resolved updater
 #   aur:
-#     skip_installed: true
 #     name:
 #       - openvpn-update-systemd-resolved
 

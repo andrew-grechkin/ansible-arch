@@ -1,6 +1,5 @@
 - name: Install xrdp
   aur:
-    skip_installed: yes
     name:
       - xrdp-git
       - xorgxrdp-git

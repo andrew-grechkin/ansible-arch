@@ -8,7 +8,6 @@
   become: yes
   become_user: {{ lookup('env','USER') }}
   aur:
-    skip_installed: yes
     name:
       - brscan4
 
