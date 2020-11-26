@@ -54,6 +54,8 @@ arch-chroot /mnt useradd -m -G wheel,audio,log,network,optical,power,storage,sys
 arch-chroot /mnt usermod -p "$USER_PASS" "$1"
 arch-chroot /mnt usermod -p "$ROOT_PASS" root
 
+echo '%wheel      ALL         = (ALL) ALL' > /mnt/etc/sudoers.d/additional
+
 # copy server ssh keys
 #cp -f /etc/ssh/ssh_host_* /mnt/etc/ssh/
 
