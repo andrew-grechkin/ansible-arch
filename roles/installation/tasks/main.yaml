@@ -115,7 +115,7 @@
   shell: cp -f /etc/pacman.d/mirrorlist /mnt/etc/pacman.d
 
 - name: Post install
-  script: post-install.sh
+  script: post-install.sh "{{username}}" "{{userpass}}"
   args:
     creates: /mnt/etc/locale.conf
 
