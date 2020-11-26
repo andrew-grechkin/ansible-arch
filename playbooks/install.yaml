@@ -3,10 +3,14 @@
   any_errors_fatal: true
   vars_prompt:
     - name: username
-      prompt: What is your username?
+      prompt: New user name
       private: false
+    - name: useruid
+      prompt: New user uid
+      private: false
+      default: 1000
     - name: userpass
-      prompt: What is your password?
+      prompt: New user password
       confirm: true
       private: true
   vars:
