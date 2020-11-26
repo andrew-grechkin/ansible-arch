@@ -33,20 +33,20 @@
     part_start: 2049MiB
 
 - name: Create and open the LUKS2 container on {{install_device}}3
-  when: install_encrypt
+  when: install_encrypt|bool
   community.crypto.luks_device:
     device: "{{install_device}}3"
     label: lvm-encrypted
     name: lvm-encrypted
-    passphrase: empty
+    passphrase: "{{userpass}}"
     state: opened
     type: luks2
 - name: Create a volume group on top of /dev/mapper/lvm-encrypted
-  when: install_encrypt
+  when: install_encrypt|bool
   lvg: vg=vg-arch pvs=/dev/mapper/lvm-encrypted
 
 - name: Create a volume group on top of {{install_device}}3
-  when: not install_encrypt
+  when: not install_encrypt|bool
   lvg: vg=vg-arch pvs="{{install_device}}3"
 
 - name: Create root logical volume
@@ -104,7 +104,7 @@
     creates: /mnt/etc/pacman.conf
 
 - name: Install rEFInd
-  script: install-refind.sh "{{install_encrypt}}"
+  script: install-refind.sh "{{install_encrypt|bool}}"
   args:
     creates: /boot/refind_linux.conf
 
@@ -120,7 +120,7 @@
     creates: /mnt/etc/locale.conf
 
 - name: Update initcpio
-  script: update-initcpio.sh "{{install_encrypt}}"
+  script: update-initcpio.sh "{{install_encrypt|bool}}"
 
 - name: Unmount all
   shell: umount -R /mnt

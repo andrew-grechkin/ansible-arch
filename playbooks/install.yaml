@@ -3,7 +3,6 @@
   any_errors_fatal: true
   vars:
     install_device: /dev/sda
-    install_encrypt: false
     install_root_size: 48G
     install_swap_size: 16G
     install_home_size: 80%FREE
@@ -20,10 +19,8 @@
       prompt: New user password
       confirm: true
       private: true
-    - name: lukspass
-      when: install_encrypt
-      prompt: LUKS2 password
-      confirm: true
-      private: true
+    - name: install_encrypt
+      prompt: Use LUKS2
+      default: false
   roles:
     - installation
