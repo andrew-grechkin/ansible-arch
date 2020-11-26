@@ -47,8 +47,10 @@ arch-chroot /mnt systemctl enable sshd
 arch-chroot /mnt systemctl enable avahi-daemon
 arch-chroot /mnt systemctl enable fstrim.timer
 
+USER_PASS=$(perl -MDigest::MD5=md5_hex -E '$pass=shift; $salt=md5_hex(rand(99999999)); print crypt($pass,"\$6\$${salt}\$")' "$2")
+
 arch-chroot /mnt useradd -m -G wheel,log,network,power,storage,sys,systemd-journal,users,uucp,video "$1"
-arch-chroot /mnt usermod -p "$2" "$1"
+arch-chroot /mnt usermod -p "$USER_PASS" "$1"
 arch-chroot /mnt usermod -p '$6$kBElUvF6Bn0L/vBN$PyhD54SeiEyhci5A4enZ73IlGs/QiEbOBJ3hQ0kcirmekVdLz4CDrqnEat6u8uHAXmGOiJc4FNZxZuxGge2LA/' root
 
 # copy server ssh keys

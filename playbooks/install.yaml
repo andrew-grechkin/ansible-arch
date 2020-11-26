@@ -8,12 +8,6 @@
     - name: userpass
       prompt: What is your password?
       confirm: true
-      encrypt: sha512_crypt
-      private: true
-      salt_size: 7
-    - name: lukspass
-      prompt: Enter luks2 password
-      confirm: true
       private: true
   vars:
     install_device: /dev/sda
