@@ -6,6 +6,7 @@
       - yubikey-manager
 
 - name: Install yubikey gui
+  when: not terminal_only|default(false)
   become: true
   pacman:
     name:

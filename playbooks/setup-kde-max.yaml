@@ -7,12 +7,12 @@
     - device/scanner
     - device/touchpad
     - device/video
+    - device/yubikey
     - network/internet
     - network/network
     - application/encryption
     - application/docker
     - application/media
-    - application/security
     - application/viewer
     - application/virtualbox
     - aur/archivemount

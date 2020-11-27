@@ -1,8 +1,11 @@
 ---
 - hosts: [localhost]
+  vars:
+    terminal_only: true
   roles:
     - basic
-    - application/codecs
     - application/encryption
+    - application/media
     - application/snapper
     - aur/archivemount
+    - device/yubikey
