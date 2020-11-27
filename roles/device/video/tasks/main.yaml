@@ -1,12 +1,11 @@
+---
 - name: Install video
-  become: yes
+  become: true
   pacman:
-    state: present
     name: [xf86-video-intel]
 
 - name: Install video encoding
-  become: yes
+  become: true
   pacman:
-    state: present
     name: [libva-intel-driver, libva-vdpau-driver, libva-utils, libvdpau-va-gl, intel-gpu-tools]
-#mesa-demos
+# mesa-demos

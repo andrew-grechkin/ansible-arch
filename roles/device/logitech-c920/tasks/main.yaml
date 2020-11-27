@@ -1,0 +1,7 @@
+---
+- name: Install webcam Logitech-c920
+  aur:
+    name:
+      - libwebcam-git
+# sudo uvcdynctrl -c --addctrl=046d:082d
+## uvcdynctrl -s 'LED1 Mode' 0

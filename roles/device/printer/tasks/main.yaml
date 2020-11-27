@@ -1,23 +1,16 @@
+---
 - name: Install cups
-  become: yes
+  become: true
   pacman:
-    state: present
     name:
       - cups
       - cups-pdf
       - cups-pk-helper
       - system-config-printer
 
-- name: Install printer brother-mfc-l2710dw
-  become: yes
-  become_user: {{ lookup('env','USER') }}
-  aur:
-    name:
-      - brother-mfc-l2710dw
-
 - name: Enable cups service
-  become: yes
+  become: true
   service:
-    name: org.cups.cupsd
-    enabled: yes
+    name: cups
+    enabled: true
     state: started

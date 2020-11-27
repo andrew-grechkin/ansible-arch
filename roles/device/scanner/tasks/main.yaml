@@ -1,20 +1,5 @@
+---
 - name: Install scanner
-  become: yes
+  become: true
   pacman:
-    state: present
     name: [simple-scan]
-
-- name: Install scanner brother-mfc-l2710dw
-  become: yes
-  become_user: {{ lookup('env','USER') }}
-  aur:
-    name:
-      - brscan4
-
-- name: Add scanner
-  become: yes
-  shell: brsaneconfig4 -a name=MFC-L2710DW model=MFC-L2710DW ip="192.168.168.181"
-  args:
-    creates: /etc/cups/ppd/Brother_MFC-L2710DW_series.ppd
-#local IP_ADDRESS=${1:-BRW9C305BC33581.local}
-##local IP_ADDRESS=${1:-192.168.168.181}

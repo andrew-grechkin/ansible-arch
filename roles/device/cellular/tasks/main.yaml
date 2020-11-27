@@ -1,9 +1,9 @@
+---
 - name: Install cellular
-  become: yes
+  become: true
   pacman:
-    state: present
     name:
-      - modemmanager
-      - modem-manager-gui
       - mobile-broadband-provider-info
+      - modem-manager-gui
+      - modemmanager
       - usb_modeswitch
