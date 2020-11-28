@@ -2,7 +2,7 @@
 - name: Install network packages
   become: true
   pacman:
-    name: [net-tools, bind-tools]
+    name: [net-tools, bind]
 
 - name: Install monitoring packages
   become: true

@@ -27,4 +27,4 @@
       prompt: Use LUKS2
       default: false
   roles:
-    - installation
+    - system/install
