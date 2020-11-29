@@ -1,16 +1,10 @@
 ---
+- import_playbook: setup-kde-min.yaml
 - hosts: [localhost]
   roles:
-    - x/kde
-    - application/snapper
-    - device/printer
-    - device/scanner
+    - application/aur/archivemount
+    - application/aur/google-chrome
+    - application/aur/skype
+    - application/core/virtualbox
+    - device/brother-mfc-l2710dw
     - device/touchpad
-    - device/video
-    - network/internet
-    - application/media
-    - application/virtualbox
-    - aur/archivemount
-    - aur/google-chrome
-    - aur/pamac
-    - aur/skype

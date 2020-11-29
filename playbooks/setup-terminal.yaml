@@ -3,9 +3,9 @@
   vars:
     terminal_only: true
   roles:
-    - basic
-    - application/encryption
-    - application/media
-    - application/snapper
-    - aur/archivemount
+    - system/basic
+    - application/aur/archivemount
+    - application/core/encryption
+    - application/core/media
+    - application/core/snapper
     - device/yubikey

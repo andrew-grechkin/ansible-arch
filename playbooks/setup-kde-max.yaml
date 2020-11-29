@@ -1,21 +1,8 @@
 ---
+- import_playbook: setup-kde-min.yaml
+- import_playbook: setup-kde-mid.yaml
 - hosts: [localhost]
   roles:
-    - x/kde
-    - application/snapper
-    - device/printer
-    - device/scanner
-    - device/touchpad
-    - device/video
-    - device/yubikey
-    - network/internet
-    - network/network
-    - application/encryption
-    - application/docker
-    - application/media
-    - application/viewer
-    - application/virtualbox
-    - aur/archivemount
-    - aur/google-chrome
-    - aur/pamac
-    - aur/skype
+    - application/core/docker
+    - application/core/network
+    - application/core/viewer

@@ -4,16 +4,22 @@
   pacman:
     name:
       - dhclient
-      - networkmanager
       - network-manager-applet
+      - networkmanager
       - networkmanager-openconnect
       - systemd-resolvconf
-#      - networkmanager-openvpn
 
-- name: Enable network services
+- name: Enable NetworkManager service
   become: true
   service:
-    name: [NetworkManager, systemd-resolved]
+    name: NetworkManager
+    enabled: true
+    state: started
+
+- name: Enable systemd-resolved service
+  become: true
+  service:
+    name: systemd-resolved
     enabled: true
     state: started
 
@@ -22,6 +28,7 @@
 #     name:
 #       - networkmanager-l2tp
 #       - networkmanager-libreswan
+#       - networkmanager-openvpn
 #       - networkmanager-pptp
 #       - networkmanager-ssh-git
 #       - networkmanager-sstp

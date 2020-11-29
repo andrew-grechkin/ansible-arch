@@ -9,3 +9,14 @@
     # - keepassxc
     # - gnome-encfs-manager-bin
     # - libgee
+
+- name: Smartcard support
+  become: true
+  pacman:
+    name: [ccid]
+
+- name: Enable smartcard daemon
+  become: true
+  service:
+    name: pcscd.socket
+    enabled: true

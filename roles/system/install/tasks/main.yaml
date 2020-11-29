@@ -1,4 +1,10 @@
 ---
+- name: Check internet connectivity
+  uri:
+    timeout: 5
+    url: "https://google.com}}"
+  failed_when: false
+
 - name: Read device information (always use unit when probing)
   parted: device="{{install_device}}" unit=GiB
   register: install_device_info

@@ -2,7 +2,10 @@
 - hosts: [localhost]
   roles:
     - x/kde
-    - application/snapper
+    - application/core/browser
+    - application/core/encryption
+    - application/core/media
+    - application/core/snapper
+    - device/network
     - device/video
-    - network/internet
-    - application/media
+    - device/yubikey

@@ -8,17 +8,22 @@
     - name: install_device
       prompt: Install device
       default: /dev/sda
+      private: false
     - name: install_root_size
       prompt: Root partition size
       default: 48G
+      private: false
     - name: install_swap_size
       prompt: Swap partition size
       default: 16G
+      private: false
     - name: username
       prompt: New user name
+      private: false
     - name: useruid
       prompt: New user uid
       default: 1000
+      private: false
     - name: userpass
       prompt: New user password
       confirm: true
@@ -26,5 +31,6 @@
     - name: install_encrypt
       prompt: Use LUKS2
       default: false
+      private: false
   roles:
     - system/install

@@ -17,7 +17,7 @@
       - pygmentize
       # - retext
       - tig
-      - zeal
+      # - zeal
 
 - name: Linting
   become: true
