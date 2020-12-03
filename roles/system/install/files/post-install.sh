@@ -36,7 +36,9 @@ echo arch > /mnt/etc/hostname
 
 ### configure mdns, enabled llmnr make all resolves to .local very slow
 sed -i 's| resolve | mdns4_minimal [NOTFOUND=return] resolve |' /mnt/etc/nsswitch.conf
-sed -i 's|#LLMNR=yes|LLMNR=no|'                                 /mnt/etc/systemd/resolved.conf
+sed -i 's|#DNSSEC=.*|DNSSEC=allow-downgrade|'                   /mnt/etc/systemd/resolved.conf
+sed -i 's|#LLMNR=.*|LLMNR=false|'                               /mnt/etc/systemd/resolved.conf
+sed -i 's|#MulticastDNS=.*|MulticastDNS=false|'                 /mnt/etc/systemd/resolved.conf
 ln -sf /run/systemd/resolve/stub-resolv.conf /mnt/etc/resolv.conf
 
 arch-chroot /mnt pacman -S --needed --noconfirm ansible git openssh vim

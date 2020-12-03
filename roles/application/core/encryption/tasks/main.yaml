@@ -2,7 +2,7 @@
 - name: Encryption support
   become: true
   pacman:
-    name: [encfs, gopass]
+    name: [encfs, pass, pass-otp]
     # - veracrypt
     # - gpg-crypter
     # - gpa
@@ -13,7 +13,7 @@
 - name: Smartcard support
   become: true
   pacman:
-    name: [ccid]
+    name: [ccid, pcsc-tools]
 
 - name: Enable smartcard daemon
   become: true

@@ -25,6 +25,14 @@
     name:
       - yamllint
       - vint
+      - shellcheck
+
+- name: Documents
+  become: true
+  pacman:
+    name:
+      - pandoc
+      - texlive-core
 
 - name: Arduino
   become: true
@@ -44,6 +52,12 @@
       - isync
       - lynx
       - newsboat
+
+- name: Dictionary
+  become: true
+  pacman:
+    name:
+      - goldendict
 
 # - name: Install VScode
 #   pacman:

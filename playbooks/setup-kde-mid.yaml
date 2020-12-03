@@ -3,6 +3,7 @@
 - hosts: [localhost]
   roles:
     - application/aur/archivemount
+    - application/aur/fonts
     - application/aur/google-chrome
     - application/aur/skype
     - application/core/virtualbox
