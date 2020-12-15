@@ -8,9 +8,6 @@
       - sxhkd
       - xclip
       - xdotool
-      - xorg-fonts
-      - xorg-fonts-cyrillic
-      - xorg-fonts-misc
       - xorg-server
       - xorg-xdpyinfo
       - xorg-xev
@@ -52,22 +49,36 @@
 - name: Install fonts
   become: true
   pacman:
-    name: [opendesktop-fonts, powerline-fonts, ttf-dejavu, ttf-font-awesome, ttf-liberation]
+    name:
+      - gentium-plus-font
+      - gnu-free-fonts
+      - inter-font
+      - opendesktop-fonts
+      - powerline-fonts
+      - ttf-dejavu
+      - ttf-font-awesome
+      - ttf-jetbrains-mono
+      - ttf-liberation
+      - ttf-linux-libertine
+      - ttf-opensans
 
 - name: Install additional fonts
   become: true
   pacman:
     name:
+      - adobe-source-code-pro-fonts
+      - adobe-source-han-sans-otc-fonts
+      - adobe-source-han-serif-otc-fonts
+      - adobe-source-sans-pro-fonts
       - noto-fonts-cjk
-      - adobe-source-han-sans-cn-fonts
-      - adobe-source-han-sans-jp-fonts
-      - adobe-source-han-sans-kr-fonts
-      - ttf-indic-otf
 
 - name: Install emoji support
   become: true
   pacman:
-    name: [noto-fonts-emoji, unicode-emoji, ttf-joypixels]
+    name:
+      - noto-fonts-emoji
+      - ttf-joypixels
+      - unicode-emoji
 
 - name: Install i3
   become: true

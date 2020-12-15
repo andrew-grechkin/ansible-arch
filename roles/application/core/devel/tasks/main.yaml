@@ -33,6 +33,7 @@
     name:
       - pandoc
       - texlive-core
+      - texlive-fontsextra
 
 - name: Arduino
   become: true
