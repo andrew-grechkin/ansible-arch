@@ -117,6 +117,14 @@
   args:
     creates: /boot/refind_linux.conf
 
+- name: Copy refind additional files
+  synchronize:
+    src: refind
+    dest: /mnt/boot/EFI/
+    archive: false
+    compress: false
+    recursive: true
+
 - name: Use pacman mirrorlist
   shell: cp -f /etc/pacman.d/mirrorlist /mnt/etc/pacman.d
 
