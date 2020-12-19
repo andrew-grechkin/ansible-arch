@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
-#arch-chroot /mnt refind-install --root /mnt/boot/EFI
-arch-chroot /mnt refind-install --usedefault "/dev/disk/by-label/EFI$2"
+arch-chroot /mnt refind-install --root       "/mnt/boot"
+# arch-chroot /mnt refind-install --usedefault "/dev/disk/by-label/EFI$2"
 
 if [ "$1" = "True" ]; then
 {
@@ -19,5 +19,7 @@ fi
 
 perl -i -plE "s{^(LABEL=\w+)}{\1$2}" /mnt/etc/fstab
 
-# virtualbox compatibility
-#cp -r /mnt/boot/EFI/refind /mnt/boot/EFI/BOOT
+### virtualbox compatibility
+[[ -d /mnt/boot/EFI/BOOT ]] || {
+	cp -r /mnt/boot/EFI/refind /mnt/boot/EFI/BOOT
+}
