@@ -1,6 +1,6 @@
 #!/bin/bash
 
-arch-chroot /mnt refind-install --root       "/mnt/boot"
+refind-install --root /mnt
 # arch-chroot /mnt refind-install --usedefault "/dev/disk/by-label/EFI$2"
 
 if [ "$1" = "True" ]; then
