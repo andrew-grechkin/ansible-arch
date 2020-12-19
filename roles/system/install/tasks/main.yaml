@@ -2,7 +2,7 @@
 - name: Check internet connectivity
   uri:
     timeout: 5
-    url: "https://google.com}}"
+    url: https://google.com
   failed_when: false
 
 - name: Read device information (always use unit when probing)
@@ -19,16 +19,16 @@
     number: 1
     label: gpt
     state: present
-    part_end: 1025MiB
+    part_end: 1GiB
     flags: [esp]
-- name: Create the second primary partition with a size of 1GiB
+- name: Create the second primary partition with a size of 15GiB
   parted:
     device: "{{install_device}}"
     number: 2
     label: gpt
     state: present
-    part_start: 1025MiB
-    part_end: 2049MiB
+    part_start: 1GiB
+    part_end: 16GiB
 - name: Create a new primary partition for LVM
   parted:
     device: "{{install_device}}"
@@ -36,62 +36,62 @@
     label: gpt
     flags: [lvm]
     state: present
-    part_start: 2049MiB
+    part_start: 16GiB
 
 - name: Create and open the LUKS2 container on {{install_device}}3
   when: install_encrypt|bool
   community.crypto.luks_device:
     device: "{{install_device}}3"
-    label: lvm-encrypted
-    name: lvm-encrypted
+    label: lvm-encrypted{{install_suffix}}
+    name: lvm-encrypted{{install_suffix}}
     passphrase: "{{userpass}}"
     state: opened
     type: luks2
-- name: Create a volume group on top of /dev/mapper/lvm-encrypted
+- name: Create a volume group on top of /dev/mapper/lvm-encrypted{{install_suffix}}
   when: install_encrypt|bool
-  lvg: vg=vg-arch pvs=/dev/mapper/lvm-encrypted
+  lvg: vg=vg-arch{{install_suffix}} pvs=/dev/mapper/lvm-encrypted{{install_suffix}}
 
 - name: Create a volume group on top of {{install_device}}3
   when: not install_encrypt|bool
-  lvg: vg=vg-arch pvs="{{install_device}}3"
+  lvg: vg=vg-arch{{install_suffix}} pvs="{{install_device}}3"
 
 - name: Create root logical volume
-  lvol: vg=vg-arch lv=root size="{{install_root_size}}"
+  lvol: vg=vg-arch{{install_suffix}} lv=root size="{{install_root_size}}"
 - name: Create swap logical volume
-  lvol: vg=vg-arch lv=swap size="{{install_swap_size}}"
+  lvol: vg=vg-arch{{install_suffix}} lv=swap size="{{install_swap_size}}"
 - name: Create home logical volume
-  lvol: vg=vg-arch lv=home size="{{install_home_size}}"
+  lvol: vg=vg-arch{{install_suffix}} lv=home size="{{install_home_size}}"
 
 - name: Create a EFI filesystem on {{install_device}}1
-  filesystem: dev="{{install_device}}1" fstype=vfat opts='-n EFI'
-- name: Create a root filesystem on vg-arch-root
-  filesystem: dev=/dev/vg-arch/root fstype=btrfs opts='-L root'
-- name: Create a swap filesystem on vg-arch-swap
-  filesystem: dev=/dev/vg-arch/swap fstype=swap opts='-L swap'
-- name: Create a home filesystem on vg-arch-home
-  filesystem: dev=/dev/vg-arch/home fstype=btrfs opts='-L home'
+  filesystem: dev="{{install_device}}1" fstype=vfat opts="-n EFI{{install_suffix}}"
+- name: Create a root filesystem on vg-arch-root{{install_suffix}}
+  filesystem: dev=/dev/vg-arch{{install_suffix}}/root fstype=btrfs opts="-L root{{install_suffix}}"
+- name: Create a swap filesystem on vg-arch-swap{{install_suffix}}
+  filesystem: dev=/dev/vg-arch{{install_suffix}}/swap fstype=swap opts="-L swap{{install_suffix}}"
+- name: Create a home filesystem on vg-arch-home{{install_suffix}}
+  filesystem: dev=/dev/vg-arch{{install_suffix}}/home fstype=btrfs opts="-L home{{install_suffix}}"
 
 - name: Prepare btrfs root partition
-  script: prepare-btrfs-root.sh root '@'
+  script: prepare-btrfs-root.sh "root{{install_suffix}}" '@'
 - name: Prepare btrfs home partition
-  script: prepare-btrfs-home.sh home '@'
+  script: prepare-btrfs-home.sh "home{{install_suffix}}" '@'
 
 - name: Mount root subvolume structure /
-  mount: fstype=btrfs state=mounted src=LABEL=root opts=subvol=@/.snapshots/init/snapshot path=/mnt
+  mount: fstype=btrfs state=mounted src=LABEL=root{{install_suffix}} opts=subvol=@/.snapshots/init/snapshot path=/mnt
 - name: Mount root subvolume structure /opt
-  mount: fstype=btrfs state=mounted src=LABEL=root opts=subvol=@/opt path=/mnt/opt
+  mount: fstype=btrfs state=mounted src=LABEL=root{{install_suffix}} opts=subvol=@/opt path=/mnt/opt
 - name: Mount root subvolume structure /srv
-  mount: fstype=btrfs state=mounted src=LABEL=root opts=subvol=@/srv path=/mnt/srv
+  mount: fstype=btrfs state=mounted src=LABEL=root{{install_suffix}} opts=subvol=@/srv path=/mnt/srv
 - name: Mount root subvolume structure /var
-  mount: fstype=btrfs state=mounted src=LABEL=root opts=subvol=@/var path=/mnt/var
+  mount: fstype=btrfs state=mounted src=LABEL=root{{install_suffix}} opts=subvol=@/var path=/mnt/var
 - name: Mount root subvolume structure /.snapshots
-  mount: fstype=btrfs state=mounted src=LABEL=root opts=subvol=@/.snapshots path=/mnt/.snapshots
+  mount: fstype=btrfs state=mounted src=LABEL=root{{install_suffix}} opts=subvol=@/.snapshots path=/mnt/.snapshots
 - name: Mount home subvolume structure /home
-  mount: fstype=btrfs state=mounted src=LABEL=home opts=subvol=@/.snapshots/init/snapshot path=/mnt/home
+  mount: fstype=btrfs state=mounted src=LABEL=home{{install_suffix}} opts=subvol=@/.snapshots/init/snapshot path=/mnt/home
 - name: Mount home subvolume structure /home/.snapshots
-  mount: fstype=btrfs state=mounted src=LABEL=home opts=subvol=@/.snapshots path=/mnt/home/.snapshots
+  mount: fstype=btrfs state=mounted src=LABEL=home{{install_suffix}} opts=subvol=@/.snapshots path=/mnt/home/.snapshots
 - name: Mount esp partition
-  mount: fstype=vfat state=mounted src=LABEL=EFI path=/mnt/boot
+  mount: fstype=vfat state=mounted src=LABEL=EFI{{install_suffix}} path=/mnt/boot
 
 - name: Checkout ansible scripts
   git:
@@ -109,13 +109,13 @@
   args:
     creates: /mnt/etc/pacman.conf
 
-- name: Install rEFInd
-  script: install-refind.sh "{{install_encrypt|bool}}"
-  args:
-    creates: /boot/refind_linux.conf
-
 - name: Copy fstab
   copy: src=fstab dest=/mnt/etc/fstab owner=root group=root mode='0644'
+
+- name: Install rEFInd
+  script: install-refind.sh "{{install_encrypt|bool}}" "{{install_suffix}}"
+  args:
+    creates: /boot/refind_linux.conf
 
 - name: Use pacman mirrorlist
   shell: cp -f /etc/pacman.d/mirrorlist /mnt/etc/pacman.d

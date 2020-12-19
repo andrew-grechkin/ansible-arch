@@ -1,9 +1,9 @@
+---
 - name: Install VirtualBox
-  become: yes
+  become: true
   pacman:
-    state: present
     name:
-      - virtualbox-host-modules-arch
       - virtualbox
       - virtualbox-guest-iso
-      #- vagrant
+      - virtualbox-host-modules-arch
+      # - vagrant

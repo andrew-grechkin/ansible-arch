@@ -9,6 +9,10 @@
       prompt: Install device
       default: /dev/sda
       private: false
+    - name: install_suffix
+      prompt: Suffix for all device labels (make labels unique)
+      default: ''
+      private: false
     - name: install_root_size
       prompt: Root partition size
       default: 48G
