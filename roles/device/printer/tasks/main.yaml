@@ -14,3 +14,9 @@
     name: cups
     enabled: true
     state: started
+
+- name: Enable cups auto-discovery service
+  become: true
+  service:
+    name: cups-browsed
+    enabled: true

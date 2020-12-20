@@ -4,7 +4,6 @@
     terminal_only: true
   roles:
     - system/basic
-    - application/aur/archivemount
     - application/core/encryption
     - application/core/media
     - application/core/snapper
