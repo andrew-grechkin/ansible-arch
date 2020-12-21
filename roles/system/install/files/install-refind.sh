@@ -6,7 +6,7 @@ refind-install --root /mnt
 CPU=$(lscpu)
 if [[ $CPU =~ GenuineIntel ]]; then
 	arch-chroot /mnt pacman -S --needed --noconfirm intel-ucode
-	INITRD_U='initrd=\\intel-ucode.img'
+	INITRD_U='initrd=\intel-ucode.img'
 else
 	INITRD_U=''
 fi
@@ -29,6 +29,7 @@ fi
 	echo "\"Boot with crypt\"       \"rw $DRIVES $OPTIONS $CRYPT\""
 	echo "\"Boot with defaults\"    \"rw $DRIVES $OPTIONS\""
 	echo "\"Boot to terminal\"      \"rw $DRIVES systemd.unit=multi-user.target\""
+	echo "\"Boot to bash\"          \"rw $DRIVES init=/bin/bash\""
 } >> /mnt/boot/refind_linux.conf
 
 perl -i -plE "s{^(LABEL=\w+)}{\1$2}" /mnt/etc/fstab
