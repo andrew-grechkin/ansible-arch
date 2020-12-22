@@ -36,6 +36,8 @@ perl -i -plE "s{^(LABEL=\w+)}{\1$2}" /mnt/etc/fstab
 
 echo "include next-theme/theme.conf" >> "/mnt/boot/EFI/refind/refind.conf"
 
+cp /mnt/boot/EFI/refind/icons/os_arch.png /mnt/boot/vmlinuz-linux.png
+
 ### virtualbox compatibility
 [[ -d /mnt/boot/EFI/BOOT ]] || {
 	cp -r /mnt/boot/EFI/refind /mnt/boot/EFI/BOOT

@@ -34,6 +34,8 @@ echo arch > /mnt/etc/hostname
 #echo "EDITOR=vim"     >> /mnt/etc/environment
 #echo "VISUAL=vim"     >> /mnt/etc/environment
 
+sed -i 's|^use-ipv6=yes|[use-ipv6=no|'                          /mnt/etc/avahi/avahi-daemon.conf
+
 ### configure mdns, enabled llmnr make all resolves to .local very slow
 sed -i 's| resolve | mdns4_minimal [NOTFOUND=return] resolve |' /mnt/etc/nsswitch.conf
 sed -i 's|#DNSSEC=.*|DNSSEC=allow-downgrade|'                   /mnt/etc/systemd/resolved.conf
