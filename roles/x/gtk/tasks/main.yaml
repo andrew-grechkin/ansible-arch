@@ -1,27 +1,27 @@
 ---
 - name: Install default
-  become: yes
+  become: true
   pacman:
     name: [lightdm-gtk-greeter, lightdm-gtk-greeter-settings, exo, xdg-user-dirs-gtk]
 
 - name: Install pulseaudio
-  become: yes
+  become: true
   pacman:
     name: [pavucontrol]
 
 - name: Install bluetooth
-  become: yes
+  become: true
   pacman:
     name: [blueberry]
-      #- blueman
+    # - blueman
 
 - name: Install fuse
-  become: yes
+  become: true
   pacman:
     name: [gvfs, gvfs-nfs, gvfs-smb, gvfs-google, gvfs-gphoto2, gvfs-mtp]
 
 - name: Install applications
-  become: yes
+  become: true
   pacman:
     name:
       - baobab
@@ -32,17 +32,15 @@
       - qalculate-gtk
       - gnome-characters
       - gucharmap
-      - gnome-keyring
-      - seahorse
-#     - ghex
+      # - ghex
       - gparted
       - gthumb
       - hardinfo
       - lxappearance
-#     - onboard
+      # - onboard
       - redshift
       - xarchiver
-#     - file-roller
+      # - file-roller
       - xautolock
       - freerdp
       - libvncserver
@@ -53,37 +51,37 @@
   service_facts:
 
 - name: Enable lightdm service
-  become: yes
+  become: true
   service:
     name: lightdm
-    enabled: yes
+    enabled: true
 
 - name: Disable sddm
-  become: yes
+  become: true
   service:
     name: sddm
-    enabled: no
+    enabled: false
   when: "'sddm' in services"
 
 - name: Allow RSYNC for new super user without SUDO password
-  become: yes
+  become: true
   lineinfile:
     path: /etc/sudoers
     state: present
-    insertafter: '^%sudo'
+    insertafter: ^%sudo
     line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
 
 - name: Copy lightdm configs
-  become: yes
+  become: true
   synchronize:
     src: lightdm
     dest: /etc/
-    archive: no
-    compress: no
-    recursive: yes
+    archive: false
+    compress: false
+    recursive: true
 
 - name: Disallow RSYNC for new super user without SUDO password
-  become: yes
+  become: true
   lineinfile:
     path: /etc/sudoers
     state: absent
