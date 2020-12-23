@@ -41,7 +41,7 @@
 - name: Install common tools
   become: true
   pacman:
-    name: [acpi, libqalculate, hwinfo, iotop, htop, lsof, strace, lsb-release, neofetch]
+    name: [acpi, libqalculate, hwinfo, iotop, htop, lsof, strace, usbutils, lsb-release, neofetch]
 
 - name: Install network tools
   become: true

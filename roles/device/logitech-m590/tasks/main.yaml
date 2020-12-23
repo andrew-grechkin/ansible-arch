@@ -1,0 +1,5 @@
+---
+- name: Install Logitech Unifying Receiver tool
+  aur:
+    name:
+      - solaar
