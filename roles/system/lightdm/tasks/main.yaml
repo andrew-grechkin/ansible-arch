@@ -1,0 +1,47 @@
+---
+- name: Install lightdm
+  become: true
+  pacman:
+    name:
+      - lightdm-gtk-greeter
+      - lightdm-gtk-greeter-settings
+
+- name: Populate service facts
+  service_facts:
+
+- name: Enable lightdm service
+  become: true
+  service:
+    name: lightdm
+    enabled: true
+
+- name: Disable sddm
+  become: true
+  service:
+    name: sddm
+    enabled: false
+  when: "'sddm' in services"
+
+- name: Allow RSYNC for new super user without SUDO password
+  become: true
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    insertafter: ^%sudo
+    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
+
+- name: Copy lightdm configs
+  become: true
+  synchronize:
+    src: lightdm
+    dest: /etc/
+    archive: false
+    compress: false
+    recursive: true
+
+- name: Disallow RSYNC for new super user without SUDO password
+  become: true
+  lineinfile:
+    path: /etc/sudoers
+    state: absent
+    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"

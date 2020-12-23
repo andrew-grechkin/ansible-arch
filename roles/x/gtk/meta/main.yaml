@@ -1,2 +1,4 @@
+---
 dependencies:
   - role: x/xorg
+  - role: system/lightdm

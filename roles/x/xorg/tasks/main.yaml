@@ -44,7 +44,7 @@
 
 - name: Update keyboard mapping
   become: true
-  shell: localectl set-x11-keymap us,ru pc105 , grp:lctrl_lshift_toggle --no-convert
+  shell: localectl set-x11-keymap us,ru pc105 , grp:shifts_toggle --no-convert
 
 - name: Install fonts
   become: true
