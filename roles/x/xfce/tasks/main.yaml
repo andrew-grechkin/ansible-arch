@@ -1,7 +1,7 @@
+---
 - name: Install XFCE
-  become: yes
+  become: true
   pacman:
-    state: present
     name:
       - xfce4
       - xfce4-clipman-plugin
@@ -16,16 +16,26 @@
       - xfce4-whiskermenu-plugin
       - xfce4-xkb-plugin
       - light-locker
-      #- xscreensaver
+      # - xscreensaver
+
+- name: Install i3
+  become: true
+  pacman:
+    name: [i3-gaps, i3lock, picom, feh]
+    # - autorandr
+    # - bc
+    # - playerctl
+    # - volumeicon
+    # - xfce4-i3-workspaces-plugin-git
 
 - name: Clean unnecessary packages
-  become: yes
+  become: true
   pacman:
     state: absent
     name: [orage, xfce4-dict, xfce4-artwork, xfburn, parole, ristretto, mousepad]
 
 #### disable save session
-#xfconf-query -c xfce4-session -p /general/SaveOnExit        -n -t bool   -s false
-#xfconf-query -c xfce4-session -p /startup/ssh-agent/enabled -n -t bool   -s false
-#xfconf-query -c xfce4-session -p /startup/gpg-agent/enabled -n -t bool   -s false
-#xfconf-query -c xfce4-session -p /general/LockCommand       -n -t string -s "light-locker-command --lock"
+# xfconf-query -c xfce4-session -p /general/SaveOnExit        -n -t bool   -s false
+# xfconf-query -c xfce4-session -p /startup/ssh-agent/enabled -n -t bool   -s false
+# xfconf-query -c xfce4-session -p /startup/gpg-agent/enabled -n -t bool   -s false
+# xfconf-query -c xfce4-session -p /general/LockCommand       -n -t string -s "light-locker-command --lock"
