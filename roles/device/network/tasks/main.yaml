@@ -6,7 +6,7 @@
       - dhclient
       - network-manager-applet
       - networkmanager
-      - networkmanager-openconnect
+      # - networkmanager-openconnect
       - systemd-resolvconf
 
 - name: Enable NetworkManager service

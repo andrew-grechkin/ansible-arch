@@ -6,11 +6,11 @@
       - kde-gtk-config
       - partitionmanager
       - plasma-meta
-      - packagekit-qt5
+      # - packagekit-qt5
       # - kde-applications-meta
       - kde-system-meta
       # - kdebase-meta
-      - kdialog
+      # - kdialog
       - kde-graphics-meta
       # - kdemultimedia-meta
       - audiocd-kio
@@ -21,7 +21,7 @@
       - krdc
       - krfb
       - zeroconf-ioslave
-      - kio-extras
+      # - kio-extras
       # - kdepim-meta
       - kleopatra
       - kdepim-addons

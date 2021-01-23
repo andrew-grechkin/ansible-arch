@@ -112,6 +112,14 @@
 - name: Copy fstab
   copy: src=fstab dest=/mnt/etc/fstab owner=root group=root mode='0644'
 
+- name: Create resolved.conf.d directory
+  file:
+    path: /mnt/etc/systemd/resolved.conf.d
+    state: directory
+
+- name: Copy resolved overrides
+  copy: src=etc/systemd/resolved.conf.d/50-override.conf dest=/mnt/etc/systemd/resolved.conf.d/50-override.conf owner=root group=root mode='0644'
+
 - name: Install rEFInd
   script: install-refind.sh "{{install_encrypt|bool}}" "{{install_suffix}}"
   args:

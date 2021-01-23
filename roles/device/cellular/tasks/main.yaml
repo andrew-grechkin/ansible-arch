@@ -3,7 +3,6 @@
   become: true
   pacman:
     name:
-      - mobile-broadband-provider-info
       - modem-manager-gui
       - modemmanager
-      - usb_modeswitch
+      # - usb_modeswitch

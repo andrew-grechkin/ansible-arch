@@ -41,7 +41,8 @@
 - name: Install common tools
   become: true
   pacman:
-    name: [acpi, libqalculate, hwinfo, iotop, htop, lsof, strace, usbutils, lsb-release, neofetch]
+    name: [acpi, hwinfo, iotop, htop, lsof, strace, usbutils, lsb-release, neofetch]
+    # - libqalculate
 
 - name: Install network tools
   become: true
@@ -108,7 +109,8 @@
 - name: Install bluetooth
   become: true
   pacman:
-    name: [bluez, bluez-cups, bluez-utils, pulseaudio-bluetooth]
+    name: [bluez, pulseaudio-bluetooth]
+    # name: [bluez-cups, bluez-utils]
 
 - name: Enable bluetooth services
   become: true

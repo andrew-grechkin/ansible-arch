@@ -1,5 +1,30 @@
 ---
 - name: Install fonts
+  become: true
+  pacman:
+    name:
+      - gentium-plus-font
+      - inter-font
+      - opendesktop-fonts
+      - powerline-fonts
+      - ttf-dejavu
+      - ttf-font-awesome
+      - ttf-jetbrains-mono
+      - ttf-liberation
+      - ttf-linux-libertine
+      - ttf-opensans
+
+- name: Install additional fonts
+  become: true
+  pacman:
+    name:
+      # - adobe-source-code-pro-fonts
+      # - adobe-source-han-sans-otc-fonts
+      # - adobe-source-han-serif-otc-fonts
+      # - adobe-source-sans-pro-fonts
+      - noto-fonts-cjk
+
+- name: Install develop fonts
   aur:
     name:
       - nerd-fonts-dejavu-complete

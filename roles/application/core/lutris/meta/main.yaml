@@ -1,2 +1,3 @@
+---
 dependencies:
-  - role: application/wine
+  - role: application/core/wine
