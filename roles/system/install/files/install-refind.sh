@@ -41,11 +41,11 @@ include next-theme/theme.conf
 #include themes/rEFInd-sunset/theme.conf
 EOF
 
-perl -i -plE "s{\A #?timeout \s+ \d+ \z}{timeout 5}x"                                                                    '/mnt/boot/EFI/refind/refind.conf'
-perl -i -plE "s{\A #?use_nvram \s+ true \z}{use_nvram false}x"                                                           '/mnt/boot/EFI/refind/refind.conf'
-perl -i -plE "s{\A #?showtools .+}{showtools install,bootorder,netboot, shell,memtest,gdisk,apple_recovery,windows_recovery,mok_tool,about,hidden_tags,shutdown,reboot,firmware,fwupdate}x" '/mnt/boot/EFI/refind/refind.conf'
-perl -i -plE "s{\A #fold_linux_kernels .+}{fold_linux_kernels false}x"                                                 '/mnt/boot/EFI/refind/refind.conf'
-perl -i -plE "s{\A #extra_kernel_version_strings .+}{extra_kernel_version_strings linux-lts,linux-zen,linux}x"         '/mnt/boot/EFI/refind/refind.conf'
+perl -i -plE "s{\A \#?timeout \s+ \d+ \z}{timeout 5}x"                                                                 '/mnt/boot/EFI/refind/refind.conf'
+perl -i -plE "s{\A \#?use_nvram \s+ true \z}{use_nvram false}x"                                                        '/mnt/boot/EFI/refind/refind.conf'
+perl -i -plE "s{\A \#?showtools .+}{showtools install,bootorder,netboot, shell,memtest,gdisk,apple_recovery,windows_recovery,mok_tool,about,hidden_tags,shutdown,reboot,firmware,fwupdate}x" '/mnt/boot/EFI/refind/refind.conf'
+perl -i -plE "s{\A \#fold_linux_kernels .+}{fold_linux_kernels false}x"                                                '/mnt/boot/EFI/refind/refind.conf'
+perl -i -plE "s{\A \#extra_kernel_version_strings .+}{extra_kernel_version_strings linux-lts,linux-zen,linux}x"        '/mnt/boot/EFI/refind/refind.conf'
 
 cp /mnt/boot/EFI/refind/icons/os_arch.png   /mnt/boot/vmlinuz-linux.png
 cp /mnt/boot/EFI/refind/icons/os_arch-2.png /mnt/boot/vmlinuz-linux-lts.png
