@@ -3,7 +3,6 @@
   become: true
   pacman:
     name:
-      - gentium-plus-font
       - inter-font
       - opendesktop-fonts
       - powerline-fonts
