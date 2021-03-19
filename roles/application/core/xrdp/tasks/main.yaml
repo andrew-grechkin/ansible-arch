@@ -1,16 +1,21 @@
+---
 - name: Install xrdp
   aur:
     name:
       - xrdp-git
       - xorgxrdp-git
 
-- name: Enable xrdp services
+- name: Enable xrdp service
+  become: true
+  service:
+    enabled: true
+    name: xrdp
+
+- name: Enable xrdp-sesman services
   become: yes
   service:
     enabled: yes
-    name:
-      - xrdp
-      - xrdp-sesman
+    name: xrdp-sesman
 
 #	echo "allowed_users=anybody" >> /etc/X11/Xwrapper.config
 #	echo "exec startxfce4"       >> /etc/X11/xinit/xinitrc

@@ -1,5 +1,5 @@
+---
 - name: Install docker
   become: yes
   pacman:
-    state: present
     name: [docker-compose]

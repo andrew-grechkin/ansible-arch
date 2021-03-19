@@ -12,8 +12,10 @@
 - name: Install bluetooth
   become: true
   pacman:
-    name: [blueberry]
-    # - blueman
+    name:
+      - blueberry
+      - bluez-utils
+      # - blueman
 
 - name: Install fuse
   become: true

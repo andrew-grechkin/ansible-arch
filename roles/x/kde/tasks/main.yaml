@@ -6,7 +6,7 @@
       - kde-gtk-config
       - partitionmanager
       - plasma-meta
-      # - packagekit-qt5
+      - packagekit-qt5
       # - kde-applications-meta
       - kde-system-meta
       # - kdebase-meta

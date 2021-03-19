@@ -3,6 +3,5 @@
   aur:
     name:
       - guvcview
-      - motion
       - v4l-utils
       - v4l2loopback-dkms

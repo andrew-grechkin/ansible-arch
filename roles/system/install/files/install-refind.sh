@@ -48,8 +48,6 @@ perl -i -plE "s{\A \#fold_linux_kernels .+}{fold_linux_kernels false}x"         
 perl -i -plE "s{\A \#extra_kernel_version_strings .+}{extra_kernel_version_strings linux-lts,linux-zen,linux}x"        '/mnt/boot/EFI/refind/refind.conf'
 
 cp /mnt/boot/EFI/refind/icons/os_arch.png   /mnt/boot/vmlinuz-linux.png
-cp /mnt/boot/EFI/refind/icons/os_arch-2.png /mnt/boot/vmlinuz-linux-lts.png
-cp /mnt/boot/EFI/refind/icons/os_arch-1.png /mnt/boot/vmlinuz-linux-zen.png
 
 ### virtualbox compatibility
 [[ -d /mnt/boot/EFI/BOOT ]] || {
