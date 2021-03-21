@@ -7,6 +7,9 @@ CPU=$(lscpu)
 if [[ $CPU =~ GenuineIntel ]]; then
 	arch-chroot /mnt pacman -S --needed --noconfirm intel-ucode
 	INITRD_U='initrd=\intel-ucode.img'
+elif [[ $CPU =~ AuthenticAMD ]]; then
+	arch-chroot /mnt pacman -S --needed --noconfirm amd-ucode
+	INITRD_U='initrd=\amd-ucode.img'
 else
 	INITRD_U=''
 fi
