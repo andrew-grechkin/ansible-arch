@@ -1,7 +1,5 @@
 ---
 - name: Install printer brother-mfc-l2710dw
-  # become: yes
-  # become_user: {{ lookup('env','USER') }}
   aur:
     name: [brother-mfc-l2710dw]
 
@@ -11,9 +9,6 @@
 
 - name: Add scanner
   become: true
-  shell: brsaneconfig4 -a name=MFC-L2710DW model=MFC-L2710DW ip="192.168.168.181"
+  shell: brsaneconfig4 -a name=MFC-L2710DW model=MFC-L2710DW ip="mfc.ams"
   args:
     creates: /etc/cups/ppd/Brother_MFC-L2710DW_series.ppd
-
-# local IP_ADDRESS=${1:-BRW9C305BC33581.local}
-## local IP_ADDRESS=${1:-192.168.168.181}
