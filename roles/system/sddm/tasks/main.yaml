@@ -8,15 +8,15 @@
 - name: Populate service facts
   service_facts:
 
-- name: Enable sddm service
-  become: true
-  service:
-    name: sddm
-    enabled: true
-
 - name: Disable lightdm service
   become: true
   service:
     name: lightdm
     enabled: false
   when: "'lightdm' in services"
+
+- name: Enable sddm service
+  become: true
+  service:
+    name: sddm
+    enabled: true

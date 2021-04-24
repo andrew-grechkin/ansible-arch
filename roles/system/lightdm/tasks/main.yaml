@@ -9,18 +9,18 @@
 - name: Populate service facts
   service_facts:
 
-- name: Enable lightdm service
-  become: true
-  service:
-    name: lightdm
-    enabled: true
-
 - name: Disable sddm
   become: true
   service:
     name: sddm
     enabled: false
   when: "'sddm' in services"
+
+- name: Enable lightdm service
+  become: true
+  service:
+    name: lightdm
+    enabled: true
 
 - name: Allow RSYNC for new super user without SUDO password
   become: true

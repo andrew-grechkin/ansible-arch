@@ -1,17 +1,24 @@
 ---
-- name: Install fonts
+- name: Install base fonts
   become: true
   pacman:
     name:
-      - inter-font
-      - opendesktop-fonts
-      - powerline-fonts
       - ttf-dejavu
-      - ttf-font-awesome
+
+- name: Install developer fonts
+  become: true
+  pacman:
+    name:
+      - ttf-cascadia-code
+      - ttf-fira-code
       - ttf-jetbrains-mono
-      - ttf-liberation
-      - ttf-linux-libertine
-      - ttf-opensans
+
+- name: Install developer fonts (aur)
+  aur:
+    name:
+      - nerd-fonts-dejavu-complete
+      - nerd-fonts-jetbrains-mono
+      - ttf-iosevka
 
 - name: Install additional fonts
   become: true
@@ -21,11 +28,11 @@
       # - adobe-source-han-sans-otc-fonts
       # - adobe-source-han-serif-otc-fonts
       # - adobe-source-sans-pro-fonts
+      - inter-font
       - noto-fonts-cjk
-
-- name: Install develop fonts
-  aur:
-    name:
-      - nerd-fonts-dejavu-complete
-      - nerd-fonts-jetbrains-mono
-      - ttf-iosevka
+      - opendesktop-fonts
+      - powerline-fonts
+      - ttf-font-awesome
+      - ttf-liberation
+      - ttf-linux-libertine
+      - ttf-opensans

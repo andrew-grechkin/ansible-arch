@@ -23,9 +23,9 @@
   become: true
   pacman:
     name:
-      - yamllint
-      - vint
       - shellcheck
+      - vint
+      - yamllint
 
 - name: Documents
   become: true
