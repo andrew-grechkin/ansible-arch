@@ -1,0 +1,8 @@
+---
+- name: Documents
+  become: true
+  pacman:
+    name:
+      - pandoc
+      - texlive-core
+      - texlive-fontsextra

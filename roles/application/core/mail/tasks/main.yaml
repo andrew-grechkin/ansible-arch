@@ -1,0 +1,8 @@
+---
+- name: Mail
+  become: true
+  pacman:
+    name:
+      - isync
+      - lynx
+      - newsboat

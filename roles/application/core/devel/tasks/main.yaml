@@ -17,7 +17,7 @@
       - pygmentize
       # - retext
       - tig
-      # - zeal
+      - zeal
 
 - name: Linting
   become: true
@@ -27,52 +27,34 @@
       - vint
       - yamllint
 
-- name: Documents
-  become: true
-  pacman:
-    name:
-      - pandoc
-      - texlive-core
-      - texlive-fontsextra
-
-- name: Arduino
-  become: true
-  pacman:
-    name:
-      - arduino-avr-core
-      - arduino-cli
-      - arduino-docs
-      - arm-none-eabi-gcc
-      - arm-none-eabi-newlib
-      - stlink
-
-- name: Mail
-  become: true
-  pacman:
-    name:
-      - isync
-      - lynx
-      - newsboat
-
 - name: Dictionary
   become: true
   pacman:
     name:
       - goldendict
 
-# - name: Install VScode
-#   pacman:
-#     name:
-#       - code
-#
-# - name: Install go packages
-#   pacman:
-#     name:
-#       - go
-#       - go-tools
-#       - delve
-#
+- name: Install VScode
+  become: true
+  pacman:
+    name:
+      - code
+
+- name: Install go support
+  become: true
+  pacman:
+    name:
+      - go
+      - go-tools
+      - delve
+
+- name: Install node.js support
+  become: true
+  pacman:
+    name:
+      - nodejs
+
 # - name: Install emacs
+#   become: true
 #   pacman:
 #     name:
 #       - emacs
