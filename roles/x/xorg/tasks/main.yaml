@@ -50,7 +50,6 @@
   become: true
   pacman:
     name:
-      - noto-fonts-emoji
       - ttf-joypixels
       - unicode-emoji
 

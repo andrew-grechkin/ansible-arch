@@ -3,6 +3,9 @@
   become: true
   pacman:
     name:
+      - noto-fonts
+      - noto-fonts-cjk
+      - noto-fonts-emoji
       - ttf-dejavu
 
 - name: Install developer fonts
@@ -28,11 +31,10 @@
       # - adobe-source-han-sans-otc-fonts
       # - adobe-source-han-serif-otc-fonts
       # - adobe-source-sans-pro-fonts
-      - inter-font
-      - noto-fonts-cjk
-      - opendesktop-fonts
+      # - inter-font
+      # - opendesktop-fonts
       - powerline-fonts
       - ttf-font-awesome
       - ttf-liberation
-      - ttf-linux-libertine
-      - ttf-opensans
+      # - ttf-linux-libertine
+      # - ttf-opensans
