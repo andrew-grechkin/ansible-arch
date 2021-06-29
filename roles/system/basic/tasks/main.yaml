@@ -54,10 +54,23 @@
   pacman:
     name: [pacman-contrib, pcurses, pkgstats, reflector]
 
-- name: Install perl
+- name: Install perl base
   become: true
   pacman:
-    name: [perl, perlbrew, perl-libwww, perl-lwp-protocol-https, perl-path-tiny]
+    name: [perl, perlbrew]
+
+- name: Install perl additional
+  become: true
+  pacman:
+    name:
+      - perl-data-dump
+      - perl-libwww
+      - perl-log-any
+      - perl-lwp-protocol-https
+      - perl-path-tiny
+      - perl-perl-critic
+      - perl-tidy
+      - perl-yaml-libyaml
 
 - name: Install python
   become: true

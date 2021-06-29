@@ -47,6 +47,11 @@
       - go-tools
       - delve
 
+- name: Install perl support
+  aur:
+    name:
+      - perl-mojolicious
+
 - name: Install node.js support
   become: true
   pacman:
