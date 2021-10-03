@@ -72,11 +72,22 @@
       - perl-tidy
       - perl-yaml-libyaml
 
-- name: Install python
+- name: Install python base
   become: true
   pacman:
     name: [swig, python, python-pip, python-neovim]
     # - pydf
+
+- name: Install python additional
+  become: true
+  pacman:
+    name:
+      - python-black
+      - python-matplotlib
+      - python-numpy
+      - python-pandas
+      - python-pandas-datareader
+      - python-pylint
 
 - name: Install ruby
   become: true
@@ -86,7 +97,7 @@
 - name: Install file management tools
   become: true
   pacman:
-    name: [vifm, jq, ncdu, cpio, lzop, p7zip, unrar]
+    name: [vifm, jq, ncdu, cpio, lzop, pigz, p7zip, unrar]
     # - progress
     # - pv
     # - inotify-tools
