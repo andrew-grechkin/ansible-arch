@@ -6,6 +6,7 @@
     - application/aur/fonts
     - application/aur/google-chrome
     - application/aur/midi
+    - application/aur/mpv-mpris
     - application/aur/skype
     - application/core/browser
     - application/core/docker
