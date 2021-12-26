@@ -5,6 +5,7 @@
     name:
       # - apache
       - gdb
+      - git-delta
       - perf
       - cmake
       - extra-cmake-modules
@@ -47,6 +48,11 @@
       - go-tools
       - delve
 
+- name: Install lua support
+  aur:
+    name:
+      - lua-format
+
 - name: Install perl support
   aur:
     name:
@@ -57,6 +63,7 @@
   pacman:
     name:
       - nodejs
+      - npm
 
 # - name: Install emacs
 #   become: true

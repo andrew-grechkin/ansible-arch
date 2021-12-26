@@ -2,7 +2,7 @@
 - name: Install essential tools
   become: true
   pacman:
-    name: [sudo, git, neovim, tmux, bash-completion, zsh, zsh-completions, iw, crda, polkit]
+    name: [sudo, git, neovim, tmux, zsh, zsh-completions, iw, crda, polkit]
 
 - name: Install filesystem/partition tools
   become: true
@@ -64,11 +64,14 @@
   pacman:
     name:
       - perl-data-dump
+      - perl-dbd-pg
+      - perl-image-exiftool
       - perl-libwww
       - perl-log-any
       - perl-lwp-protocol-https
       - perl-path-tiny
       - perl-perl-critic
+      - perl-rename
       - perl-tidy
       - perl-yaml-libyaml
 
