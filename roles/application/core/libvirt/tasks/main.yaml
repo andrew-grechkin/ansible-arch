@@ -1,5 +1,10 @@
 ---
-- name: Install libvirt
-  become: yes
+- name: Install qemu
+  become: true
   pacman:
-    name: [qemu, virt-manager, ebtables, edk2-ovmf, dnsmasq]
+    name: [qemu, qemu-arch-extra]
+
+- name: Install libvirt
+  become: true
+  pacman:
+    name: [virt-manager, ebtables, edk2-ovmf, dnsmasq]

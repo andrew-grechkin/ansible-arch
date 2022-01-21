@@ -1,0 +1,12 @@
+---
+- name: Install system-devel packages
+  become: true
+  pacman:
+    name:
+      - arch-install-scripts
+      - debian-archive-keyring
+      - debootstrap
+      - dnf
+      - mkosi
+      - ubuntu-keyring
+      - squashfs-tools

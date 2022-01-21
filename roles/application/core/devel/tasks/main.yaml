@@ -25,6 +25,7 @@
   pacman:
     name:
       - shellcheck
+      - shfmt
       - vint
       - yamllint
 
@@ -64,10 +65,3 @@
     name:
       - nodejs
       - npm
-
-# - name: Install emacs
-#   become: true
-#   pacman:
-#     name:
-#       - emacs
-#       - adobe-source-code-pro-fonts

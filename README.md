@@ -6,11 +6,9 @@ Basic ansible scripts to install and setup Arch my way
 
 * `ansible-playbook playbooks/install.yaml`
 * reboot
-* fetch roles/private
-* `ansible-playbook playbooks/install-users.yaml`
-* reboot
+* `ansible-playbook playbooks/install-users.yaml --ask-become-pass --ask-vauld-pass`
 
 ### Setup
 
-* `ansible-playbook playbooks/setup-kde-min.yaml --ask-become-pass`
+* `ansible-playbook playbooks/setup-kde-min.yaml -K`
 * reboot

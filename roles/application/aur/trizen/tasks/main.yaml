@@ -11,7 +11,7 @@
     creates: /usr/bin/trizen
 
 - name: Install ansible aur module
-  shell: trizen -S --needed --noedit --noconfirm ansible-aur-git python-ansible-toolbox
+  command: trizen -S --needed --noedit --noconfirm ansible-aur-git
   args:
     creates: /usr/share/ansible/plugins/modules/aur.py
 

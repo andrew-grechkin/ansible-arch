@@ -7,16 +7,24 @@
 - name: Install filesystem/partition tools
   become: true
   pacman:
-    name: [btrfs-progs, exfat-utils, dosfstools, ntfs-3g, fuseiso, udftools, f2fs-tools, nilfs-utils, sshfs, gpart]
-    # - davfs2
-    # - mtools
+    name:
+      - btrfs-progs
+      - dosfstools
+      - exfat-utils
+      - f2fs-tools
+      - fuseiso
+      - gpart
+      - nilfs-utils
+      - ntfs-3g
+      - sshfs
+      - udftools
 
 - name: Install man/help
   become: true
   pacman:
     name: [man-db, man-pages]
 
-- name: Install search
+- name: Install search tools
   become: true
   pacman:
     name: [ack, fd, fzf, ripgrep, the_silver_searcher, mlocate]
@@ -24,7 +32,7 @@
 - name: Install boot tools
   become: true
   pacman:
-    name: [intel-ucode, efibootmgr, refind]
+    name: [efibootmgr, refind]
 
 - name: Install hdd tools
   become: true
@@ -41,8 +49,16 @@
 - name: Install common tools
   become: true
   pacman:
-    name: [acpi, hwinfo, iotop, htop, lsof, strace, usbutils, lsb-release, neofetch]
-    # - libqalculate
+    name:
+      - acpi
+      - htop
+      - hwinfo
+      - iotop
+      - lsb-release
+      - lsof
+      - neofetch
+      - strace
+      - usbutils
 
 - name: Install network tools
   become: true
@@ -92,6 +108,13 @@
       - python-pandas-datareader
       - python-pylint
 
+- name: Install ansible
+  become: true
+  pacman:
+    name:
+      - ansible
+      - ansible-lint
+
 - name: Install ruby
   become: true
   pacman:
@@ -100,10 +123,19 @@
 - name: Install file management tools
   become: true
   pacman:
-    name: [vifm, jq, ncdu, cpio, lzop, pigz, p7zip, unrar]
-    # - progress
-    # - pv
-    # - inotify-tools
+    name:
+      - cpio
+      - inotify-tools
+      - jq
+      - lzop
+      - ncdu
+      - p7zip
+      - pigz
+      - progress
+      - pv
+      - unrar
+      - unzip
+      - vifm
 
 - name: Install barcode/qrcode tools
   become: true
@@ -117,10 +149,28 @@
 #       - borg
 #       - restic
 
-- name: Install pulseaudio
+# - name: Install pulseaudio
+#   become: true
+#   pacman:
+#     name:
+#       - pulseaudio
+#       - pulseaudio-alsa
+#       - pulseaudio-zeroconf
+#       - paprefs
+#       - pamixer
+#       - pulsemixer
+
+- name: Install pipewire
   become: true
   pacman:
-    name: [pulseaudio, pulseaudio-alsa, pulseaudio-zeroconf, paprefs, pamixer, pulsemixer]
+    name:
+      - pamixer
+      - paprefs
+      - pipewire
+      - pipewire-alsa
+      - pipewire-pulse
+      - pipewire-zeroconf
+      - pulsemixer
 
 - name: Install alsa
   become: true
