@@ -19,9 +19,14 @@
   file:
     path: "{{ item.path }}"
     mode: "{{ item.mode }}"
+    owner: root
+    group: root
     state: directory
   with_items:
     - { path: /etc/sudoers.d, mode: "0750" }
+    - { path: /var/lib/AccountsService, mode: "0755" }
+    - { path: /var/lib/AccountsService/icons, mode: "0775" }
+    - { path: /var/lib/AccountsService/users, mode: "0700" }
 
 - name: Copy additional sudoers
   become: true
@@ -61,3 +66,23 @@
     mode: "0600"
   with_items: "{{ users }}"
   when: item.create_dot_ssh is not defined or item.create_dot_ssh|bool
+
+- name: Copy AccountsService icon
+  become: true
+  copy:
+    src: icons/{{ item.user|hash('sha256') }}
+    dest: /var/lib/AccountsService/icons/{{ item.user }}
+    owner: root
+    group: root
+    mode: "0644"
+  with_items: "{{ users }}"
+
+- name: Copy AccountsService user
+  become: true
+  copy:
+    src: users/{{ item.user|hash('sha256') }}
+    dest: /var/lib/AccountsService/users/{{ item.user }}
+    owner: root
+    group: root
+    mode: "0600"
+  with_items: "{{ users }}"
