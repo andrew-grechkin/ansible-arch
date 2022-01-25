@@ -1,21 +1,21 @@
 # Static information about the filesystems.
 # See fstab(5) for details.
 
-# <file system> <dir> <type> <options> <dump> <pass>
+# <file system>         <dir>                           <type>  <options>                                 <dump> <pass>
 
 # swap
-LABEL=swap              none                            swap    defaults,nofail,discard,pri=50                                              0 0
+LABEL=swap              none                            swap    nofail                                              0 0
 
 # root
-LABEL=root              /                               btrfs   rw,relatime,ssd,space_cache                                                 0 0
-LABEL=root              /.snapshots                     btrfs   rw,relatime,ssd,space_cache,nofail,subvol=@/.snapshots                      0 0
-LABEL=root              /opt                            btrfs   rw,relatime,ssd,space_cache,nofail,subvol=@/opt                             0 0
-LABEL=root              /srv                            btrfs   rw,relatime,ssd,space_cache,nofail,subvol=@/srv,nodev,nosuid,noexec         0 0
-LABEL=root              /var                            btrfs   rw,relatime,ssd,space_cache,nofail,subvol=@/var,nodatacow                   0 0
-
-# boot
-LABEL=EFI               /boot                           vfat    rw,relatime,nofail,utf8,nodev,nosuid,noexec                                 0 2
+LABEL=root              /                               btrfs   defaults                                            0 0
+LABEL=root              /.snapshots                     btrfs   nofail,subvol=@/.snapshots                          0 0
+LABEL=root              /opt                            btrfs   nofail,subvol=@/opt                                 0 0
+LABEL=root              /srv                            btrfs   nofail,subvol=@/srv,nodev,nosuid,noexec             0 0
+LABEL=root              /var                            btrfs   nofail,subvol=@/var,nodatacow                       0 0
 
 # home
-LABEL=home              /home                           btrfs   rw,relatime,ssd,space_cache,nofail                                          0 0
-LABEL=home              /home/.snapshots                btrfs   rw,relatime,ssd,space_cache,nofail,subvol=@/.snapshots                      0 0
+LABEL=home              /home                           btrfs   nofail                                              0 0
+LABEL=home              /home/.snapshots                btrfs   nofail,subvol=@/.snapshots                          0 0
+
+# boot
+LABEL=EFI               /boot                           vfat    nofail,nodev,nosuid,noexec,utf8                     0 2
