@@ -13,7 +13,6 @@
       - exfat-utils
       - f2fs-tools
       - fuseiso
-      - gpart
       - nilfs-utils
       - ntfs-3g
       - sshfs
@@ -172,16 +171,16 @@
       - pipewire-zeroconf
       - pulsemixer
 
-- name: Install alsa
-  become: true
-  pacman:
-    name: [alsa-utils, alsa-plugins]
-    # alsa-tools
-    # amixer sset Master    unmute
-    # amixer sset Speaker   unmute
-    # amixer sset Headphone unmute
-    # alsamixer
-    # speaker-test -c 2
+# - name: Install alsa
+#   become: true
+#   pacman:
+#     name: [alsa-utils, alsa-plugins]
+#    # alsa-tools
+#    # amixer sset Master    unmute
+#    # amixer sset Speaker   unmute
+#    # amixer sset Headphone unmute
+#    # alsamixer
+#    # speaker-test -c 2
 
 - name: Install bluetooth
   become: true

@@ -6,92 +6,95 @@
   failed_when: false
 
 - name: Read device information (always use unit when probing)
-  parted: device="{{install_device}}" unit=GiB
+  parted: device="{{ install_device }}" unit=GiB
   register: install_device_info
-- name: Check {{install_device}} is clean
+- name: Check {{ install_device }} is clean
   when: install_device_info.partitions != []
   fail:
-    msg: The system may not be installed, {{install_device}} is not empty
+    msg: The system may not be installed, {{ install_device }} is not empty
 
 - name: Create a new primary partition with a size of 1GiB
   parted:
-    device: "{{install_device}}"
+    device: "{{ install_device }}"
     number: 1
     label: gpt
     state: present
     part_end: 1GiB
     flags: [esp]
-- name: Create the second primary partition with a size of 15GiB
-  parted:
-    device: "{{install_device}}"
-    number: 2
-    label: gpt
-    state: present
-    part_start: 1GiB
-    part_end: 16GiB
 - name: Create a new primary partition for LVM
+  when: not safe_disk_space_at_the_end|bool
   parted:
-    device: "{{install_device}}"
-    number: 3
+    device: "{{ install_device }}"
+    number: 2
     label: gpt
     flags: [lvm]
     state: present
     part_start: 16GiB
+- name: Create a new primary partition for LVM
+  when: safe_disk_space_at_the_end|bool
+  parted:
+    device: "{{ install_device }}"
+    number: 2
+    label: gpt
+    flags: [lvm]
+    state: present
+    part_start: 16GiB
+    part_end: -20GiB
 
-- name: Create and open the LUKS2 container on {{install_device}}3
+- name: Create and open the LUKS2 container on {{ install_device }}2
   when: install_encrypt|bool
   community.crypto.luks_device:
-    device: "{{install_device}}3"
-    label: lvm-encrypted{{install_suffix}}
-    name: lvm-encrypted{{install_suffix}}
-    passphrase: "{{userpass}}"
+    device: "{{ install_device }}2"
+    label: lvm-encrypted{{ install_suffix }}
+    name: lvm-encrypted{{ install_suffix }}
+    passphrase: "{{ userpass }}"
     state: opened
     type: luks2
-- name: Create a volume group on top of /dev/mapper/lvm-encrypted{{install_suffix}}
+- name: Create a volume group on top of /dev/mapper/lvm-encrypted{{ install_suffix }}
   when: install_encrypt|bool
-  lvg: vg=vg-arch{{install_suffix}} pvs=/dev/mapper/lvm-encrypted{{install_suffix}}
+  lvg: vg=vg-arch{{ install_suffix }} pvs=/dev/mapper/lvm-encrypted{{ install_suffix }}
 
-- name: Create a volume group on top of {{install_device}}3
+- name: Create a volume group on top of {{ install_device }}2
   when: not install_encrypt|bool
-  lvg: vg=vg-arch{{install_suffix}} pvs="{{install_device}}3"
+  lvg: vg=vg-arch{{ install_suffix }} pvs="{{ install_device }}2"
 
 - name: Create root logical volume
-  lvol: vg=vg-arch{{install_suffix}} lv=root size="{{install_root_size}}"
+  lvol: vg=vg-arch{{ install_suffix }} lv=root size="{{ install_root_size }}"
 - name: Create swap logical volume
-  lvol: vg=vg-arch{{install_suffix}} lv=swap size="{{install_swap_size}}"
+  lvol: vg=vg-arch{{ install_suffix }} lv=swap size="{{ install_swap_size }}"
 - name: Create home logical volume
-  lvol: vg=vg-arch{{install_suffix}} lv=home size="{{install_home_size}}"
+  lvol: vg=vg-arch{{ install_suffix }} lv=home size="{{ install_home_size }}"
 
-- name: Create a EFI filesystem on {{install_device}}1
-  filesystem: dev="{{install_device}}1" fstype=vfat opts="-n EFI{{install_suffix}}"
-- name: Create a root filesystem on vg-arch-root{{install_suffix}}
-  filesystem: dev=/dev/vg-arch{{install_suffix}}/root fstype=btrfs opts="-L root{{install_suffix}}"
-- name: Create a swap filesystem on vg-arch-swap{{install_suffix}}
-  filesystem: dev=/dev/vg-arch{{install_suffix}}/swap fstype=swap opts="-L swap{{install_suffix}}"
-- name: Create a home filesystem on vg-arch-home{{install_suffix}}
-  filesystem: dev=/dev/vg-arch{{install_suffix}}/home fstype=btrfs opts="-L home{{install_suffix}}"
+- name: Create a EFI filesystem on {{ install_device }}1
+  filesystem: dev="{{ install_device }}1" fstype=vfat opts="-n EFI{{ install_suffix }}"
+- name: Create a root filesystem on vg-arch-root{{ install_suffix }}
+  filesystem: dev=/dev/vg-arch{{ install_suffix }}/root fstype=btrfs opts="-L root{{ install_suffix }}"
+- name: Create a swap filesystem on vg-arch-swap{{ install_suffix }}
+  filesystem: dev=/dev/vg-arch{{ install_suffix }}/swap fstype=swap opts="-L swap{{ install_suffix }}"
+- name: Create a home filesystem on vg-arch-home{{ install_suffix }}
+  filesystem: dev=/dev/vg-arch{{ install_suffix }}/home fstype=btrfs opts="-L home{{ install_suffix }}"
 
 - name: Prepare btrfs root partition
-  script: prepare-btrfs-root.sh "root{{install_suffix}}" '@'
+  script: prepare-btrfs-root.sh "root{{ install_suffix }}" '@'
 - name: Prepare btrfs home partition
-  script: prepare-btrfs-home.sh "home{{install_suffix}}" '@'
+  script: prepare-btrfs-home.sh "home{{ install_suffix }}" '@'
 
 - name: Mount root subvolume structure /
-  mount: fstype=btrfs state=mounted src=LABEL=root{{install_suffix}} opts=subvol=@/.snapshots/init/snapshot path=/mnt
+  mount: fstype=btrfs state=mounted src=LABEL=root{{ install_suffix }} opts=subvol=@/.snapshots/init/snapshot path=/mnt
 - name: Mount root subvolume structure /opt
-  mount: fstype=btrfs state=mounted src=LABEL=root{{install_suffix}} opts=subvol=@/opt path=/mnt/opt
+  mount: fstype=btrfs state=mounted src=LABEL=root{{ install_suffix }} opts=subvol=@/opt path=/mnt/opt
 - name: Mount root subvolume structure /srv
-  mount: fstype=btrfs state=mounted src=LABEL=root{{install_suffix}} opts=subvol=@/srv path=/mnt/srv
+  mount: fstype=btrfs state=mounted src=LABEL=root{{ install_suffix }} opts=subvol=@/srv path=/mnt/srv
 - name: Mount root subvolume structure /var
-  mount: fstype=btrfs state=mounted src=LABEL=root{{install_suffix}} opts=subvol=@/var path=/mnt/var
+  mount: fstype=btrfs state=mounted src=LABEL=root{{ install_suffix }} opts=subvol=@/var path=/mnt/var
 - name: Mount root subvolume structure /.snapshots
-  mount: fstype=btrfs state=mounted src=LABEL=root{{install_suffix}} opts=subvol=@/.snapshots path=/mnt/.snapshots
+  mount: fstype=btrfs state=mounted src=LABEL=root{{ install_suffix }} opts=subvol=@/.snapshots path=/mnt/.snapshots
 - name: Mount home subvolume structure /home
-  mount: fstype=btrfs state=mounted src=LABEL=home{{install_suffix}} opts=subvol=@/.snapshots/init/snapshot path=/mnt/home
+  mount: fstype=btrfs state=mounted src=LABEL=home{{ install_suffix }} opts=subvol=@/.snapshots/init/snapshot path=/mnt/home
 - name: Mount home subvolume structure /home/.snapshots
-  mount: fstype=btrfs state=mounted src=LABEL=home{{install_suffix}} opts=subvol=@/.snapshots path=/mnt/home/.snapshots
+  mount: fstype=btrfs state=mounted src=LABEL=home{{ install_suffix }} opts=subvol=@/.snapshots path=/mnt/home/.snapshots
 - name: Mount esp partition
-  mount: fstype=vfat state=mounted src=LABEL=EFI{{install_suffix}} path=/mnt/boot
+  mount: fstype=vfat state=mounted src=LABEL=EFI{{ install_suffix }} path=/mnt/boot
 
 - name: Checkout ansible scripts
   git:
@@ -100,12 +103,12 @@
   ignore_errors: true
 
 - name: Update pacman mirrors
-  shell: reflector --country "{{install_pacman_mirror_country}}" --latest 8 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+  command: reflector --country "{{ install_pacman_mirror_country }}" --latest 8 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
   args:
     creates: /root/.cache/mirrorstatus.json
 
 - name: Run pacstrap
-  shell: pacstrap /mnt base linux linux-firmware sudo cryptsetup lvm2 mdadm btrfs-progs refind avahi nss-mdns systemd-resolvconf inetutils networkmanager zsh tmux git vifm vim
+  command: pacstrap /mnt base linux linux-firmware sudo cryptsetup lvm2 mdadm btrfs-progs refind avahi nss-mdns systemd-resolvconf inetutils networkmanager zsh tmux git vifm vim
   args:
     creates: /mnt/etc/pacman.conf
 
@@ -116,12 +119,15 @@
   file:
     path: /mnt/etc/systemd/resolved.conf.d
     state: directory
+    owner: root
+    group: root
+    mode: '0775'
 
 - name: Copy resolved overrides
   copy: src=etc/systemd/resolved.conf.d/50-override.conf dest=/mnt/etc/systemd/resolved.conf.d/50-override.conf owner=root group=root mode='0644'
 
 - name: Install rEFInd
-  script: install-refind.sh "{{install_encrypt|bool}}" "{{install_suffix}}"
+  script: install-refind.sh "{{ install_encrypt|bool }}" "{{ install_suffix }}"
   args:
     creates: /boot/refind_linux.conf
 
@@ -134,15 +140,15 @@
     recursive: true
 
 - name: Use pacman mirrorlist
-  shell: cp -f /etc/pacman.d/mirrorlist /mnt/etc/pacman.d
+  command: cp -f /etc/pacman.d/mirrorlist /mnt/etc/pacman.d
 
 - name: Post install
-  script: post-install.sh "{{username}}" "{{useruid}}" "{{userpass}}"
+  script: post-install.sh "{{ username }}" "{{ useruid }}" "{{ userpass }}"
   args:
     creates: /mnt/etc/locale.conf
 
 - name: Update initcpio
-  script: update-initcpio.sh "{{install_encrypt|bool}}"
+  script: update-initcpio.sh "{{ install_encrypt|bool }}"
 
 - name: Unmount all
-  shell: umount -R /mnt
+  command: umount -R /mnt

@@ -18,12 +18,12 @@
       - k3b
       # - kdenetwork-meta
       - kdenetwork-filesharing
-      - krdc
-      - krfb
+      # - krdc
+      # - krfb
       - zeroconf-ioslave
       # - kio-extras
       # - kdepim-meta
       - kleopatra
-      - kdepim-addons
+      # - kdepim-addons
       - kde-utilities-meta
-      - krusader
+      # - krusader

@@ -24,7 +24,7 @@
     state: directory
   with_items:
     - { path: /etc/sudoers.d, mode: "0750" }
-    - { path: /var/lib/AccountsService, mode: "0755" }
+    - { path: /var/lib/AccountsService, mode: "0775" }
     - { path: /var/lib/AccountsService/icons, mode: "0775" }
     - { path: /var/lib/AccountsService/users, mode: "0700" }
 

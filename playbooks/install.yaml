@@ -15,7 +15,7 @@
       private: false
     - name: install_root_size
       prompt: Root partition size
-      default: 48G
+      default: 64G
       private: false
     - name: install_swap_size
       prompt: Swap partition size
@@ -35,6 +35,10 @@
     - name: install_encrypt
       prompt: Use LUKS2
       default: false
+      private: false
+    - name: safe_disk_space_at_the_end
+      prompt: Safe 20GiB at the end of the disk
+      default: true
       private: false
   roles:
     - system/install
