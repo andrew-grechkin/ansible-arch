@@ -67,7 +67,7 @@
 - name: Install pacman tools
   become: true
   pacman:
-    name: [pacman-contrib, pcurses, pkgstats, reflector]
+    name: [pacman-contrib, pkgstats, reflector]
 
 - name: Install perl base
   become: true
@@ -185,8 +185,8 @@
 - name: Install bluetooth
   become: true
   pacman:
-    name: [bluez, pulseaudio-bluetooth]
-    # name: [bluez-cups, bluez-utils]
+    name: [bluez]
+    # name: [bluez-cups, bluez-utils, pulseaudio-bluetooth]
 
 - name: Enable bluetooth services
   become: true
@@ -200,11 +200,11 @@
     name: updatedb.timer
     enabled: true
 
-- name: Clean unnecessary packages
-  become: true
-  pacman:
-    state: absent
-    name: []
+# - name: Clean unnecessary packages
+#   become: true
+#   pacman:
+#     state: absent
+#     name: []
 
 - name: Allow RSYNC for new super user without SUDO password
   become: true

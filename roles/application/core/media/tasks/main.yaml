@@ -13,8 +13,8 @@
 - name: CD ripping support
   become: true
   pacman:
-    name: [abcde, cdparanoia, cdrdao]
-# mkcue
+    name: [cdparanoia, cdrdao]
+# abcde, mkcue
 
 - name: Media decoding/ripping
   become: true
