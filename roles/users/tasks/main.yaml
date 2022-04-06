@@ -2,14 +2,13 @@
 - name: Add the user
   become: true
   user:
+    append: true
     comment: "{{ item.comment }}"
+    groups: "{{ item.groups }}"
     name: "{{ item.user }}"
     password: "{{ item.password }}"
-    uid: "{{ item.uid }}"
-    groups: "{{ item.groups }}"
-    append: true
-    update_password: on_create
     shell: /bin/zsh
+    uid: "{{ item.uid }}"
   with_items: "{{ users }}"
   notify:
     - reset root password
