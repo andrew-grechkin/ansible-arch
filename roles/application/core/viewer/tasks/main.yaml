@@ -4,6 +4,11 @@
   pacman:
     name: [zathura, zathura-djvu, zathura-pdf-poppler, poppler]
 
+- name: Pdf support
+  become: true
+  pacman:
+    name: [pdfgrep, pdftk]
+
 - name: E-book reader
   become: true
   pacman:

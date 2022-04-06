@@ -46,8 +46,9 @@
   when: not terminal_only|default(false)
   become: true
   pacman:
-    name: [feh, sxiv]
+    name: [sxiv]
 ### image viewers
+#   feh
 # 	mirage
 # 	qiv
 # 	gpicview

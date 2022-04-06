@@ -1,4 +1,9 @@
 ---
+- name: Install essential tools to make login possible
+  become: true
+  pacman:
+    name: [sudo, git, perlbrew, neovim, tmux, zsh, zsh-completions]
+
 - name: Add the user
   become: true
   user:

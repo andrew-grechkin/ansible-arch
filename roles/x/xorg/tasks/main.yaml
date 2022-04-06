@@ -24,7 +24,8 @@
 - name: Install keyring (needed by many apps)
   become: true
   pacman:
-    name: [gnome-keyring, seahorse, paperkey]
+    name: [gnome-keyring, seahorse]
+# paperkey
 
 - name: Install xdg
   become: true

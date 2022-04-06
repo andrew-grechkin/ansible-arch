@@ -13,7 +13,6 @@
       - exfat-utils
       - f2fs-tools
       - fuseiso
-      - nilfs-utils
       - ntfs-3g
       - sshfs
       - udftools
