@@ -3,7 +3,6 @@
   become: true
   pacman:
     name:
-      # - apache
       - gdb
       - git-delta
       - perf
@@ -17,8 +16,7 @@
       - bat
       - pygmentize
       # - retext
-      - tig
-      - zeal
+      # - tig
 
 - name: Linting
   become: true
@@ -29,17 +27,11 @@
       - vint
       - yamllint
 
-- name: Dictionary
-  become: true
-  pacman:
-    name:
-      - goldendict
-
-- name: Install VScode
-  become: true
-  pacman:
-    name:
-      - code
+# - name: Dictionary
+#   become: true
+#   pacman:
+#     name:
+#       - goldendict
 
 - name: Install go support
   become: true
@@ -48,6 +40,11 @@
       - go
       - go-tools
       - delve
+
+- name: Install doc helpers
+  aur:
+    name:
+      - zeal
 
 - name: Install lua support
   aur:

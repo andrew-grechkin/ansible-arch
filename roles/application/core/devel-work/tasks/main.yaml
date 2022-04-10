@@ -1,0 +1,42 @@
+---
+- name: Install network packages
+  become: true
+  pacman:
+    name:
+      - globalprotect-openconnect
+      - netctl
+      - networkmanager-openconnect
+
+- name: Install devel packages
+  become: true
+  pacman:
+    name:
+      - apache
+      - maven
+
+- name: Install doc helpers
+  become: true
+  pacman:
+    name:
+      - pandoc
+      - texlive-core
+
+- name: Install kubernetes
+  become: true
+  pacman:
+    name:
+      - k9s
+      - kubeadm
+      - kubectl
+
+# - name: Install VScode
+#   become: true
+#   pacman:
+#     name:
+#       - code
+
+- name: Install node.js support
+  become: true
+  pacman:
+    name:
+      - yarn
