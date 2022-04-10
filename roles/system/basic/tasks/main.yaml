@@ -2,7 +2,7 @@
 - name: Install essential tools
   become: true
   pacman:
-    name: [sudo, git, neovim, tmux, zsh, zsh-completions, iw, crda, polkit]
+    name: [sudo, git, neovim, tmux, zsh, zsh-completions, iw, wireless-regdb, polkit]
 
 - name: Install filesystem/partition tools
   become: true

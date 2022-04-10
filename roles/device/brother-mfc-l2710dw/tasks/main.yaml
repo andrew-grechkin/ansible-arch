@@ -12,3 +12,21 @@
   shell: brsaneconfig4 -a name=MFC-L2710DW model=MFC-L2710DW ip="mfc.ams"
   args:
     creates: /etc/cups/ppd/Brother_MFC-L2710DW_series.ppd
+
+- name: Copy to ppd
+  become: true
+  copy:
+    src: cups/ppd/Brother_MFC-L2710DW_series.ppd
+    dest: /etc/cups/ppd/Brother_MFC-L2710DW_series.ppd
+    owner: root
+    group: cups
+    mode: "0644"
+
+- name: Copy to cups
+  become: true
+  copy:
+    src: cups/printers.conf
+    dest: /etc/cups/printers.conf
+    owner: root
+    group: cups
+    mode: "0600"

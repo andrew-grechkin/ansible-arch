@@ -1,0 +1,6 @@
+---
+- name: Install finger print support
+  become: true
+  pacman:
+    name:
+      - fprintd
