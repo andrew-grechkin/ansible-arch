@@ -1,4 +1,10 @@
 ---
+- name: Install required tools
+  become: true
+  pacman:
+    name:
+      - expect
+
 - name: Install network packages
   become: true
   pacman:
