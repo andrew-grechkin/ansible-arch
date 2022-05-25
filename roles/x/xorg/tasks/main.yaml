@@ -13,6 +13,7 @@
       - xorg-xev
       - xorg-xinit
       - xorg-xinput
+      - xorg-xkill
       - xsel
 
 - name: Install terminal emulator
