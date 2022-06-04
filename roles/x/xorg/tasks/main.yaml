@@ -5,7 +5,6 @@
     name:
       - accountsservice
       - rofi
-      - sxhkd
       - xclip
       - xdotool
       - xorg-server
@@ -32,6 +31,11 @@
   become: true
   pacman:
     name: [xdg-user-dirs, xdg-utils]
+
+- name: Install bspwm
+  become: true
+  pacman:
+    name: [bspwm, sxhkd, autorandr, picom, redshift]
 
 - name: Install themes
   become: true

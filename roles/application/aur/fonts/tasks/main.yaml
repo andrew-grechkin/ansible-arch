@@ -21,6 +21,7 @@
     name:
       - nerd-fonts-dejavu-complete
       - nerd-fonts-jetbrains-mono
+      - open-dyslexic-fonts
       - ttf-iosevka
 
 - name: Install additional fonts

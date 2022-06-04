@@ -9,7 +9,6 @@ LABEL=swap              none                            swap    nofail          
 # root
 LABEL=root              /                               btrfs   defaults                                            0 0
 LABEL=root              /.snapshots                     btrfs   nofail,subvol=@/.snapshots                          0 0
-LABEL=root              /opt                            btrfs   nofail,subvol=@/opt                                 0 0
 LABEL=root              /srv                            btrfs   nofail,subvol=@/srv,nodev,nosuid,noexec             0 0
 LABEL=root              /var                            btrfs   nofail,subvol=@/var,nodatacow                       0 0
 
