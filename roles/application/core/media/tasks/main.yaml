@@ -26,12 +26,6 @@
   pacman:
     name: [mediainfo]
 
-- name: Media info (gui)
-  when: not terminal_only|default(false)
-  become: true
-  pacman:
-    name: [mediainfo-gui]
-
 - name: Image encoding
   become: true
   pacman:
