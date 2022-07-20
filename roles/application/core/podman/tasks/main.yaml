@@ -2,7 +2,7 @@
 - name: Install podman
   become: true
   pacman:
-    name: [buildah, fuse-overlayfs, podman, podman-compose]
+    name: [buildah, podman-docker, fuse-overlayfs, podman, podman-compose]
 
 - name: Add user to subuid
   become: true
@@ -25,3 +25,12 @@
     path: /etc/subgid
     state: present
     line: "{{ lookup('env','USER') }}:100000:65536"
+
+- name: Add nodocker file
+  become: true
+  ansible.builtin.file:
+    group: root
+    mode: '0644'
+    owner: root
+    path: /etc/containers/nodocker
+    state: touch

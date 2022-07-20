@@ -9,10 +9,10 @@
     - application/aur/mpv-mpris
     - application/aur/skype
     - application/core/browser
-    - application/core/docker
     - application/core/encryption
     - application/core/media
     - application/core/network
+    - application/core/podman
     - application/core/snapper
     - application/core/viewer
     - application/core/virtualbox
