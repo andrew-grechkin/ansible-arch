@@ -7,6 +7,10 @@
 - name: Add user to subuid
   become: true
   ansible.builtin.lineinfile:
+    create: true
+    group: root
+    owner: root
+    mode: '0644'
     path: /etc/subuid
     state: present
     line: "{{ lookup('env','USER') }}:100000:65536"
@@ -14,6 +18,10 @@
 - name: Add user group to subgid
   become: true
   ansible.builtin.lineinfile:
+    create: true
+    group: root
+    owner: root
+    mode: '0644'
     path: /etc/subgid
     state: present
     line: "{{ lookup('env','USER') }}:100000:65536"
