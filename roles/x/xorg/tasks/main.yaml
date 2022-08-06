@@ -41,16 +41,10 @@
   become: true
   pacman:
     name: [archlinux-wallpaper, papirus-icon-theme]
-# - adapta-gtk-theme
-# #arc-gtk-theme arc-icon-theme arc-solid-gtk-theme
-# #gnome-icon-theme gnome-icon-theme-extras gnome-icon-theme-symbolic
-# gnome-themes-extra
-# xdg-user-dirs-update
-# xdg-user-dirs-gtk-update
 
 - name: Update keyboard mapping
   become: true
-  shell: localectl set-x11-keymap us,ru pc105 , grp:shifts_toggle --no-convert
+  ansible.builtin.command: localectl set-x11-keymap us,ru pc105 , grp:shifts_toggle --no-convert
 
 - name: Install emoji support
   become: true
@@ -58,14 +52,6 @@
     name:
       - ttf-joypixels
       - unicode-emoji
-
-- name: Allow RSYNC for new super user without SUDO password
-  become: true
-  lineinfile:
-    path: /etc/sudoers
-    state: present
-    insertafter: ^%sudo
-    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
 
 - name: Copy configs
   become: true
@@ -75,10 +61,3 @@
     archive: false
     compress: false
     recursive: true
-
-- name: Disallow RSYNC for new super user without SUDO password
-  become: true
-  lineinfile:
-    path: /etc/sudoers
-    state: absent
-    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"

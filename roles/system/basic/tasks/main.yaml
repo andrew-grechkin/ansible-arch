@@ -40,7 +40,7 @@
 
 - name: Enable hdd smart service
   become: true
-  service:
+  ansible.builtin.service:
     name: smartd
     enabled: true
 
@@ -193,13 +193,13 @@
 
 - name: Enable bluetooth services
   become: true
-  service:
+  ansible.builtin.service:
     name: bluetooth
     enabled: true
 
 - name: Enable search service
   become: true
-  service:
+  ansible.builtin.service:
     name: updatedb.timer
     enabled: true
 
@@ -209,13 +209,13 @@
 #     state: absent
 #     name: []
 
-- name: Allow RSYNC for new super user without SUDO password
-  become: true
-  lineinfile:
-    path: /etc/sudoers
-    state: present
-    insertafter: ^%sudo
-    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
+# - name: Allow RSYNC for new super user without SUDO password
+#   become: true
+#   ansible.builtin.lineinfile:
+#     path: /etc/sudoers
+#     state: present
+#     insertafter: ^%sudo
+#     line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
 
 - name: Copy configs
   become: true
@@ -226,15 +226,15 @@
     compress: false
     recursive: true
 
-- name: Disallow RSYNC for new super user without SUDO password
-  become: true
-  lineinfile:
-    path: /etc/sudoers
-    state: absent
-    line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
+# - name: Disallow RSYNC for new super user without SUDO password
+#   become: true
+#   ansible.builtin.lineinfile:
+#     path: /etc/sudoers
+#     state: absent
+#     line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
 
 - name: Enable reflector service
   become: true
-  service:
+  ansible.builtin.service:
     name: reflector.timer
     enabled: true

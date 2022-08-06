@@ -1,4 +1,9 @@
 ---
+- name: Print all available facts
+  # ansible localhost -m ansible.builtin.setup
+  ansible.builtin.debug:
+    var: ansible_facts
+
 - name: Check internet connectivity
   ansible.builtin.uri:
     timeout: 5
@@ -9,9 +14,9 @@
   parted: device="{{ install_device }}" unit=GiB
   register: install_device_info
 - name: Check {{ install_device }} is clean
-  when: install_device_info.partitions != []
-  fail:
+  ansible.builtin.fail:
     msg: The system may not be installed, {{ install_device }} is not empty
+  when: install_device_info.partitions != []
 
 - name: Create a new primary partition with a size of 1GiB
   parted:
