@@ -81,8 +81,6 @@
 
 - name: Mount root subvolume structure /
   mount: fstype=btrfs state=mounted src=LABEL=root{{ install_suffix }} opts=subvol=@/.snapshots/init/snapshot path=/mnt
-- name: Mount root subvolume structure /opt
-  mount: fstype=btrfs state=mounted src=LABEL=root{{ install_suffix }} opts=subvol=@/opt path=/mnt/opt
 - name: Mount root subvolume structure /srv
   mount: fstype=btrfs state=mounted src=LABEL=root{{ install_suffix }} opts=subvol=@/srv path=/mnt/srv
 - name: Mount root subvolume structure /var
