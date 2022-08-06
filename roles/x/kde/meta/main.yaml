@@ -1,4 +1,5 @@
 ---
 dependencies:
   - role: x/xorg
-  - role: system/sddm
+  - role: system/lightdm
+  # - role: system/sddm
