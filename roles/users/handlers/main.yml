@@ -1,12 +1,12 @@
 ---
 - name: reset root password
   become: true
-  user:
+  ansible.builtin.user:
     name: root
     password: "*"
 
 - name: disable root
   become: true
-  user:
+  ansible.builtin.user:
     name: root
     password_lock: true

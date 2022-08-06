@@ -6,7 +6,7 @@
 
 - name: Add the user
   become: true
-  user:
+  ansible.builtin.user:
     append: true
     comment: "{{ item.comment }}"
     groups: "{{ item.groups }}"
@@ -20,7 +20,8 @@
     - disable root
 
 - name: Ensure directory exists
-  file:
+  become: true
+  ansible.builtin.file:
     path: "{{ item.path }}"
     mode: "{{ item.mode }}"
     owner: root
@@ -34,7 +35,7 @@
 
 - name: Copy additional sudoers
   become: true
-  copy:
+  ansible.builtin.copy:
     src: sudoers.d/additional
     dest: /etc/sudoers.d/additional
     owner: root
@@ -44,14 +45,14 @@
 
 - name: Set proper folder permissions for user
   become: true
-  file:
+  ansible.builtin.file:
     path: /home/{{ item.user }}
     mode: g=rxs
   with_items: "{{ users }}"
 
 - name: Create ssh directory for user
   become: true
-  file:
+  ansible.builtin.file:
     path: /home/{{ item.user }}/.ssh
     owner: "{{ item.user }}"
     group: "{{ item.user }}"
@@ -62,7 +63,7 @@
 
 - name: Copy authorized_keys for user
   become: true
-  copy:
+  ansible.builtin.copy:
     src: authorized_keys
     dest: /home/{{ item.user }}/.ssh/authorized_keys
     owner: "{{ item.user }}"
@@ -73,8 +74,8 @@
 
 - name: Copy AccountsService icon
   become: true
-  copy:
-    src: icons/{{ item.user|hash('sha256') }}
+  ansible.builtin.copy:
+    src: icons/{{ item.user | hash('sha256') }}
     dest: /var/lib/AccountsService/icons/{{ item.user }}
     owner: root
     group: root
@@ -83,8 +84,8 @@
 
 - name: Copy AccountsService user
   become: true
-  copy:
-    src: users/{{ item.user|hash('sha256') }}
+  ansible.builtin.copy:
+    src: users/{{ item.user | hash('sha256') }}
     dest: /var/lib/AccountsService/users/{{ item.user }}
     owner: root
     group: root

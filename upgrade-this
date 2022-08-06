@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-ansible-role roles/system/upgrade -i localhost.yaml -K
