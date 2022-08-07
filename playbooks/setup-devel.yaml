@@ -1,0 +1,10 @@
+---
+- hosts: [localhost]
+  roles:
+    - application/core/encryption
+    - application/core/devel
+    - application/core/podman
+
+# - application/aur/skype
+# - application/core/virtualbox
+# - device/brother-mfc-l2710dw

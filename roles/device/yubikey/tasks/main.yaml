@@ -10,4 +10,5 @@
   become: true
   pacman:
     name:
+      - yubikey-manager-qt
       - yubikey-personalization-gui

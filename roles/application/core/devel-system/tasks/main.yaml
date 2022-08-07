@@ -7,6 +7,7 @@
       - debian-archive-keyring
       - debootstrap
       - dnf
+      - dpkg
       - mkosi
-      - ubuntu-keyring
       - squashfs-tools
+      - ubuntu-keyring

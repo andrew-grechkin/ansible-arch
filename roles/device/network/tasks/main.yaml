@@ -4,7 +4,7 @@
   pacman:
     name:
       - dhclient
-      - network-manager-applet
+      # - network-manager-applet
       - networkmanager
       # - networkmanager-openconnect
       - systemd-resolvconf

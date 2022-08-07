@@ -2,9 +2,9 @@
 - name: Install qemu
   become: true
   pacman:
-    name: [qemu, qemu-arch-extra]
+    name: [qemu, qemu-desktop, qemu-emulators-full, qemu-guest-agent, qemu-block-rbd]
 
 - name: Install libvirt
   become: true
   pacman:
-    name: [virt-manager, ebtables, edk2-ovmf, dnsmasq]
+    name: [virt-manager, ebtables, dnsmasq]

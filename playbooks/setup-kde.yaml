@@ -17,8 +17,3 @@
     - device/touchpad
     - device/video
     - device/yubikey
-
-# - application/aur/skype
-# - application/core/encryption
-# - application/core/virtualbox
-# - device/brother-mfc-l2710dw

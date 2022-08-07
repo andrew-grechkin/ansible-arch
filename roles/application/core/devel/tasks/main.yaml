@@ -5,6 +5,7 @@
     name:
       - gdb
       - git-delta
+      - git-sizer
       - perf
       - cmake
       - extra-cmake-modules

@@ -2,7 +2,7 @@
 - name: Install essential tools
   become: true
   pacman:
-    name: [sudo, git, neovim, tmux, zsh, zsh-completions, iw, wireless-regdb, polkit]
+    name: [sudo, bash-completion, git, neovim, tmux, zsh, zsh-completions, iw, wireless-regdb, polkit]
 
 - name: Install filesystem/partition tools
   become: true
@@ -107,7 +107,9 @@
       - python-numpy
       - python-pandas
       - python-pandas-datareader
+      - python-psycopg2
       - python-pylint
+      - python-wheel
 
 - name: Install ansible
   become: true
@@ -169,6 +171,7 @@
       - paprefs
       - pipewire
       - pipewire-alsa
+      - pipewire-jack
       - pipewire-pulse
       - pipewire-v4l2
       - pipewire-zeroconf
