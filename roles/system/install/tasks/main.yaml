@@ -111,7 +111,7 @@
     creates: /root/.cache/mirrorstatus.json
 
 - name: Run pacstrap
-  ansible.builtin.command: pacstrap /mnt base linux linux-firmware sudo cryptsetup lvm2 mdadm btrfs-progs refind avahi nss-mdns systemd-resolvconf inetutils networkmanager zsh tmux git vifm vim make
+  ansible.builtin.command: pacstrap /mnt base linux linux-firmware sudo cryptsetup lvm2 mdadm btrfs-progs refind avahi nss-mdns systemd-resolvconf inetutils networkmanager zsh zsh-completions grml-zsh-config tmux git vifm vim make
   args:
     creates: /mnt/etc/pacman.conf
 

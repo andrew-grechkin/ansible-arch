@@ -51,7 +51,7 @@ arch-chroot /mnt systemctl enable fstrim.timer
 USER_PASS=$(perl -MDigest::MD5=md5_hex -E '$pass=shift; $salt=md5_hex(rand); print crypt($pass,"\$6\$${salt}\$")' "$3")
 ROOT_PASS=$(perl -MDigest::MD5=md5_hex -E '$pass=shift; $salt=md5_hex(rand); print crypt($pass,"\$6\$${salt}\$")' "$3")
 
-arch-chroot /mnt useradd -m -G wheel,audio,log,network,optical,power,storage,sys,systemd-journal,users,uucp,video -u "$2" "$1"
+arch-chroot /mnt useradd -m -s /usr/bin/zsh -G wheel,audio,log,network,optical,power,storage,sys,systemd-journal,users,uucp,video -u "$2" "$1"
 arch-chroot /mnt usermod -p "$USER_PASS" "$1"
 arch-chroot /mnt usermod -p "$ROOT_PASS" root
 
