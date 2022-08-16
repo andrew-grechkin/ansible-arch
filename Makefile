@@ -17,7 +17,7 @@ setup-kde:
 	ansible-playbook playbooks/setup-kde.yaml -K
 
 upgrade-all:
-	ansible-role roles/system/upgrade -i hosts.yaml -K --hosts all --ask-vault-pass
+	ansible-role roles/system/upgrade -i hosts.yaml -l all -K --ask-vault-pass
 
 upgrade-this:
 	ansible-role roles/system/upgrade -i localhost.yaml -K

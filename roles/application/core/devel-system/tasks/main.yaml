@@ -1,13 +1,33 @@
 ---
-- name: Install system-devel packages
+- name: Install system-devel packages (mkosi)
+  become: true
+  pacman:
+    name:
+      - mkosi
+      - squashfs-tools
+
+- name: Install system-devel packages (arch)
   become: true
   pacman:
     name:
       - arch-install-scripts
+
+- name: Install system-devel packages (debian)
+  become: true
+  pacman:
+    name:
       - debian-archive-keyring
       - debootstrap
-      - dnf
       - dpkg
-      - mkosi
-      - squashfs-tools
+
+- name: Install system-devel packages (ubuntu)
+  become: true
+  pacman:
+    name:
       - ubuntu-keyring
+
+- name: Install system-devel packages (fedora)
+  become: true
+  pacman:
+    name:
+      - dnf
