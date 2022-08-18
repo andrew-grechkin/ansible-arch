@@ -51,6 +51,7 @@
   aur:
     name:
       - lua-format
+      - luarocks
 
 - name: Install perl support
   aur:
