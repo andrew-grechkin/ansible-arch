@@ -107,6 +107,7 @@
       - python-numpy
       - python-pandas
       - python-pandas-datareader
+      - python-poetry
       - python-psycopg2
       - python-pylint
       - python-wheel
