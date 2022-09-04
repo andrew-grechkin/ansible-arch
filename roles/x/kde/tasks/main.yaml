@@ -15,7 +15,7 @@
       # - kdemultimedia-meta
       - audiocd-kio
       - ffmpegthumbs
-      - k3b
+      # - k3b
       # - kdenetwork-meta
       - kdenetwork-filesharing
       # - krdc
