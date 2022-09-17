@@ -59,7 +59,7 @@
     state: directory
     mode: "0700"
   with_items: "{{ users }}"
-  when: item.create_dot_ssh is not defined or item.create_dot_ssh|bool
+  when: item.create_dot_ssh is not defined or item.create_dot_ssh | bool
 
 - name: Copy authorized_keys for user
   become: true
@@ -70,7 +70,7 @@
     group: "{{ item.user }}"
     mode: "0600"
   with_items: "{{ users }}"
-  when: item.create_dot_ssh is not defined or item.create_dot_ssh|bool
+  when: item.create_dot_ssh is not defined or item.create_dot_ssh | bool
 
 - name: Copy AccountsService icon
   become: true
