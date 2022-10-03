@@ -2,7 +2,7 @@
 - name: Install podman
   become: true
   pacman:
-    name: [buildah, podman-docker, fuse-overlayfs, podman, podman-compose]
+    name: [aardvark-dns, buildah, podman-docker, fuse-overlayfs, podman, podman-compose]
 
 - name: Add user to subuid
   become: true
@@ -13,7 +13,7 @@
     mode: '0644'
     path: /etc/subuid
     state: present
-    line: "{{ lookup('env','USER') }}:100000:65536"
+    line: "{{ lookup('env', 'USER') }}:100000:65536"
 
 - name: Add user group to subgid
   become: true
@@ -24,7 +24,7 @@
     mode: '0644'
     path: /etc/subgid
     state: present
-    line: "{{ lookup('env','USER') }}:100000:65536"
+    line: "{{ lookup('env', 'USER') }}:100000:65536"
 
 - name: Add nodocker file
   become: true
