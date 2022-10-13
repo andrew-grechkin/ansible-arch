@@ -3,20 +3,19 @@
   become: true
   pacman:
     name:
+      - bat
+      - clang
+      - cmake
+      # - ctags
+      - extra-cmake-modules
       - gdb
       - git-delta
       - git-sizer
-      - perf
-      - cmake
-      - extra-cmake-modules
-      - ninja
-      - ctags
-      - clang
       - llvm
-      - python-pylint
-      - bat
+      - ninja
+      - perf
       - pygmentize
-      # - retext
+      - python-pylint
       # - tig
 
 - name: Linting
@@ -64,3 +63,8 @@
     name:
       - nodejs
       - npm
+
+- name: Install influxdb support
+  pacman:
+    name:
+      - influx-cli

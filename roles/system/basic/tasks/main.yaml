@@ -54,7 +54,6 @@
       - iotop
       - lsb-release
       - lsof
-      - neofetch
       - strace
       - usbutils
 

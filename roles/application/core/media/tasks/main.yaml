@@ -51,10 +51,10 @@
 # ## image viewers good but big
 # 	nomacs
 
-- name: Audio players (terminal)
-  become: true
-  pacman:
-    name: [cmus]
+# - name: Audio players (terminal)
+#   become: true
+#   pacman:
+#     name: [cmus]
 
 - name: Audio players (gui)
   when: not terminal_only|default(false)

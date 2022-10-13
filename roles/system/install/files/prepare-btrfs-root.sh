@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # btrfs layout https://en.opensuse.org/SDB:BTRFS
 
@@ -27,7 +27,7 @@ fi
 # btrfs quota enable                "/mnt-${LAB}"
 # btrfs quota rescan -w             "/mnt-${LAB}"
 
-mkdir  -p                         "/${ROOT}/"{.snapshots,boot/efi,efi,home,srv,var}
+mkdir  -p                         "/${ROOT}/"{.snapshots,boot/EFI,efi,home,srv,var}
 
 umount -R                         "/mnt-${LAB}"
 rmdir                             "/mnt-${LAB}"
