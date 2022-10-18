@@ -1,7 +1,7 @@
 ---
 - name: Arduino
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - arduino-avr-core
       - arduino-cli

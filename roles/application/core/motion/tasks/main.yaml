@@ -1,6 +1,6 @@
 ---
 - name: Install motion
-  aur:
+  kewlfft.aur.aur:
     name:
       - motion
 

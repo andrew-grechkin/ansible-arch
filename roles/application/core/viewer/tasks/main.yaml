@@ -1,19 +1,26 @@
 ---
 - name: Pdf viewers
   become: true
-  pacman:
+  community.general.pacman:
     name: [zathura, zathura-djvu, zathura-pdf-poppler, poppler]
 
 - name: Pdf support
   become: true
-  pacman:
+  community.general.pacman:
     name: [pdfgrep, pdftk]
 
 - name: E-book reader
   become: true
-  pacman:
+  community.general.pacman:
     name: [foliate]
 
+- name: Markdown
+  become: true
+  community.general.pacman:
+    name:
+      - glow
+      - obsidian
+#
 # - name: Install fb2 viewers
 #   become: yes
 #   pacman:

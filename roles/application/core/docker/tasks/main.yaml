@@ -1,5 +1,0 @@
----
-- name: Install docker
-  become: true
-  pacman:
-    name: [docker, docker-compose]

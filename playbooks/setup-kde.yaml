@@ -5,12 +5,11 @@
     - application/aur/archivemount
     - application/aur/fonts
     - application/aur/google-chrome
-    - application/aur/midi
     - application/aur/mpv-mpris
     - application/core/browser
+    - application/core/encryption
     - application/core/media
     - application/core/network
-    - application/core/podman
     - application/core/snapper
     - application/core/viewer
     - device/network

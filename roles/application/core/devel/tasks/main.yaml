@@ -1,7 +1,7 @@
 ---
 - name: Install devel packages
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - bat
       - clang
@@ -20,7 +20,7 @@
 
 - name: Linting
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - shellcheck
       - shfmt
@@ -35,36 +35,42 @@
 
 - name: Install go support
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - go
       - go-tools
       - delve
 
+- name: Install node.js support
+  become: true
+  community.general.pacman:
+    name:
+      - nodejs
+      - npm
+
+- name: Install elixir support
+  become: true
+  community.general.pacman:
+    name:
+      - elixir
+
+- name: Install influxdb support
+  community.general.pacman:
+    name:
+      - influx-cli
+
 - name: Install doc helpers
-  aur:
+  kewlfft.aur.aur:
     name:
       - zeal
 
 - name: Install lua support
-  aur:
+  kewlfft.aur.aur:
     name:
       - lua-format
       - luarocks
 
 - name: Install perl support
-  aur:
+  kewlfft.aur.aur:
     name:
       - perl-mojolicious
-
-- name: Install node.js support
-  become: true
-  pacman:
-    name:
-      - nodejs
-      - npm
-
-- name: Install influxdb support
-  pacman:
-    name:
-      - influx-cli

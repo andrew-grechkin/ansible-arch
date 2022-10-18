@@ -1,22 +1,27 @@
 ---
 - name: Encryption support
   become: true
-  pacman:
-    name: [encfs, pass, pass-otp]
-    # - veracrypt
-    # - gpg-crypter
-    # - gpa
-    # - keepassxc
-    # - gnome-encfs-manager-bin
-    # - libgee
+  communitly.general.pacman:
+    name:
+      - encfs
+      - pass
+      - pass-otp
+      # - gnome-encfs-manager-bin
+      # - gpa
+      # - gpg-crypter
+      # - keepassxc
+      # - libgee
+      # - veracrypt
 
 - name: Smartcard support
   become: true
-  pacman:
-    name: [ccid, pcsc-tools]
+  communitly.general.pacman:
+    name:
+      - ccid
+      - pcsc-tools
 
 - name: Enable smartcard daemon
   become: true
-  service:
+  ansible.builtin.service:
     name: pcscd.socket
     enabled: true
