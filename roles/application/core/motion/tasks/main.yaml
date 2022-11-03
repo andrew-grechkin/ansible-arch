@@ -1,12 +1,12 @@
 ---
 - name: Install motion
-  kewlfft.aur.aur:
+  aur:
     name:
       - motion
 
 - name: Copy motion configs
   become: true
-  ansible.builtin.synchronize:
+  ansible.posix.synchronize:
     src: motion
     dest: /etc/
     archive: false

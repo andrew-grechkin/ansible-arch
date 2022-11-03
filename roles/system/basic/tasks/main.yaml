@@ -1,12 +1,12 @@
 ---
 - name: Install essential tools
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name: [sudo, bash-completion, git, neovim, tmux, zsh, zsh-completions, iw, wireless-regdb, polkit]
 
 - name: Install filesystem/partition tools
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name:
       - btrfs-progs
       - dosfstools
@@ -19,22 +19,22 @@
 
 - name: Install man/help
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name: [man-db, man-pages]
 
 - name: Install search tools
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name: [ack, fd, fzf, ripgrep, the_silver_searcher, mlocate]
 
 - name: Install boot tools
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name: [efibootmgr, refind]
 
 - name: Install hdd tools
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name: [smartmontools, hdparm]
     # - hd-idle
 
@@ -46,7 +46,7 @@
 
 - name: Install common tools
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name:
       - acpi
       - htop
@@ -59,22 +59,22 @@
 
 - name: Install network tools
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name: [inetutils, nss-mdns, nfs-utils, cifs-utils, socat, gnu-netcat, rsync]
 
 - name: Install pacman tools
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name: [pacman-contrib, pkgstats, reflector]
 
 - name: Install perl base
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name: [perl, perlbrew]
 
 - name: Install perl additional
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name:
       - perl-cpanel-json-xs
       - perl-data-dump
@@ -93,13 +93,13 @@
 
 - name: Install python base
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name: [swig, python, python-pip, python-neovim]
     # - pydf
 
 - name: Install python additional
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name:
       - python-black
       - python-matplotlib
@@ -108,24 +108,25 @@
       - python-pandas-datareader
       - python-poetry
       - python-psycopg2
+      - python-pydebug
       - python-pylint
       - python-wheel
 
 - name: Install ansible
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name:
       - ansible
       - ansible-lint
 
 - name: Install ruby
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name: [ruby]
 
 - name: Install file management tools
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name:
       - cpio
       - inotify-tools
@@ -142,19 +143,19 @@
 
 - name: Install barcode/qrcode tools
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name: [zbar]
 
 # - name: Install backup tools
 #   become: true
-#   pacman:
+#   community.general.packaging.os.pacman:
 #     name:
 #       - borg
 #       - restic
 
 # - name: Install pulseaudio
 #   become: true
-#   pacman:
+#   community.general.packaging.os.pacman:
 #     name:
 #       - pulseaudio
 #       - pulseaudio-alsa
@@ -165,7 +166,7 @@
 
 - name: Install pipewire
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name:
       - pamixer
       - paprefs
@@ -179,7 +180,7 @@
 
 # - name: Install alsa
 #   become: true
-#   pacman:
+#   community.general.packaging.os.pacman:
 #     name: [alsa-utils, alsa-plugins]
 #    # alsa-tools
 #    # amixer sset Master    unmute
@@ -190,7 +191,7 @@
 
 - name: Install bluetooth
   become: true
-  pacman:
+  community.general.packaging.os.pacman:
     name: [bluez]
     # name: [bluez-cups, bluez-utils, pulseaudio-bluetooth]
 
@@ -208,7 +209,7 @@
 
 # - name: Clean unnecessary packages
 #   become: true
-#   pacman:
+#   community.general.packaging.os.pacman:
 #     state: absent
 #     name: []
 
@@ -222,7 +223,7 @@
 
 - name: Copy configs
   become: true
-  synchronize:
+  ansible.posix.synchronize:
     src: etc
     dest: /
     archive: false
