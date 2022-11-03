@@ -7,7 +7,7 @@
       - opera-ffmpeg-codecs
 
 - name: Install helpers
-  kewlfft.aur.aur:
+  aur:
     name:
       - yt-dlp
       - yt-dlp-drop-in

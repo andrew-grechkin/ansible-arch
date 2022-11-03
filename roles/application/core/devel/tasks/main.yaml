@@ -15,10 +15,37 @@
       - ninja
       - perf
       - pygmentize
-      - python-pylint
       # - tig
 
-- name: Linting
+- name: Install python support
+  become: true
+  community.general.pacman:
+    name:
+      - python-black
+      - python-matplotlib
+      - python-numpy
+      - python-pandas
+      - python-pandas-datareader
+      - python-poetry
+      - python-psycopg2
+      - python-debugpy
+      - python-pylint
+      - python-wheel
+
+- name: Install ruby
+  become: true
+  community.general.pacman:
+    name:
+      - ruby
+
+- name: Install ansible
+  become: true
+  community.general.pacman:
+    name:
+      - ansible
+      - ansible-lint
+
+- name: Misc linting
   become: true
   community.general.pacman:
     name:
@@ -38,8 +65,6 @@
   community.general.pacman:
     name:
       - go
-      - go-tools
-      - delve
 
 - name: Install node.js support
   become: true
@@ -48,29 +73,23 @@
       - nodejs
       - npm
 
-- name: Install elixir support
-  become: true
-  community.general.pacman:
-    name:
-      - elixir
-
 - name: Install influxdb support
   community.general.pacman:
     name:
       - influx-cli
 
 - name: Install doc helpers
-  kewlfft.aur.aur:
+  aur:
     name:
       - zeal
 
 - name: Install lua support
-  kewlfft.aur.aur:
+  aur:
     name:
       - lua-format
       - luarocks
 
 - name: Install perl support
-  kewlfft.aur.aur:
+  aur:
     name:
       - perl-mojolicious

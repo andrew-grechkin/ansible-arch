@@ -94,35 +94,17 @@
 - name: Install python base
   become: true
   community.general.packaging.os.pacman:
-    name: [swig, python, python-pip, python-neovim]
-    # - pydf
-
-- name: Install python additional
-  become: true
-  community.general.packaging.os.pacman:
     name:
-      - python-black
-      - python-matplotlib
-      - python-numpy
-      - python-pandas
-      - python-pandas-datareader
-      - python-poetry
-      - python-psycopg2
-      - python-pydebug
-      - python-pylint
-      - python-wheel
+      - python
+      - python-neovim
+      - python-pip
+      - swig
 
 - name: Install ansible
   become: true
   community.general.packaging.os.pacman:
     name:
       - ansible
-      - ansible-lint
-
-- name: Install ruby
-  become: true
-  community.general.packaging.os.pacman:
-    name: [ruby]
 
 - name: Install file management tools
   become: true

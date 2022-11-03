@@ -13,6 +13,14 @@
       - netctl
       - networkmanager-openconnect
 
+- name: Install go support
+  become: true
+  community.general.pacman:
+    name:
+      - go
+      - go-tools
+      - delve
+
 - name: Install devel packages
   become: true
   community.general.pacman:
@@ -48,7 +56,13 @@
     name:
       - yarn
 
+- name: Install elixir support
+  become: true
+  community.general.pacman:
+    name:
+      - elixir
+
 - name: Install bazel
-  kewlfft.aur.aur:
+  aur:
     name:
       - bazelisk
