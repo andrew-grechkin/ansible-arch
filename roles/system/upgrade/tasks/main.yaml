@@ -1,24 +1,14 @@
 ---
 - name: Retrieving pacman mirrorlist update time
   register: pacman_mirrorlist_stat
-  stat:
+  ansible.builtin.stat:
     path: /etc/pacman.d/mirrorlist
 
 - name: Update pacman mirrors
   register: pacman_mirrorlist
   when: ((ansible_date_time.epoch|int - pacman_mirrorlist_stat.stat.mtime) > (4 * 60 * 60))
   become: true
-  shell: reflector --country Netherlands --latest 8 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
-
-- name: Full Arch system upgrade
-  when: pacman_mirrorlist.changed
-  become: true
-  pacman:
-    update_cache: true
-    upgrade: true
-
-- name: Upgrade all AUR packages
-  when: pacman_mirrorlist.changed
-  aur:
-    aur_only: true
-    upgrade: true
+  ansible.builtin.command: reflector --country Netherlands --latest 8 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+  notify:
+    - Full Arch system upgrade
+    - Upgrade all AUR packages

@@ -1,7 +1,7 @@
 ---
 - name: Install essential tools to make login possible
   become: true
-  pacman:
+  community.general.pacman:
     name: [sudo, git, perlbrew, neovim, tmux, zsh, zsh-completions]
 
 - name: Add the user
@@ -16,8 +16,8 @@
     uid: "{{ item.uid }}"
   with_items: "{{ users }}"
   notify:
-    - reset root password
-    - disable root
+    - Reset root password
+    - Disable root
 
 - name: Ensure directory exists
   become: true
