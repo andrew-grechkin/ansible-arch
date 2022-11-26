@@ -6,7 +6,6 @@
       - bat
       - clang
       - cmake
-      # - ctags
       - extra-cmake-modules
       - gdb
       - git-delta
@@ -15,20 +14,20 @@
       - ninja
       - perf
       - pygmentize
-      # - tig
 
 - name: Install python support
   become: true
   community.general.pacman:
     name:
+      - jupyter_console
       - python-black
+      - python-debugpy
       - python-matplotlib
       - python-numpy
       - python-pandas
       - python-pandas-datareader
       - python-poetry
       - python-psycopg2
-      - python-debugpy
       - python-pylint
       - python-wheel
 
@@ -53,12 +52,6 @@
       - shfmt
       - vint
       - yamllint
-
-# - name: Dictionary
-#   become: true
-#   pacman:
-#     name:
-#       - goldendict
 
 - name: Install go support
   become: true
@@ -93,3 +86,8 @@
   aur:
     name:
       - perl-mojolicious
+
+- name: Install tools
+  aur:
+    name:
+      - task-spooler
