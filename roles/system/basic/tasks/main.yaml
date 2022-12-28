@@ -49,6 +49,7 @@
   community.general.packaging.os.pacman:
     name:
       - acpi
+      - exa
       - htop
       - hwinfo
       - iotop
