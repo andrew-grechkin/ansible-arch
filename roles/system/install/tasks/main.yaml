@@ -160,15 +160,6 @@
     src: LABEL=EFI{{ install_suffix }}
     state: mounted
 
-- name: Checkout ansible scripts
-  ansible.builtin.git:
-    repo: https://github.com/andrew-grechkin/ansible-arch.git
-    dest: /mnt/root/git/private/ansible-arch
-    version: master
-    update: false
-  environment:
-    GIT_TERMINAL_PROMPT: "0"
-
 - name: Update pacman mirrors
   ansible.builtin.command: reflector --country "{{ install_pacman_mirror_country }}" --latest 8 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
   args:
@@ -228,6 +219,18 @@
 
 - name: Update initcpio
   ansible.builtin.script: update-initcpio.sh "{{ install_encrypt | bool }}"
+
+- name: Checkout ansible scripts
+  ansible.builtin.git:
+    repo: https://github.com/andrew-grechkin/ansible-arch.git
+    dest: /mnt/{{ username }}/git/private/ansible-arch
+    version: master
+    update: false
+  environment:
+    GIT_TERMINAL_PROMPT: "0"
+- name: Change owner of the files
+  ansible.builtin.command: chown -R {{ username }}:{{ username }} /mnt/{{ username }}/git
+  changed_when: false
 
 - name: Unmount all
   ansible.builtin.command: umount -R /mnt
