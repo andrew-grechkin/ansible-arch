@@ -1,7 +1,7 @@
 ---
 - name: Install packages
   become: true
-  pacman:
+  community.general.pacman:
     name: [refind]
 
 - name: Print all available facts
@@ -10,12 +10,12 @@
 
 - name: Install cpu microcode for Intel
   become: true
-  pacman:
+  community.general.pacman:
     name: [intel-ucode]
   when: ansible_facts.processor | join(' ') | regex_search('intel', ignorecase=True)
 
 - name: Install cpu microcode for AMD
   become: true
-  pacman:
+  community.general.pacman:
     name: [amd-ucode]
   when: ansible_facts.processor | join(' ') | regex_search('amd', ignorecase=True)

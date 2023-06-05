@@ -24,8 +24,9 @@
   community.general.pacman:
     name:
       - cdparanoia
-      - cdrdao
-# abcde, mkcue
+      # - abcde
+      # - cdrdao
+      # - mkcue
 
 - name: Media decoding/ripping
   become: true

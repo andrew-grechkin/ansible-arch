@@ -1,7 +1,7 @@
 ---
 - name: Install xorg
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - accountsservice
       - rofi
@@ -17,29 +17,30 @@
 
 - name: Install terminal emulator
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - alacritty
+      - wezterm
 
 - name: Install keyring (needed by many apps)
   become: true
-  pacman:
+  community.general.pacman:
     name: [gnome-keyring, seahorse]
 # paperkey
 
 - name: Install xdg
   become: true
-  pacman:
+  community.general.pacman:
     name: [xdg-user-dirs, xdg-utils]
 
 - name: Install bspwm
   become: true
-  pacman:
+  community.general.pacman:
     name: [bspwm, sxhkd, autorandr, picom, redshift]
 
 - name: Install themes
   become: true
-  pacman:
+  community.general.pacman:
     name: [archlinux-wallpaper, papirus-icon-theme]
 
 - name: Update keyboard mapping
@@ -48,14 +49,14 @@
 
 - name: Install emoji support
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - ttf-joypixels
       - unicode-emoji
 
 - name: Copy configs
   become: true
-  synchronize:
+  ansible.posix.synchronize:
     src: X11
     dest: /etc/
     archive: false

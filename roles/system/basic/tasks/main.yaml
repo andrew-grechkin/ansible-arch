@@ -117,6 +117,7 @@
       - lzop
       - ncdu
       - p7zip
+      - parallel
       - pigz
       - progress
       - pv
