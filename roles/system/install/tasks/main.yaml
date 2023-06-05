@@ -228,7 +228,7 @@
   environment:
     GIT_TERMINAL_PROMPT: "0"
 - name: Change owner of the files
-  ansible.builtin.command: chown -R "{{ username }}:{{ username }}" "/mnt/home/{{ username }}/git"
+  ansible.builtin.command: chown -R "{{ useruid }}:{{ useruid }}" "/mnt/home/{{ username }}/git"
   changed_when: false
 
 - name: Unmount all
