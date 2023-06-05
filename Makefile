@@ -10,11 +10,11 @@ install:
 	@ansible-playbook playbooks/install.yaml
 
 install-users:
-	ansible-playbook playbooks/install-users.yaml -i localhost.yaml -K --ask-vault-pass
+	@ansible-playbook playbooks/install-users.yaml -i localhost.yaml -K --ask-vault-pass
 
 setup-kde:
-	ansible-playbook playbooks/setup-basic.yaml -K
-	ansible-playbook playbooks/setup-kde.yaml -K
+	@ansible-playbook playbooks/setup-basic.yaml -K
+	@ansible-playbook playbooks/setup-kde.yaml -K
 
 upgrade-all:
 	ansible-role roles/system/upgrade -i hosts.yaml -l all -K --ask-vault-pass

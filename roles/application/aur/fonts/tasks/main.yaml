@@ -16,14 +16,6 @@
       - ttf-fira-code
       - ttf-jetbrains-mono
 
-- name: Install developer fonts (aur)
-  aur:
-    name:
-      - nerd-fonts-dejavu-complete
-      - nerd-fonts-jetbrains-mono
-      - open-dyslexic-fonts
-      - ttf-iosevka
-
 - name: Install additional fonts
   become: true
   community.general.pacman:
@@ -39,3 +31,11 @@
       - ttf-liberation
       # - ttf-linux-libertine
       # - ttf-opensans
+
+- name: Install developer fonts (aur)
+  aur:
+    name:
+      # - nerd-fonts-dejavu-complete
+      # - nerd-fonts-jetbrains-mono
+      - open-dyslexic-fonts
+      - ttf-iosevka

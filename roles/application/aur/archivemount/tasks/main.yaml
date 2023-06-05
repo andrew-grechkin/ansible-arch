@@ -1,5 +1,5 @@
 ---
-- name: archivemount
+- name: Install archivemount
   aur:
     name:
       - archivemount
