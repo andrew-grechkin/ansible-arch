@@ -20,7 +20,7 @@
       - kdenetwork-filesharing
       # - krdc
       # - krfb
-      - zeroconf-ioslave
+      - kio-zeroconf
       # - kio-extras
       # - kdepim-meta
       - kleopatra
