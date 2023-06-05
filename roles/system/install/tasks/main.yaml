@@ -223,13 +223,12 @@
 - name: Checkout ansible scripts
   ansible.builtin.git:
     repo: https://github.com/andrew-grechkin/ansible-arch.git
-    dest: /mnt/{{ username }}/git/private/ansible-arch
+    dest: /mnt/home/{{ username }}/git/private/ansible-arch
     version: master
-    update: false
   environment:
     GIT_TERMINAL_PROMPT: "0"
 - name: Change owner of the files
-  ansible.builtin.command: chown -R {{ username }}:{{ username }} /mnt/{{ username }}/git
+  ansible.builtin.command: chown -R {{ username }}:{{ username }} /mnt/home/{{ username }}/git
   changed_when: false
 
 - name: Unmount all
