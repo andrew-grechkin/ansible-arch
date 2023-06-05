@@ -11,15 +11,17 @@
   failed_when: false
 
 - name: Read device information (always use unit when probing)
-  parted: device="{{ install_device }}" unit=GiB
+  community.general.parted:
+    device: "{{ install_device }}"
+    unit: GiB
   register: install_device_info
-- name: Check {{ install_device }} is clean
+- name: Check clean {{ install_device }}
   ansible.builtin.fail:
     msg: The system may not be installed, {{ install_device }} is not empty
   when: install_device_info.partitions != []
 
 - name: Create a new primary partition with a size of 1GiB
-  parted:
+  community.general.parted:
     device: "{{ install_device }}"
     number: 1
     label: gpt
@@ -28,7 +30,7 @@
     flags: [esp]
 - name: Create a new primary partition for LVM
   when: not safe_disk_space_at_the_end|bool
-  parted:
+  community.general.parted:
     device: "{{ install_device }}"
     number: 2
     label: gpt
@@ -37,7 +39,7 @@
     part_start: 16GiB
 - name: Create a new primary partition for LVM
   when: safe_disk_space_at_the_end|bool
-  parted:
+  community.general.parted:
     device: "{{ install_device }}"
     number: 2
     label: gpt
@@ -46,7 +48,7 @@
     part_start: 16GiB
     part_end: -20GiB
 
-- name: Create and open the LUKS2 container on {{ install_device }}2
+- name: Create and open the LUKS2 container on 2 {{ install_device }}
   when: install_encrypt|bool
   community.crypto.luks_device:
     device: "{{ install_device }}2"
@@ -57,27 +59,52 @@
     type: luks2
 - name: Create a volume group on top of /dev/mapper/lvm-encrypted{{ install_suffix }}
   when: install_encrypt|bool
-  lvg: vg=vg-arch{{ install_suffix }} pvs=/dev/mapper/lvm-encrypted{{ install_suffix }}
+  community.general.lvg:
+    pvs: /dev/mapper/lvm-encrypted{{ install_suffix }}
+    vg: vg-arch{{ install_suffix }}
 
-- name: Create a volume group on top of {{ install_device }}2
+- name: Create a volume group on top of 2 {{ install_device }}
   when: not install_encrypt|bool
-  lvg: vg=vg-arch{{ install_suffix }} pvs="{{ install_device }}2"
+  community.general.lvg:
+    vg: vg-arch{{ install_suffix }}
+    pvs: "{{ install_device }}2"
 
 - name: Create root logical volume
-  lvol: vg=vg-arch{{ install_suffix }} lv=root size="{{ install_root_size }}"
+  community.general.lvol:
+    lv: root
+    size: "{{ install_root_size }}"
+    vg: vg-arch{{ install_suffix }}
 - name: Create swap logical volume
-  lvol: vg=vg-arch{{ install_suffix }} lv=swap size="{{ install_swap_size }}"
+  community.general.lvol:
+    lv: swap
+    size: "{{ install_swap_size }}"
+    vg: vg-arch{{ install_suffix }}
 - name: Create home logical volume
-  lvol: vg=vg-arch{{ install_suffix }} lv=home size="{{ install_home_size }}"
+  community.general.lvol:
+    lv: home
+    size: "{{ install_home_size }}"
+    vg: vg-arch{{ install_suffix }}
 
-- name: Create a EFI filesystem on {{ install_device }}1
-  filesystem: dev="{{ install_device }}1" fstype=vfat opts="-n EFI{{ install_suffix }}"
+- name: Create a EFI filesystem on 1 {{ install_device }}
+  community.general.filesystem:
+    dev: "{{ install_device }}1"
+    fstype: vfat
+    opts: -n EFI{{ install_suffix }}
 - name: Create a root filesystem on vg-arch-root{{ install_suffix }}
-  filesystem: dev=/dev/vg-arch{{ install_suffix }}/root fstype=btrfs opts="-L root{{ install_suffix }}"
+  community.general.filesystem:
+    dev: /dev/vg-arch{{ install_suffix }}/root
+    fstype: btrfs
+    opts: -L root{{ install_suffix }}
 - name: Create a swap filesystem on vg-arch-swap{{ install_suffix }}
-  filesystem: dev=/dev/vg-arch{{ install_suffix }}/swap fstype=swap opts="-L swap{{ install_suffix }}"
+  community.general.filesystem:
+    dev: /dev/vg-arch{{ install_suffix }}/swap
+    fstype: swap
+    opts: -L swap{{ install_suffix }}
 - name: Create a home filesystem on vg-arch-home{{ install_suffix }}
-  filesystem: dev=/dev/vg-arch{{ install_suffix }}/home fstype=btrfs opts="-L home{{ install_suffix }}"
+  community.general.filesystem:
+    dev: /dev/vg-arch{{ install_suffix }}/home
+    fstype: btrfs
+    opts: -L home{{ install_suffix }}
 
 - name: Prepare btrfs root partition
   ansible.builtin.script: prepare-btrfs-root.sh "root{{ install_suffix }}" '@'
@@ -85,25 +112,62 @@
   ansible.builtin.script: prepare-btrfs-home.sh "home{{ install_suffix }}" '@'
 
 - name: Mount root subvolume structure /
-  mount: fstype=btrfs state=mounted src=LABEL=root{{ install_suffix }} opts=subvol=@/.snapshots/init/snapshot path=/mnt
+  ansible.posix.mount:
+    fstype: btrfs
+    opts: subvol=@/.snapshots/init/snapshot
+    path: /mnt
+    src: LABEL=root{{ install_suffix }}
+    state: mounted
 - name: Mount root subvolume structure /srv
-  mount: fstype=btrfs state=mounted src=LABEL=root{{ install_suffix }} opts=subvol=@/srv path=/mnt/srv
+  ansible.posix.mount:
+    fstype: btrfs
+    state: mounted
+    src: LABEL=root{{ install_suffix }}
+    opts: subvol=@/srv
+    path: /mnt/srv
 - name: Mount root subvolume structure /var
-  mount: fstype=btrfs state=mounted src=LABEL=root{{ install_suffix }} opts=subvol=@/var path=/mnt/var
+  ansible.posix.mount:
+    fstype: btrfs
+    opts: subvol=@/var
+    path: /mnt/var
+    src: LABEL=root{{ install_suffix }}
+    state: mounted
 - name: Mount root subvolume structure /.snapshots
-  mount: fstype=btrfs state=mounted src=LABEL=root{{ install_suffix }} opts=subvol=@/.snapshots path=/mnt/.snapshots
+  ansible.posix.mount:
+    fstype: btrfs
+    opts: subvol=@/.snapshots
+    path: /mnt/.snapshots
+    src: LABEL=root{{ install_suffix }}
+    state: mounted
 - name: Mount home subvolume structure /home
-  mount: fstype=btrfs state=mounted src=LABEL=home{{ install_suffix }} opts=subvol=@/.snapshots/init/snapshot path=/mnt/home
+  ansible.posix.mount:
+    fstype: btrfs
+    opts: subvol=@/.snapshots/init/snapshot
+    path: /mnt/home
+    src: LABEL=home{{ install_suffix }}
+    state: mounted
 - name: Mount home subvolume structure /home/.snapshots
-  mount: fstype=btrfs state=mounted src=LABEL=home{{ install_suffix }} opts=subvol=@/.snapshots path=/mnt/home/.snapshots
+  ansible.posix.mount:
+    fstype: btrfs
+    opts: subvol=@/.snapshots
+    path: /mnt/home/.snapshots
+    src: LABEL=home{{ install_suffix }}
+    state: mounted
 - name: Mount esp partition
-  mount: fstype=vfat state=mounted src=LABEL=EFI{{ install_suffix }} path=/mnt/boot
+  ansible.posix.mount:
+    fstype: vfat
+    path: /mnt/boot
+    src: LABEL=EFI{{ install_suffix }}
+    state: mounted
 
 - name: Checkout ansible scripts
   ansible.builtin.git:
     repo: https://github.com/andrew-grechkin/ansible-arch.git
     dest: /mnt/root/git/private/ansible-arch
-  ignore_errors: true
+    version: master
+    update: false
+  environment:
+    GIT_TERMINAL_PROMPT: "0"
 
 - name: Update pacman mirrors
   ansible.builtin.command: reflector --country "{{ install_pacman_mirror_country }}" --latest 8 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
@@ -116,26 +180,36 @@
     creates: /mnt/etc/pacman.conf
 
 - name: Copy fstab
-  ansible.builtin.copy: src=fstab dest=/mnt/etc/fstab owner=root group=root mode='0644'
+  ansible.builtin.copy:
+    src: fstab
+    dest: /mnt/etc/fstab
+    group: root
+    mode: "0644"
+    owner: root
 
 - name: Create resolved.conf.d directory
   ansible.builtin.file:
     path: /mnt/etc/systemd/resolved.conf.d
-    state: directory
-    owner: root
     group: root
-    mode: '0775'
+    mode: "0775"
+    owner: root
+    state: directory
 
 - name: Copy resolved overrides
-  ansible.builtin.copy: src=etc/systemd/resolved.conf.d/50-override.conf dest=/mnt/etc/systemd/resolved.conf.d/50-override.conf owner=root group=root mode='0644'
+  ansible.builtin.copy:
+    src: etc/systemd/resolved.conf.d/50-override.conf
+    dest: /mnt/etc/systemd/resolved.conf.d/50-override.conf
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: Install rEFInd
-  ansible.builtin.script: install-refind.sh "{{ install_encrypt|bool }}" "{{ install_suffix }}"
+  ansible.builtin.script: install-refind.sh "{{ install_encrypt | bool }}" "{{ install_suffix }}"
   args:
     creates: /boot/refind_linux.conf
 
 - name: Copy refind additional files
-  synchronize:
+  ansible.posix.synchronize:
     src: refind
     dest: /mnt/boot/EFI/
     archive: false
@@ -144,6 +218,8 @@
 
 - name: Use pacman mirrorlist
   ansible.builtin.command: cp -f /etc/pacman.d/mirrorlist /mnt/etc/pacman.d
+  args:
+    creates: /mnt/etc/pacman.d/mirrorlist
 
 - name: Post install
   ansible.builtin.script: post-install.sh "{{ username }}" "{{ useruid }}" "{{ userpass }}"
@@ -151,7 +227,9 @@
     creates: /mnt/etc/locale.conf
 
 - name: Update initcpio
-  ansible.builtin.script: update-initcpio.sh "{{ install_encrypt|bool }}"
+  ansible.builtin.script: update-initcpio.sh "{{ install_encrypt | bool }}"
 
 - name: Unmount all
   ansible.builtin.command: umount -R /mnt
+  args:
+    removes: /mnt/root
