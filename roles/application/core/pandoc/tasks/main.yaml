@@ -1,7 +1,7 @@
 ---
 - name: Documents
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - pandoc
       - texlive-core

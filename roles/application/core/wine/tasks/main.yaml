@@ -1,6 +1,7 @@
+---
 - name: Install wine
-  become: yes
-  pacman:
+  become: true
+  community.general.pacman:
     state: present
     name:
       - wine-staging

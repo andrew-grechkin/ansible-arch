@@ -1,7 +1,7 @@
 ---
 - name: Install XFCE
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - xfce4
       - xfce4-clipman-plugin
@@ -20,7 +20,7 @@
 
 - name: Install i3
   become: true
-  pacman:
+  community.general.pacman:
     name: [i3-gaps, i3lock, picom, feh]
     # - autorandr
     # - bc
@@ -30,7 +30,7 @@
 
 - name: Clean unnecessary packages
   become: true
-  pacman:
+  community.general.pacman:
     state: absent
     name: [orage, xfce4-dict, xfce4-artwork, xfburn, parole, ristretto, mousepad]
 

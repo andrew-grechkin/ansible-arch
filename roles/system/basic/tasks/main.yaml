@@ -1,12 +1,12 @@
 ---
 - name: Install essential tools
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name: [sudo, bash-completion, git, neovim, tmux, zsh, zsh-completions, iw, wireless-regdb, polkit]
 
 - name: Install filesystem/partition tools
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name:
       - btrfs-progs
       - dosfstools
@@ -19,22 +19,22 @@
 
 - name: Install man/help
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name: [man-db, man-pages]
 
 - name: Install search tools
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name: [ack, fd, fzf, ripgrep, the_silver_searcher, mlocate]
 
 - name: Install boot tools
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name: [efibootmgr, refind]
 
 - name: Install hdd tools
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name: [smartmontools, hdparm]
     # - hd-idle
 
@@ -46,7 +46,7 @@
 
 - name: Install common tools
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name:
       - acpi
       - exa
@@ -60,22 +60,22 @@
 
 - name: Install network tools
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name: [inetutils, nss-mdns, nfs-utils, cifs-utils, socat, gnu-netcat, rsync]
 
 - name: Install pacman tools
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name: [pacman-contrib, pkgstats, reflector]
 
 - name: Install perl base
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name: [perl, perlbrew]
 
 - name: Install perl additional
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name:
       - perl-cpanel-json-xs
       - perl-data-dump
@@ -94,7 +94,7 @@
 
 - name: Install python base
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name:
       - python
       - python-neovim
@@ -103,13 +103,13 @@
 
 - name: Install ansible
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name:
       - ansible
 
 - name: Install file management tools
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name:
       - cpio
       - inotify-tools
@@ -127,19 +127,19 @@
 
 - name: Install barcode/qrcode tools
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name: [zbar]
 
 # - name: Install backup tools
 #   become: true
-#   community.general.packaging.os.pacman:
+#   community.general.pacman:
 #     name:
 #       - borg
 #       - restic
 
 # - name: Install pulseaudio
 #   become: true
-#   community.general.packaging.os.pacman:
+#   community.general.pacman:
 #     name:
 #       - pulseaudio
 #       - pulseaudio-alsa
@@ -150,7 +150,7 @@
 
 - name: Install pipewire
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name:
       - pamixer
       - paprefs
@@ -164,7 +164,7 @@
 
 # - name: Install alsa
 #   become: true
-#   community.general.packaging.os.pacman:
+#   community.general.pacman:
 #     name: [alsa-utils, alsa-plugins]
 #    # alsa-tools
 #    # amixer sset Master    unmute
@@ -175,7 +175,7 @@
 
 - name: Install bluetooth
   become: true
-  community.general.packaging.os.pacman:
+  community.general.pacman:
     name: [bluez]
     # name: [bluez-cups, bluez-utils, pulseaudio-bluetooth]
 
@@ -193,7 +193,7 @@
 
 # - name: Clean unnecessary packages
 #   become: true
-#   community.general.packaging.os.pacman:
+#   community.general.pacman:
 #     state: absent
 #     name: []
 

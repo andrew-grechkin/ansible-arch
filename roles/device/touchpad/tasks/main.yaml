@@ -1,5 +1,5 @@
 ---
 - name: Install touchpad
   become: true
-  pacman:
+  community.general.pacman:
     name: [xf86-input-synaptics]

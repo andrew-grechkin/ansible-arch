@@ -1,7 +1,7 @@
 ---
 - name: Install lightdm
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - lightdm-gtk-greeter
       - lightdm-gtk-greeter-settings

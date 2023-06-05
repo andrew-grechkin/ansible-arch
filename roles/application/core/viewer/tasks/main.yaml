@@ -23,7 +23,7 @@
 #
 # - name: Install fb2 viewers
 #   become: yes
-#   pacman:
+#   community.general.pacman:
 #     name:
 #       ## library
 #       - freelib

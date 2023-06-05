@@ -1,19 +1,19 @@
 ---
 - name: Install samba
   become: true
-  pacman:
+  community.general.pacman:
     state: present
     name:
       - samba
 
 - name: Enable smb service
   become: true
-  service:
+  ansible.builtin.service:
     enabled: true
     name: smb
 
 - name: Enable nmb services
   become: true
-  service:
+  ansible.builtin.service:
     enabled: true
     name: nmb

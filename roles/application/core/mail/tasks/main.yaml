@@ -1,7 +1,7 @@
 ---
 - name: Mail
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - isync
       - lynx

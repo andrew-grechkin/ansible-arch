@@ -1,17 +1,17 @@
 ---
 - name: Install base devel
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - base-devel
 
 - name: Install trizen
-  script: install-trizen.sh
+  ansible.builtin.script: install-trizen.sh
   args:
     creates: /usr/bin/trizen
 
 - name: Install ansible aur module
-  command: trizen -S --needed --noedit --noconfirm ansible-aur-git
+  ansible.builtin.command: trizen -S --needed --noedit --noconfirm ansible-aur-git
   args:
     creates: /usr/share/ansible/plugins/modules/aur.py
 

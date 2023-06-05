@@ -1,7 +1,7 @@
 ---
 - name: Install VirtualBox
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - virtualbox
       - virtualbox-guest-iso

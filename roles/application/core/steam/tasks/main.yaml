@@ -1,22 +1,22 @@
 ---
 - name: Install steam
   become: true
-  pacman:
+  community.general.pacman:
     name: [steam]
 
 - name: Install mesa support
   become: true
-  pacman:
+  community.general.pacman:
     name: [mesa, lib32-mesa]
 
 - name: Install AMD support
   become: true
-  pacman:
+  community.general.pacman:
     name: [vulkan-radeon, lib32-vulkan-radeon]
 
 - name: Install vdpau support
   become: true
-  pacman:
+  community.general.pacman:
     name: [mesa-vdpau, lib32-mesa-vdpau]
 
 - name: Install vulkan DirectX compatibility

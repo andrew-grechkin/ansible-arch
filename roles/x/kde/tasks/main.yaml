@@ -1,7 +1,7 @@
 ---
 - name: Install KDE Plasma
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - kde-gtk-config
       - partitionmanager

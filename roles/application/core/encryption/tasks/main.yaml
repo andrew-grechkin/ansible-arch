@@ -1,7 +1,7 @@
 ---
 - name: Encryption support
   become: true
-  communitly.general.pacman:
+  community.general.pacman:
     name:
       - encfs
       - pass
@@ -15,7 +15,7 @@
 
 - name: Smartcard support
   become: true
-  communitly.general.pacman:
+  community.general.pacman:
     name:
       - ccid
       - pcsc-tools

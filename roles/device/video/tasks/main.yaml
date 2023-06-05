@@ -1,21 +1,21 @@
 ---
 - name: Install video
   become: true
-  pacman:
+  community.general.pacman:
     name: [mesa, vulkan-intel]
     # name: [xf86-video-intel]
 
 - name: Install intel gpu
   become: true
-  pacman:
+  community.general.pacman:
     name: [intel-gpu-tools]
 
 - name: Install vaapi support
   become: true
-  pacman:
+  community.general.pacman:
     name: [libva-intel-driver, libva-mesa-driver, libva-utils]
 
 - name: Install vdpau support
   become: true
-  pacman:
+  community.general.pacman:
     name: [libva-vdpau-driver, libvdpau-va-gl]

@@ -1,14 +1,14 @@
 ---
 - name: Ascii art
   become: true
-  pacman:
+  community.general.pacman:
     state: present
     name: [aalib, libcaca, mplayer]
     # - aview
 
 - name: Space
   become: true
-  pacman:
+  community.general.pacman:
     state: present
     name: [kstars, xplanet]
 

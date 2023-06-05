@@ -1,7 +1,7 @@
 ---
 - name: Install sddm
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - sddm
 

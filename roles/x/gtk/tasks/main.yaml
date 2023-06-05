@@ -1,17 +1,17 @@
 ---
 - name: Install default
   become: true
-  pacman:
+  community.general.pacman:
     name: [exo, xdg-user-dirs-gtk]
 
 - name: Install pulseaudio
   become: true
-  pacman:
+  community.general.pacman:
     name: [pavucontrol]
 
 - name: Install bluetooth
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - blueberry
       - bluez-utils
@@ -19,12 +19,12 @@
 
 - name: Install fuse
   become: true
-  pacman:
+  community.general.pacman:
     name: [gvfs, gvfs-nfs, gvfs-smb, gvfs-google, gvfs-gphoto2, gvfs-mtp]
 
 - name: Install applications
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - baobab
       - catfish

@@ -1,13 +1,13 @@
 ---
 - name: Install lutris
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - lutris
 
 - name: Install lutris dependencies
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - lib32-mesa
       - lib32-vulkan-icd-loader
@@ -17,7 +17,7 @@
 
 - name: Install more lutris dependencies
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - alsa-lib
       - alsa-plugins

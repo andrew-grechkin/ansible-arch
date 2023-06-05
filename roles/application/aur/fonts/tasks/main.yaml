@@ -1,7 +1,7 @@
 ---
 - name: Install base fonts
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - noto-fonts
       - noto-fonts-cjk
@@ -10,7 +10,7 @@
 
 - name: Install developer fonts
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - ttf-cascadia-code
       - ttf-fira-code
@@ -26,7 +26,7 @@
 
 - name: Install additional fonts
   become: true
-  pacman:
+  community.general.pacman:
     name:
       # - adobe-source-code-pro-fonts
       # - adobe-source-han-sans-otc-fonts

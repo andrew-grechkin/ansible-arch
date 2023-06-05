@@ -1,7 +1,7 @@
 ---
 - name: Install cellular
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - modem-manager-gui
       - modemmanager

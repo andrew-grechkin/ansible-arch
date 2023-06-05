@@ -1,7 +1,7 @@
 ---
 - name: Deepin desktop
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - deepin
       - deepin-extra

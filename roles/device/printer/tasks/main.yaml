@@ -1,7 +1,7 @@
 ---
 - name: Install cups
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - cups
       - cups-pdf

@@ -1,14 +1,14 @@
 ---
 - name: Install yubikey
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - yubikey-manager
 
 - name: Install yubikey gui
   when: not terminal_only|default(false)
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - yubikey-manager-qt
       - yubikey-personalization-gui

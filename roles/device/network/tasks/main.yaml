@@ -1,7 +1,7 @@
 ---
 - name: Install network packages
   become: true
-  pacman:
+  community.general.pacman:
     name:
       - dhclient
       # - network-manager-applet

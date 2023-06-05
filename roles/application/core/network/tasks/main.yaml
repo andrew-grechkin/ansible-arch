@@ -1,24 +1,24 @@
 ---
 - name: Install network packages
   become: true
-  pacman:
+  community.general.pacman:
     name: [bind]
 
 - name: Install monitoring packages
   become: true
-  pacman:
+  community.general.pacman:
     name: [iptraf-ng, mtr, nethogs, nload, iftop, vnstat, tcpdump, tcpflow]
     # - proxychains
     # - qbittorrent
 
 - name: Install favorite network tools
   become: true
-  pacman:
+  community.general.pacman:
     name: [remmina, freerdp, libvncserver]
 
 # - name: Install openvpn packages
 #   become: true
-#   pacman:
+#   community.general.pacman:
 #     state: present
 #     name: [openvpn]
 
