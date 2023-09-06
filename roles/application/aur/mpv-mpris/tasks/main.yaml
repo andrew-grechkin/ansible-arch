@@ -1,5 +1,0 @@
----
-- name: Install mpv-mpris
-  aur:
-    name:
-      - mpv-mpris

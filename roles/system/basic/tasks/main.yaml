@@ -2,20 +2,12 @@
 - name: Install essential tools
   become: true
   community.general.pacman:
-    name: [sudo, bash-completion, git, neovim, tmux, zsh, zsh-completions, iw, wireless-regdb, polkit]
+    name: [bash-completion, git, neovim, polkit, sudo, tmux, zsh-completions]
 
 - name: Install filesystem/partition tools
   become: true
   community.general.pacman:
-    name:
-      - btrfs-progs
-      - dosfstools
-      - exfat-utils
-      - f2fs-tools
-      - fuseiso
-      - ntfs-3g
-      - sshfs
-      - udftools
+    name: [btrfs-progs, dosfstools, fuseiso, ntfs-3g, sshfs, udftools]
 
 - name: Install man/help
   become: true
@@ -25,7 +17,7 @@
 - name: Install search tools
   become: true
   community.general.pacman:
-    name: [ack, fd, fzf, ripgrep, the_silver_searcher, mlocate]
+    name: [ack, fd, fzf, mlocate, ripgrep, the_silver_searcher]
 
 - name: Install boot tools
   become: true
@@ -47,31 +39,24 @@
 - name: Install common tools
   become: true
   community.general.pacman:
-    name:
-      - acpi
-      - exa
-      - htop
-      - hwinfo
-      - iotop
-      - lsb-release
-      - lsof
-      - strace
-      - usbutils
+    name: [exa, htop, hwinfo, iotop, lsb-release, lsof, moreutils, strace, usbutils]
 
 - name: Install network tools
   become: true
   community.general.pacman:
-    name: [inetutils, nss-mdns, nfs-utils, cifs-utils, socat, gnu-netcat, rsync]
+    name: [cifs-utils, gnu-netcat, inetutils, iw, nfs-utils, nss-mdns, rsync, socat, wireless-regdb]
 
 - name: Install pacman tools
   become: true
   community.general.pacman:
     name: [pacman-contrib, pkgstats, reflector]
 
+# => -------------------------------------------------------------------------------------------------------------- {{{1
+
 - name: Install perl base
   become: true
   community.general.pacman:
-    name: [perl, perlbrew]
+    name: [perlbrew]
 
 - name: Install perl additional
   become: true
@@ -95,35 +80,19 @@
 - name: Install python base
   become: true
   community.general.pacman:
-    name:
-      - python
-      - python-neovim
-      - python-pip
-      - swig
+    name: [pyenv, python, python-neovim, swig]
 
-- name: Install ansible
+# => -------------------------------------------------------------------------------------------------------------- {{{1
+
+- name: Install compression tools
   become: true
   community.general.pacman:
-    name:
-      - ansible
+    name: [cpio, lzop, p7zip, unrar, unzip]
 
 - name: Install file management tools
   become: true
   community.general.pacman:
-    name:
-      - cpio
-      - inotify-tools
-      - jq
-      - lzop
-      - ncdu
-      - p7zip
-      - parallel
-      - pigz
-      - progress
-      - pv
-      - unrar
-      - unzip
-      - vifm
+    name: [inotify-tools, jq, ncdu, parallel, pigz, progress, pv, vifm]
 
 - name: Install barcode/qrcode tools
   become: true
@@ -137,24 +106,12 @@
 #       - borg
 #       - restic
 
-# - name: Install pulseaudio
-#   become: true
-#   community.general.pacman:
-#     name:
-#       - pulseaudio
-#       - pulseaudio-alsa
-#       - pulseaudio-zeroconf
-#       - paprefs
-#       - pamixer
-#       - pulsemixer
-
 - name: Install pipewire
   become: true
   community.general.pacman:
     name:
       - pamixer
       - paprefs
-      - pipewire
       - pipewire-alsa
       - pipewire-jack
       - pipewire-pulse
@@ -176,7 +133,7 @@
 - name: Install bluetooth
   become: true
   community.general.pacman:
-    name: [bluez]
+    name: [bluez, bluez-utils]
     # name: [bluez-cups, bluez-utils, pulseaudio-bluetooth]
 
 - name: Enable bluetooth services

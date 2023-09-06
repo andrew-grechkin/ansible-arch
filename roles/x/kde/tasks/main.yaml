@@ -17,7 +17,7 @@
       - ffmpegthumbs
       # - k3b
       # - kdenetwork-meta
-      - kdenetwork-filesharing
+      # - kdenetwork-filesharing
       # - krdc
       # - krfb
       - kio-zeroconf

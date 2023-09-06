@@ -17,12 +17,11 @@
 - name: Markdown
   become: true
   community.general.pacman:
-    name:
-      - glow
-      - obsidian
+    name: [glow, obsidian]
+
 #
 # - name: Install fb2 viewers
-#   become: yes
+#   become: true
 #   community.general.pacman:
 #     name:
 #       ## library

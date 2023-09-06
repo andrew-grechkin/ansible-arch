@@ -2,13 +2,7 @@
 - name: Audio encoding
   become: true
   community.general.pacman:
-    name:
-      - ffmpeg
-      - ffmpegthumbnailer
-      - mac
-      - opus-tools
-      - vorbis-tools
-      - wavpack
+    name: [ffmpeg, ffmpegthumbnailer, mac, opus-tools, vorbis-tools, wavpack]
 
 - name: Video encoding
   become: true
@@ -35,29 +29,27 @@
       - libdvdcss
       - dvd+rw-tools
       - dvdauthor
-      - dvgrab
+      # - dvgrab
       - vcdimager
       - transcode
-      - sox
+      # - sox
       - emovix
 
-- name: Media info
-  become: true
-  community.general.pacman:
-    name:
-      - mediainfo
+# - name: Media info
+#   become: true
+#   community.general.pacman:
+#     name:
+#       - mediainfo
 
 - name: Image encoding
   become: true
   community.general.pacman:
-    name:
-      - imagemagick
+    name: [imagemagick]
 
 - name: Image viewers (terminal)
   become: true
   community.general.pacman:
-    name:
-      - chafa
+    name: [chafa]
 
 - name: Image viewers (gui)
   when: not terminal_only|default(false)
@@ -94,5 +86,4 @@
 - name: Video players (terminal)
   become: true
   community.general.pacman:
-    name:
-      - mpv
+    name: [mpv, mpv-mpris]

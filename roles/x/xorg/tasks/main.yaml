@@ -18,9 +18,7 @@
 - name: Install terminal emulator
   become: true
   community.general.pacman:
-    name:
-      - alacritty
-      - wezterm
+    name: [wezterm]
 
 - name: Install keyring (needed by many apps)
   become: true
@@ -36,7 +34,7 @@
 - name: Install bspwm
   become: true
   community.general.pacman:
-    name: [bspwm, sxhkd, autorandr, picom, redshift]
+    name: [bspwm, sxhkd, autorandr, picom, redshift, geoclue]
 
 - name: Install themes
   become: true
@@ -50,9 +48,7 @@
 - name: Install emoji support
   become: true
   community.general.pacman:
-    name:
-      - ttf-joypixels
-      - unicode-emoji
+    name: [ttf-joypixels, unicode-emoji]
 
 - name: Copy configs
   become: true

@@ -2,31 +2,36 @@
 - name: Install required tools
   become: true
   community.general.pacman:
-    name:
-      - expect
+    name: [expect]
 
 - name: Install network packages
   become: true
   community.general.pacman:
-    name:
-      - globalprotect-openconnect
-      - netctl
-      - networkmanager-openconnect
+    name: [globalprotect-openconnect, netctl, networkmanager-openconnect]
 
 - name: Install go support
   become: true
   community.general.pacman:
-    name:
-      - go
-      - go-tools
-      - delve
+    name: [go, go-tools, delve]
 
 - name: Install devel packages
   become: true
   community.general.pacman:
-    name:
-      - apache
-      - maven
+    name: [apache, maven]
+
+- name: Install kubernetes
+  become: true
+  community.general.pacman:
+    name: [helm, k9s, kubeadm, kubectl]
+
+- name: Install node.js support
+  become: true
+  community.general.pacman:
+    name: [yarn]
+
+- name: Install bazel
+  aur:
+    name: [bazelisk]
 
 # - name: Install doc helpers
 #   become: true
@@ -35,34 +40,8 @@
 #       - pandoc
 #       - texlive-core
 
-- name: Install kubernetes
-  become: true
-  community.general.pacman:
-    name:
-      - helm
-      - k9s
-      - kubeadm
-      - kubectl
-
 # - name: Install VScode
 #   become: true
 #   community.general.pacman:
 #     name:
 #       - code
-
-- name: Install node.js support
-  become: true
-  community.general.pacman:
-    name:
-      - yarn
-
-- name: Install elixir support
-  become: true
-  community.general.pacman:
-    name:
-      - elixir
-
-- name: Install bazel
-  aur:
-    name:
-      - bazelisk

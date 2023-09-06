@@ -1,93 +1,58 @@
 ---
-- name: Install devel packages
-  become: true
-  community.general.pacman:
-    name:
-      - bat
-      - clang
-      - cmake
-      - extra-cmake-modules
-      - gdb
-      - git-delta
-      - git-sizer
-      - llvm
-      - ninja
-      - perf
-      - pygmentize
-
-- name: Install python support
-  become: true
-  community.general.pacman:
-    name:
-      - jupyter_console
-      - python-black
-      - python-debugpy
-      - python-matplotlib
-      - python-numpy
-      - python-pandas
-      - python-pandas-datareader
-      - python-poetry
-      - python-psycopg2
-      - python-pylint
-      - python-wheel
-
-- name: Install ruby
-  become: true
-  community.general.pacman:
-    name:
-      - ruby
-
 - name: Install ansible
   become: true
   community.general.pacman:
-    name:
-      - ansible
-      - ansible-lint
+    name: [ansible]
 
-- name: Misc linting
+- name: Install asciidoc
   become: true
   community.general.pacman:
-    name:
-      - shellcheck
-      - shfmt
-      - vint
-      - yamllint
+    name: [asciidoc, asciidoctor]
 
 - name: Install go support
   become: true
   community.general.pacman:
-    name:
-      - go
+    name: [go]
+
+- name: Install influxdb support
+  community.general.pacman:
+    name: [influx-cli]
+
+- name: Install lua support
+  aur:
+    name: [luarocks]
 
 - name: Install node.js support
   become: true
   community.general.pacman:
-    name:
-      - nodejs
-      - npm
-
-- name: Install influxdb support
-  community.general.pacman:
-    name:
-      - influx-cli
-
-- name: Install doc helpers
-  aur:
-    name:
-      - zeal
-
-- name: Install lua support
-  aur:
-    name:
-      - lua-format
-      - luarocks
+    name: [nodejs, npm]
 
 - name: Install perl support
   aur:
-    name:
-      - perl-mojolicious
+    name: [perl-mojolicious]
+
+- name: Install python support
+  become: true
+  community.general.pacman:
+    name: [python-poetry]
+
+- name: Install ruby
+  become: true
+  community.general.pacman:
+    name: [ruby]
+
+- name: Install highlight packages
+  become: true
+  community.general.pacman:
+    name: [bat, git-delta, python-pygmentize]
+
+- name: Install devel packages
+  become: true
+  community.general.pacman:
+    name: [clang, cmake, extra-cmake-modules, gdb, git-sizer, llvm, ninja]
+
+# => -------------------------------------------------------------------------------------------------------------- {{{1
 
 - name: Install tools
   aur:
-    name:
-      - task-spooler
+    name: [task-spooler]

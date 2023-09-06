@@ -15,7 +15,7 @@
   community.general.pacman:
     name: [libva-intel-driver, libva-mesa-driver, libva-utils]
 
-- name: Install vdpau support
-  become: true
-  community.general.pacman:
-    name: [libva-vdpau-driver, libvdpau-va-gl]
+# - name: Install vdpau support
+#   become: true
+#   community.general.pacman:
+#     name: [libva-vdpau-driver, libvdpau-va-gl]

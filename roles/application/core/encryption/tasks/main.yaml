@@ -1,24 +1,18 @@
 ---
+- name: Certificates support
+  become: true
+  community.general.pacman:
+    name: [easyrsa]
+
 - name: Encryption support
   become: true
   community.general.pacman:
-    name:
-      - encfs
-      - pass
-      - pass-otp
-      # - gnome-encfs-manager-bin
-      # - gpa
-      # - gpg-crypter
-      # - keepassxc
-      # - libgee
-      # - veracrypt
+    name: [encfs, pass, pass-otp]
 
 - name: Smartcard support
   become: true
   community.general.pacman:
-    name:
-      - ccid
-      - pcsc-tools
+    name: [ccid, pcsc-tools]
 
 - name: Enable smartcard daemon
   become: true
