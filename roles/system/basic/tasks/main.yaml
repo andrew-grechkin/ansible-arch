@@ -39,7 +39,7 @@
 - name: Install common tools
   become: true
   community.general.pacman:
-    name: [exa, htop, hwinfo, iotop, lsb-release, lsof, moreutils, strace, usbutils]
+    name: [eza, htop, hwinfo, iotop, lsb-release, lsof, moreutils, strace, usbutils]
 
 - name: Install network tools
   become: true
