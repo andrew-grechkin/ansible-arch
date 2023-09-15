@@ -4,7 +4,6 @@
   community.general.pacman:
     name:
       - accountsservice
-      - rofi
       - xclip
       - xdotool
       - xorg-server

@@ -2,7 +2,7 @@
 - name: Certificates support
   become: true
   community.general.pacman:
-    name: [easyrsa]
+    name: [easy-rsa]
 
 - name: Encryption support
   become: true
