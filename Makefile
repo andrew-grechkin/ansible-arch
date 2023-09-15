@@ -13,6 +13,9 @@ install-users:
 	@ansible-playbook playbooks/install-users.yaml -i localhost.yaml -K --ask-vault-pass
 
 setup-kde:
+	@echo "Updating pacman mirrors..."
+	@sudo systemctl restart reflector
+	@echo "Applying playbooks..."
 	@ansible-playbook playbooks/setup-basic.yaml playbooks/setup-kde.yaml -K
 
 upgrade-all:
