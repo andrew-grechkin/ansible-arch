@@ -1,0 +1,8 @@
+---
+- name: Shell sh should always be bash, never dash
+  become: true
+  ansible.builtin.file:
+    path: /usr/bin/sh
+    state: link
+    src: bash
+    force: true

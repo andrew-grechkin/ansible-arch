@@ -12,7 +12,7 @@
 
 - name: Read device information (always use unit when probing)
   community.general.parted:
-    device: "{{ install_device }}"
+    device: '{{ install_device }}'
     unit: GiB
   register: install_device_info
 - name: Check clean {{ install_device }}
@@ -22,7 +22,7 @@
 
 - name: Create a new primary partition with a size of 1GiB
   community.general.parted:
-    device: "{{ install_device }}"
+    device: '{{ install_device }}'
     number: 1
     label: gpt
     state: present
@@ -31,7 +31,7 @@
 - name: Create a new primary partition for LVM
   when: not safe_disk_space_at_the_end|bool
   community.general.parted:
-    device: "{{ install_device }}"
+    device: '{{ install_device }}'
     number: 2
     label: gpt
     flags: [lvm]
@@ -40,7 +40,7 @@
 - name: Create a new primary partition for LVM
   when: safe_disk_space_at_the_end|bool
   community.general.parted:
-    device: "{{ install_device }}"
+    device: '{{ install_device }}'
     number: 2
     label: gpt
     flags: [lvm]
@@ -51,10 +51,10 @@
 - name: Create and open the LUKS2 container on 2 {{ install_device }}
   when: install_encrypt|bool
   community.crypto.luks_device:
-    device: "{{ install_device }}2"
+    device: '{{ install_device }}2'
     label: lvm-encrypted{{ install_suffix }}
     name: lvm-encrypted{{ install_suffix }}
-    passphrase: "{{ userpass }}"
+    passphrase: '{{ userpass }}'
     state: opened
     type: luks2
 - name: Create a volume group on top of /dev/mapper/lvm-encrypted{{ install_suffix }}
@@ -67,27 +67,27 @@
   when: not install_encrypt|bool
   community.general.lvg:
     vg: vg-arch{{ install_suffix }}
-    pvs: "{{ install_device }}2"
+    pvs: '{{ install_device }}2'
 
 - name: Create root logical volume
   community.general.lvol:
     lv: root
-    size: "{{ install_root_size }}"
+    size: '{{ install_root_size }}'
     vg: vg-arch{{ install_suffix }}
 - name: Create swap logical volume
   community.general.lvol:
     lv: swap
-    size: "{{ install_swap_size }}"
+    size: '{{ install_swap_size }}'
     vg: vg-arch{{ install_suffix }}
 - name: Create home logical volume
   community.general.lvol:
     lv: home
-    size: "{{ install_home_size }}"
+    size: '{{ install_home_size }}'
     vg: vg-arch{{ install_suffix }}
 
 - name: Create a EFI filesystem on 1 {{ install_device }}
   community.general.filesystem:
-    dev: "{{ install_device }}1"
+    dev: '{{ install_device }}1'
     fstype: vfat
     opts: -n EFI{{ install_suffix }}
 - name: Create a root filesystem on vg-arch-root{{ install_suffix }}
@@ -161,38 +161,40 @@
     state: mounted
 
 - name: Update pacman mirrors
-  ansible.builtin.command: reflector --country "{{ install_pacman_mirror_country }}" --latest 8 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+  ansible.builtin.command: reflector --country "{{ install_pacman_mirror_country }}" --latest 8 --protocol http --protocol
+    https --sort rate --save /etc/pacman.d/mirrorlist
   args:
     creates: /root/.cache/mirrorstatus.json
 
 - name: Run pacstrap
-  ansible.builtin.command: pacstrap /mnt base base-devel linux linux-firmware cryptsetup lvm2 mdadm btrfs-progs refind avahi nss-mdns systemd-resolvconf inetutils networkmanager zsh zsh-completions grml-zsh-config tmux git vifm vim
+  ansible.builtin.command: pacstrap /mnt base base-devel linux linux-firmware cryptsetup lvm2 mdadm btrfs-progs refind avahi
+    nss-mdns systemd-resolvconf inetutils networkmanager zsh zsh-completions grml-zsh-config tmux git vifm vim
   args:
     creates: /mnt/etc/pacman.conf
 
 - name: Copy fstab
   ansible.builtin.copy:
-    src: fstab
     dest: /mnt/etc/fstab
     group: root
-    mode: "0644"
+    mode: '0644'
     owner: root
+    src: fstab
 
 - name: Create resolved.conf.d directory
   ansible.builtin.file:
-    path: /mnt/etc/systemd/resolved.conf.d
     group: root
-    mode: "0775"
+    mode: '0775'
     owner: root
+    path: /mnt/etc/systemd/resolved.conf.d
     state: directory
 
 - name: Copy resolved overrides
   ansible.builtin.copy:
-    src: etc/systemd/resolved.conf.d/50-override.conf
     dest: /mnt/etc/systemd/resolved.conf.d/50-override.conf
-    owner: root
     group: root
-    mode: "0644"
+    mode: '0644'
+    owner: root
+    src: etc/systemd/resolved.conf.d/50-override.conf
 
 - name: Install rEFInd
   ansible.builtin.script: install-refind.sh "{{ install_encrypt | bool }}" "{{ install_suffix }}"
@@ -201,11 +203,11 @@
 
 - name: Copy refind additional files
   ansible.posix.synchronize:
-    src: refind
-    dest: /mnt/boot/EFI/
     archive: false
     compress: false
+    dest: /mnt/boot/EFI/
     recursive: true
+    src: refind
 
 - name: Use pacman mirrorlist
   ansible.builtin.command: cp -f /etc/pacman.d/mirrorlist /mnt/etc/pacman.d
@@ -222,11 +224,11 @@
 
 - name: Checkout ansible scripts
   ansible.builtin.git:
-    repo: https://github.com/andrew-grechkin/ansible-arch.git
     dest: /mnt/home/{{ username }}/git/private/ansible-arch
+    repo: https://github.com/andrew-grechkin/ansible-arch.git
     version: master
   environment:
-    GIT_TERMINAL_PROMPT: "0"
+    GIT_TERMINAL_PROMPT: '0'
 - name: Change owner of the files
   ansible.builtin.command: chown -R "{{ useruid }}:{{ useruid }}" "/mnt/home/{{ username }}/git"
   changed_when: false

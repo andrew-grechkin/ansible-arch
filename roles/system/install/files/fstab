@@ -1,5 +1,6 @@
 # Static information about the filesystems.
 # See fstab(5) for details.
+# vim: filetype=fstab
 
 # <file system>         <dir>                           <type>  <options>                                 <dump> <pass>
 

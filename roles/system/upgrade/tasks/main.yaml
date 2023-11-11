@@ -8,7 +8,6 @@
   register: pacman_mirrorlist
   when: ((ansible_date_time.epoch|int - pacman_mirrorlist_stat.stat.mtime) > (4 * 60 * 60))
   become: true
-  ansible.builtin.command: reflector --country Netherlands --latest 8 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
-  notify:
-    - Full Arch system upgrade
-    - Upgrade all AUR packages
+  ansible.builtin.command: reflector --country Netherlands --latest 8 --protocol http --protocol https --sort rate --save
+    /etc/pacman.d/mirrorlist
+  notify: [Full Arch system upgrade, Upgrade all AUR packages]

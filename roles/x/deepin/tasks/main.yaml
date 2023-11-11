@@ -2,6 +2,4 @@
 - name: Deepin desktop
   become: true
   community.general.pacman:
-    name:
-      - deepin
-      - deepin-extra
+    name: [deepin, deepin-extra]

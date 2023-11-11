@@ -2,12 +2,10 @@
 - name: Install lightdm
   become: true
   community.general.pacman:
-    name:
-      - lightdm-gtk-greeter
-      - lightdm-gtk-greeter-settings
+    name: [lightdm-gtk-greeter, lightdm-gtk-greeter-settings]
 
 - name: Populate service facts
-  ansible.builtin.service_facts:
+  ansible.builtin.service_facts: null
 
 - name: Disable sddm
   become: true
@@ -19,14 +17,14 @@
 - name: Enable lightdm service
   become: true
   ansible.builtin.service:
-    name: lightdm
     enabled: true
+    name: lightdm
 
 - name: Copy lightdm configs
   become: true
   synchronize:
-    src: lightdm
-    dest: /etc/
     archive: false
     compress: false
+    dest: /etc/
     recursive: true
+    src: lightdm
