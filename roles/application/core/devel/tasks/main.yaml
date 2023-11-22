@@ -4,19 +4,26 @@
   community.general.pacman:
     name: [ansible]
 
-- name: Install asciidoc
-  become: true
-  community.general.pacman:
-    name: [asciidoc, asciidoctor]
+# - name: Install asciidoc
+#   become: true
+#   community.general.pacman:
+#     name: [asciidoc, asciidoctor]
+
+# - name: Install doc helpers
+#   become: true
+#   community.general.pacman:
+#     name:
+#       - pandoc
+#       - texlive-core
 
 - name: Install go support
   become: true
   community.general.pacman:
     name: [go]
 
-- name: Install influxdb support
-  community.general.pacman:
-    name: [influx-cli]
+# - name: Install influxdb support
+#   community.general.pacman:
+#     name: [influx-cli]
 
 - name: Install lua support
   aur:
@@ -44,7 +51,7 @@
 - name: Install highlight packages
   become: true
   community.general.pacman:
-    name: [bat, git-delta, python-pygmentize]
+    name: [bat, git-delta]
 
 - name: Install devel packages
   become: true

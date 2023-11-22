@@ -1,0 +1,10 @@
+---
+- hosts: [localhost]
+  any_errors_fatal: true
+  vars:
+    install_pacman_mirror_country: Netherlands
+  roles:
+    - distrobox/install
+    - application/aur/archivemount
+    - application/core/devel
+    - application/core/devel-work
