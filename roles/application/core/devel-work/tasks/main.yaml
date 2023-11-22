@@ -24,11 +24,6 @@
   community.general.pacman:
     name: [helm, k9s, kubeadm, kubectl]
 
-- name: Install node.js support
-  become: true
-  community.general.pacman:
-    name: [yarn]
-
 - name: Install bazel
   aur:
     name: [bazelisk]

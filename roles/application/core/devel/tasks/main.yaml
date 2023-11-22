@@ -32,7 +32,7 @@
 - name: Install node.js support
   become: true
   community.general.pacman:
-    name: [nodejs, npm]
+    name: [nodejs, npm, yarn]
 
 - name: Install perl support
   aur:
