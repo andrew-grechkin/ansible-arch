@@ -26,7 +26,8 @@
 #     name: [influx-cli]
 
 - name: Install lua support
-  aur:
+  become: true
+  community.general.pacman:
     name: [luarocks]
 
 - name: Install node.js support
