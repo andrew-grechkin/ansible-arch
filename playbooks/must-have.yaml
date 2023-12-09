@@ -1,5 +1,5 @@
 ---
-- hosts: [localhost]
+- hosts: all
   any_errors_fatal: true
   vars:
     install_pacman_mirror_country: Netherlands
