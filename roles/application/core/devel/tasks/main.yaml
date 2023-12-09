@@ -1,9 +1,4 @@
 ---
-- name: Install ansible
-  become: true
-  community.general.pacman:
-    name: [ansible]
-
 # - name: Install asciidoc
 #   become: true
 #   community.general.pacman:
@@ -15,6 +10,16 @@
 #     name:
 #       - pandoc
 #       - texlive-core
+
+- name: Install devel packages
+  become: true
+  community.general.pacman:
+    name: [gdb, git-sizer, ninja]
+
+- name: Install c/c++ support
+  become: true
+  community.general.pacman:
+    name: [clang, cmake, extra-cmake-modules, llvm]
 
 - name: Install go support
   become: true
@@ -33,34 +38,14 @@
 - name: Install node.js support
   become: true
   community.general.pacman:
-    name: [nodejs, npm, yarn]
-
-- name: Install perl support
-  aur:
-    name: [perl-mojolicious]
+    name: [nodejs, npm]
 
 - name: Install python support
   become: true
   community.general.pacman:
-    name: [python-poetry]
+    name: [pyenv, python-poetry]
 
 - name: Install ruby
   become: true
   community.general.pacman:
     name: [ruby]
-
-- name: Install highlight packages
-  become: true
-  community.general.pacman:
-    name: [bat, git-delta]
-
-- name: Install devel packages
-  become: true
-  community.general.pacman:
-    name: [clang, cmake, extra-cmake-modules, gdb, git-sizer, llvm, ninja]
-
-# => -------------------------------------------------------------------------------------------------------------- {{{1
-
-- name: Install tools
-  aur:
-    name: [task-spooler]

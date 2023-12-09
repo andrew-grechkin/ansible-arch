@@ -5,9 +5,12 @@
     name:
       - aardvark-dns
       - buildah
+      - docker-compose
       - fuse-overlayfs
+      - netavark
       - podman
       - podman-compose
+      - podman-dnsname
       - podman-docker
 
 - name: Add user to subuid
@@ -16,7 +19,7 @@
     create: true
     group: root
     owner: root
-    mode: "0644"
+    mode: '0644'
     path: /etc/subuid
     state: present
     line: "{{ lookup('env', 'USER') }}:100000:65536"
@@ -27,7 +30,7 @@
     create: true
     group: root
     owner: root
-    mode: "0644"
+    mode: '0644'
     path: /etc/subgid
     state: present
     line: "{{ lookup('env', 'USER') }}:100000:65536"
@@ -36,7 +39,7 @@
   become: true
   ansible.builtin.file:
     group: root
-    mode: "0644"
+    mode: '0644'
     owner: root
     path: /etc/containers/nodocker
     state: touch

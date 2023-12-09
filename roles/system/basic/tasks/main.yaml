@@ -2,22 +2,17 @@
 - name: Install essential tools
   become: true
   community.general.pacman:
-    name: [bash-completion, git, neovim, polkit, sudo, tmux, zsh-completions]
+    name: [polkit, sudo]
 
 - name: Install filesystem/partition tools
   become: true
   community.general.pacman:
     name: [btrfs-progs, dosfstools, fuseiso, ntfs-3g, sshfs, udftools]
 
-- name: Install man/help
-  become: true
-  community.general.pacman:
-    name: [man-db, man-pages]
-
 - name: Install search tools
   become: true
   community.general.pacman:
-    name: [fd, fzf, mlocate, ripgrep, the_silver_searcher]
+    name: [mlocate]
 
 - name: Install boot tools
   become: true
@@ -39,12 +34,12 @@
 - name: Install common tools
   become: true
   community.general.pacman:
-    name: [eza, htop, hwinfo, iotop, lsb-release, lsof, moreutils, strace, usbutils]
+    name: [hwinfo, iotop, lsb-release, usbutils]
 
 - name: Install network tools
   become: true
   community.general.pacman:
-    name: [cifs-utils, gnu-netcat, inetutils, iw, nfs-utils, nss-mdns, rsync, socat, wireless-regdb]
+    name: [cifs-utils, inetutils, iw, nfs-utils, nss-mdns, wireless-regdb]
 
 - name: Install pacman tools
   become: true
@@ -53,51 +48,10 @@
 
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 
-- name: Install perl base
-  become: true
-  community.general.pacman:
-    name: [perlbrew]
-
-- name: Install perl additional
-  become: true
-  community.general.pacman:
-    name:
-      - perl-cpanel-json-xs
-      - perl-data-dump
-      - perl-datetime-timezone
-      - perl-dbd-pg
-      - perl-ev
-      - perl-image-exiftool
-      - perl-io-socket-ssl
-      - perl-log-any
-      - perl-path-tiny
-      - perl-perl-critic
-      - perl-rename
-      - perl-role-tiny
-      - perl-tidy
-      - perl-yaml-libyaml
-
-- name: Install python base
-  become: true
-  community.general.pacman:
-    name: [pyenv, python, python-neovim, swig]
-
-# => -------------------------------------------------------------------------------------------------------------- {{{1
-
 - name: Install compression tools
   become: true
   community.general.pacman:
     name: [cpio, lzop, p7zip, unrar, unzip]
-
-- name: Install file management tools
-  become: true
-  community.general.pacman:
-    name: [inotify-tools, jq, ncdu, parallel, pigz, progress, pv, vifm]
-
-- name: Install barcode/qrcode tools
-  become: true
-  community.general.pacman:
-    name: [zbar]
 
 # - name: Install backup tools
 #   become: true

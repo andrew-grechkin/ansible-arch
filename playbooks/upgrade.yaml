@@ -1,4 +1,5 @@
 ---
 - hosts: all
-  roles:
-    - system/upgrade
+  vars:
+    install_pacman_mirror_country: Netherlands
+  roles: [system/upgrade]

@@ -4,6 +4,7 @@
     terminal_only: true
   roles:
     - system/basic
+    - application/core/must-have
     - application/core/encryption
     - application/core/media
     - application/core/snapper

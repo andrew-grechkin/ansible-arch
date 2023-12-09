@@ -1,0 +1,81 @@
+---
+- name: Install ansible
+  become: true
+  community.general.pacman:
+    name: [ansible]
+
+- name: Install reflector
+  become: true
+  community.general.pacman:
+    name: [reflector]
+
+- name: Install essential tools
+  become: true
+  community.general.pacman:
+    name: [bash-completion, git, neovim, tmux, zsh-completions]
+
+- name: Install common tools
+  become: true
+  community.general.pacman:
+    name: [eza, htop, lsof, moreutils, strace]
+
+- name: Install network tools
+  become: true
+  community.general.pacman:
+    name: [gnu-netcat, rsync, socat]
+
+- name: Install man/help
+  become: true
+  community.general.pacman:
+    name: [man-db, man-pages]
+
+- name: Install search tools
+  become: true
+  community.general.pacman:
+    name: [fd, fzf, ripgrep-all]
+
+- name: Install file management tools
+  become: true
+  community.general.pacman:
+    name: [inotify-tools, jq, ncdu, parallel, pigz, progress, pv, vifm, yq]
+
+- name: Install highlight tools
+  become: true
+  community.general.pacman:
+    name: [bat, git-delta]
+
+- name: Install barcode/qrcode tools
+  become: true
+  community.general.pacman:
+    name: [zbar]
+
+# => -------------------------------------------------------------------------------------------------------------- {{{1
+
+- name: Install perl base
+  become: true
+  community.general.pacman:
+    name: [perlbrew]
+
+- name: Install perl additional
+  become: true
+  community.general.pacman:
+    name:
+      - perl-cpanel-json-xs
+      - perl-data-dump
+      - perl-datetime-timezone
+      - perl-dbd-pg
+      - perl-ev
+      - perl-image-exiftool
+      - perl-io-socket-ssl
+      - perl-log-any
+      - perl-path-tiny
+      - perl-perl-critic
+      - perl-rename
+      - perl-role-tiny
+      - perl-tidy
+      - perl-yaml-libyaml
+
+- name: Install python base
+  become: true
+  community.general.pacman:
+    name: [python, python-neovim, swig]

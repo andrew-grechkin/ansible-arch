@@ -4,25 +4,27 @@
   community.general.pacman:
     name: [expect]
 
-# - name: Install network packages
-#   become: true
-#   community.general.pacman:
-#     name: [globalprotect-openconnect, netctl, networkmanager-openconnect]
-
 - name: Install go support
   become: true
   community.general.pacman:
-    name: [go, go-tools, delve]
+    name: [go-tools, delve]
 
-# - name: Install devel packages
-#   become: true
-#   community.general.pacman:
-#     name: [apache, maven]
+- name: Install devel packages
+  become: true
+  community.general.pacman:
+    name: [apache, maven]
+
+- name: Install node.js support
+  become: true
+  community.general.pacman:
+    name: [yarn]
 
 - name: Install kubernetes
   become: true
   community.general.pacman:
     name: [helm, k9s, kubeadm, kubectl]
+
+# => aur ---------------------------------------------------------------------------------------------------------- {{{1
 
 - name: Install bazel
   aur:

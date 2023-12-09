@@ -2,7 +2,8 @@
 - hosts: [localhost]
   roles:
     - x/kde
-    - application/aur/archivemount
+    - application/core/must-have
+    - application/aur/must-have
     - application/aur/fonts
     - application/aur/google-chrome
     - application/core/browser

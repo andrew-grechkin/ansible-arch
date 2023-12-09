@@ -161,13 +161,15 @@
     state: mounted
 
 - name: Update pacman mirrors
-  ansible.builtin.command: reflector --country "{{ install_pacman_mirror_country }}" --latest 8 --protocol http --protocol
-    https --sort rate --save /etc/pacman.d/mirrorlist
+  ansible.builtin.command: >
+    reflector --country "{{ install_pacman_mirror_country }}" --latest 8 --protocol http  --protocol https
+    --sort rate --save /etc/pacman.d/mirrorlist
   args:
     creates: /root/.cache/mirrorstatus.json
 
 - name: Run pacstrap
-  ansible.builtin.command: pacstrap /mnt base base-devel linux linux-firmware cryptsetup lvm2 mdadm btrfs-progs refind avahi
+  ansible.builtin.command: >
+    pacstrap /mnt base base-devel linux linux-firmware cryptsetup lvm2 mdadm btrfs-progs refind avahi
     nss-mdns systemd-resolvconf inetutils networkmanager zsh zsh-completions grml-zsh-config tmux git vifm vim
   args:
     creates: /mnt/etc/pacman.conf

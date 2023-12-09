@@ -1,0 +1,16 @@
+---
+- name: Install archivemount
+  aur:
+    name: [archivemount]
+
+- name: Install fuse3-p7zip
+  aur:
+    name: [fuse3-p7zip-git]
+
+- name: Install tools
+  aur:
+    name: [jqp-bin, task-spooler]
+
+- name: Install perl support
+  aur:
+    name: [perl-mojolicious]

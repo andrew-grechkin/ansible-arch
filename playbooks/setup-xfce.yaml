@@ -2,7 +2,7 @@
 - hosts: [localhost]
   roles:
     - x/xfce
-    - application/aur/archivemount
+    - application/aur/must-have
     - application/aur/fonts
     - application/aur/google-chrome
     - application/core/browser
