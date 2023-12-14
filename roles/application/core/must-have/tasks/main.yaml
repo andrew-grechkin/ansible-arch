@@ -22,7 +22,7 @@
 - name: Install network tools
   become: true
   community.general.pacman:
-    name: [gnu-netcat, rsync, socat]
+    name: [dog, gnu-netcat, rsync, socat, xh]
 
 - name: Install man/help
   become: true
@@ -37,7 +37,7 @@
 - name: Install file management tools
   become: true
   community.general.pacman:
-    name: [inotify-tools, jq, ncdu, parallel, pigz, progress, pv, vifm, yq]
+    name: [duf, inotify-tools, jq, ncdu, parallel, pigz, progress, pv, vifm, yq]
 
 - name: Install highlight tools
   become: true
