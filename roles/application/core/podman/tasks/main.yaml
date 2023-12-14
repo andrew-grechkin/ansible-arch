@@ -42,4 +42,4 @@
     mode: '0644'
     owner: root
     path: /etc/containers/nodocker
-    state: touch
+    state: file

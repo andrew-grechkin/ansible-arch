@@ -1,5 +1,0 @@
----
-- hosts: [localhost]
-  roles:
-    - application/core/devel
-    - application/core/podman
