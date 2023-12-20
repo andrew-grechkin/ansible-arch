@@ -3,27 +3,12 @@
   become: true
   community.general.pacman:
     name:
-      - kde-gtk-config
-      - partitionmanager
-      - plasma-meta
-      - packagekit-qt5
-      # - kde-applications-meta
-      - kde-system-meta
-      # - kdebase-meta
-      # - kdialog
-      - kde-graphics-meta
-      # - kdemultimedia-meta
       - audiocd-kio
+      - dolphin
       - ffmpegthumbs
-      # - k3b
-      # - kdenetwork-meta
-      # - kdenetwork-filesharing
-      # - krdc
-      # - krfb
-      - kio-zeroconf
-      # - kio-extras
-      # - kdepim-meta
+      - kcolorchooseer
+      - kde-gtk-config
       - kleopatra
-      # - kdepim-addons
-      - kde-utilities-meta
-      # - krusader
+      - packagekit-qt5
+      - plasma-meta
+      - spectacle
