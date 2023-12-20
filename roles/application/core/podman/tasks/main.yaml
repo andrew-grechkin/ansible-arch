@@ -13,6 +13,12 @@
       - podman-dnsname
       - podman-docker
 
+- name: Install distrobox
+  become: true
+  community.general.pacman:
+    name:
+      - distrobox
+
 - name: Add user to subuid
   become: true
   ansible.builtin.lineinfile:
@@ -35,6 +41,10 @@
     state: present
     line: "{{ lookup('env', 'USER') }}:100000:65536"
 
+- stat:
+    path: /etc/containers/nodocker
+  register: p
+
 - name: Add nodocker file
   become: true
   ansible.builtin.file:
@@ -42,4 +52,5 @@
     mode: '0644'
     owner: root
     path: /etc/containers/nodocker
-    state: file
+    state: touch
+  when: p.stat.exists is defined and not p.stat.exists

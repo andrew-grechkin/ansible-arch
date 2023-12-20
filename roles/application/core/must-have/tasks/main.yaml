@@ -78,4 +78,4 @@
 - name: Install python base
   become: true
   community.general.pacman:
-    name: [python, python-neovim, swig]
+    name: [python, python-neovim, python-pip, swig]

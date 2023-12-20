@@ -3,12 +3,14 @@
   become: true
   community.general.pacman:
     name:
-      - audiocd-kio
       - dolphin
       - ffmpegthumbs
-      - kcolorchooseer
+      - gwenview
+      - kcharselect
+      - kcolorchooser
       - kde-gtk-config
       - kleopatra
+      - okular
       - packagekit-qt5
       - plasma-meta
       - spectacle
