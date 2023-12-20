@@ -38,7 +38,7 @@
 - name: Install node.js support
   become: true
   community.general.pacman:
-    name: [nodejs, npm]
+    name: [npm]
 
 - name: Install python support
   become: true

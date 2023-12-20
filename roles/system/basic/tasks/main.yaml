@@ -7,7 +7,7 @@
 - name: Install filesystem/partition tools
   become: true
   community.general.pacman:
-    name: [btrfs-progs, dosfstools, fuseiso, ntfs-3g, sshfs, udftools]
+    name: [btrfs-progs, dosfstools, ntfs-3g, sshfs, udftools]
 
 - name: Install search tools
   become: true
