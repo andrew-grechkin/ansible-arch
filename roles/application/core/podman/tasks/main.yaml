@@ -16,8 +16,7 @@
 - name: Install distrobox
   become: true
   community.general.pacman:
-    name:
-      - distrobox
+    name: [distrobox]
 
 - name: Add user to subuid
   become: true
@@ -41,7 +40,8 @@
     state: present
     line: "{{ lookup('env', 'USER') }}:100000:65536"
 
-- stat:
+- name: Stat file
+  ansible.builtin.stat:
     path: /etc/containers/nodocker
   register: p
 

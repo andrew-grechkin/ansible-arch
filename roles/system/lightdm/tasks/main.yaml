@@ -12,13 +12,18 @@
   ansible.builtin.service:
     name: sddm
     enabled: false
-  when: "'sddm' in services"
+  when: "'sddm.service' in ansible_facts.services and ansible_facts.services['sddm.service'].state == 'running'"
 
 - name: Enable lightdm service
   become: true
   ansible.builtin.service:
     enabled: true
     name: lightdm
+
+- name: Stat file
+  ansible.builtin.stat:
+    path: /etc/lightdm/lightdm-gtk-greeter.conf
+  register: p
 
 - name: Copy lightdm configs
   become: true
@@ -28,3 +33,4 @@
     dest: /etc/
     recursive: true
     src: lightdm
+  when: p.stat.exists is defined and not p.stat.exists
