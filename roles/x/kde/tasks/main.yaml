@@ -10,6 +10,7 @@
       - kcolorchooser
       - kde-gtk-config
       - kleopatra
+      - konsole
       - okular
       - packagekit-qt5
       - plasma-meta
