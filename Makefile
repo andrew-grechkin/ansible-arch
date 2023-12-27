@@ -12,6 +12,9 @@ install:
 install-users:
 	@ansible-playbook playbooks/install-users.yaml -i localhost.yaml -K --ask-vault-pass
 
+must-have:
+	@ansible-playbook -K playbooks/must-have.yaml
+
 setup-kde:
 	@echo "Updating pacman mirrors..."
 	@sudo systemctl restart reflector
@@ -23,3 +26,6 @@ upgrade-all:
 
 upgrade-this:
 	ansible-role roles/system/upgrade -i localhost.yaml -K
+
+disable-ipv6:
+	ansible-role roles/system/disable-ipv6 -K -i localhost.yaml

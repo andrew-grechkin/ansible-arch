@@ -1,0 +1,9 @@
+---
+- name: Set sysctl
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/sysctl.d/90-disable-ipv6.conf
+    mode: '0644'
+    owner: root
+    group: root
+    src: 90-disable-ipv6.conf
