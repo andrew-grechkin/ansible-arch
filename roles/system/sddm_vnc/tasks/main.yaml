@@ -1,0 +1,15 @@
+---
+- name: Copy sddm window manager vnc server
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/x0vncserver.service
+    mode: '0644'
+    owner: root
+    group: root
+    src: x0vncserver.service
+
+- name: Enable sddm x0vncserver service
+  become: true
+  ansible.builtin.service:
+    name: x0vncserver
+    enabled: true
