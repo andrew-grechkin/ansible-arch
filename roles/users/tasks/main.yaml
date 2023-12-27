@@ -1,93 +1,63 @@
 ---
 - name: Install essential tools to make login possible
   become: true
-  community.general.pacman:
-    name: [sudo, git, perlbrew, neovim, tmux, zsh, zsh-completions]
+  ansible.builtin.package:
+    name: [sudo, git, tmux, vim, zsh]
 
-- name: Add the user
+- name: Set root password
   become: true
   ansible.builtin.user:
-    append: true
-    comment: "{{ item.comment }}"
-    groups: "{{ item.groups }}"
-    name: "{{ item.user }}"
-    password: "{{ item.password }}"
-    shell: /bin/zsh
-    uid: "{{ item.uid }}"
-  with_items: "{{ users }}"
-  notify:
-    - Reset root password
-    - Disable root
+    name: root
+    password: '{{ root_password }}'
 
-- name: Ensure directory exists
+- name: Ensure users group
+  ansible.builtin.include_tasks: ensure-users-group.yaml
+
+- name: Copy first login script
+  become: true
+  ansible.builtin.copy:
+    src: first-login
+    dest: /usr/local/bin/first-login
+    mode: '0755'
+    owner: root
+    group: root
+
+- name: Copy wireguard test config
+  become: true
+  ansible.builtin.copy:
+    src: home-test1-t.conf
+    dest: /var/tmp/home-test1-t.conf
+    mode: '0400'
+    owner: root
+    group: root
+
+- name: Ensure directories exists
   become: true
   ansible.builtin.file:
-    path: "{{ item.path }}"
-    mode: "{{ item.mode }}"
+    path: '{{ item.path }}'
+    mode: '{{ item.mode }}'
     owner: root
     group: root
     state: directory
   with_items:
-    - { path: /etc/sudoers.d, mode: "0750" }
-    - { path: /var/lib/AccountsService, mode: "0775" }
-    - { path: /var/lib/AccountsService/icons, mode: "0775" }
-    - { path: /var/lib/AccountsService/users, mode: "0700" }
+    - {path: /var/lib/AccountsService, mode: '0775'}
+    - {path: /var/lib/AccountsService/icons, mode: '0775'}
+    - {path: /var/lib/AccountsService/users, mode: '0700'}
 
-- name: Copy additional sudoers
-  become: true
-  ansible.builtin.copy:
-    src: sudoers.d/additional
-    dest: /etc/sudoers.d/additional
-    owner: root
-    group: root
-    mode: "0644"
-    force: false
+- name: Create user
+  ansible.builtin.include_tasks: create-user.yaml
+  vars:
+    user: '{{ item }}'
+  with_items: '{{ users }}'
 
-- name: Set proper folder permissions for user
-  become: true
-  ansible.builtin.file:
-    path: /home/{{ item.user }}
-    mode: g=rxs
-  with_items: "{{ users }}"
+- name: Set authorized_keys
+  ansible.builtin.include_tasks: set-authorized_keys.yaml
+  vars:
+    user: '{{ item }}'
+  with_items: '{{ users }}'
 
-- name: Create ssh directory for user
-  become: true
-  ansible.builtin.file:
-    path: /home/{{ item.user }}/.ssh
-    owner: "{{ item.user }}"
-    group: "{{ item.user }}"
-    state: directory
-    mode: "0700"
-  with_items: "{{ users }}"
-  when: item.create_dot_ssh is not defined or item.create_dot_ssh | bool
-
-- name: Copy authorized_keys for user
-  become: true
-  ansible.builtin.copy:
-    src: authorized_keys
-    dest: /home/{{ item.user }}/.ssh/authorized_keys
-    owner: "{{ item.user }}"
-    group: "{{ item.user }}"
-    mode: "0600"
-  with_items: "{{ users }}"
-  when: item.create_dot_ssh is not defined or item.create_dot_ssh | bool
-
-- name: Copy AccountsService icon
-  become: true
-  ansible.builtin.copy:
-    src: icons/{{ item.user | hash('sha256') }}
-    dest: /var/lib/AccountsService/icons/{{ item.user }}
-    owner: root
-    group: root
-    mode: "0644"
-  with_items: "{{ users }}"
-
-- name: Copy AccountsService user
-  become: true
-  ansible.builtin.copy:
-    src: users/{{ item.user | hash('sha256') }}
-    dest: /var/lib/AccountsService/users/{{ item.user }}
-    owner: root
-    group: root
-    mode: "0600"
-  with_items: "{{ users }}"
+- name: Fetch dotfiles
+  ansible.builtin.include_tasks: fetch-dotfiles.yaml
+  vars:
+    user: '{{ item }}'
+  with_items: '{{ users }}'

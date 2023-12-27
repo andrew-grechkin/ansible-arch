@@ -1,0 +1,26 @@
+---
+- name: Get file stat for {{ user.name }}
+  become: true
+  ansible.builtin.stat:
+    path: /home/{{ user.name }}/.ssh/authorized_keys
+  register: ak
+
+- name: Create ssh directory for {{ user.name }}
+  become: true
+  ansible.builtin.file:
+    path: /home/{{ user.name }}/.ssh
+    owner: '{{ user.name }}'
+    group: '{{ user.gid }}'
+    state: directory
+    mode: '0700'
+  when: ( item.create_dot_ssh is not defined or item.create_dot_ssh | bool ) and not ak.stat.exists
+
+- name: Copy authorized_keys for {{ user.name }}
+  become: true
+  ansible.builtin.copy:
+    src: authorized_keys
+    dest: /home/{{ user.name }}/.ssh/authorized_keys
+    owner: '{{ user.name }}'
+    group: '{{ user.gid }}'
+    mode: '0600'
+  when: ( item.create_dot_ssh is not defined or item.create_dot_ssh | bool ) and not ak.stat.exists

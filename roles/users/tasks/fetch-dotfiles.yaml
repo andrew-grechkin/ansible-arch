@@ -1,0 +1,53 @@
+---
+- name: Get file stat for {{ user.name }}
+  become: true
+  ansible.builtin.stat:
+    path: /home/{{ user.name }}/git/private/dotfiles
+  register: df
+
+- name: Create git dir for {{ user.name }}
+  become: true
+  ansible.builtin.file:
+    path: /home/{{ user.name }}/git/private
+    owner: '{{ user.name }}'
+    group: '{{ user.gid }}'
+    state: directory
+    mode: uo=rwX,g=rwXs
+  when: not df.stat.exists
+
+- name: Checkout dotfiles for {{ user.name }}
+  become: true
+  ansible.builtin.git:
+    dest: /home/{{ user.name }}/git/private/dotfiles
+    repo: https://github.com/andrew-grechkin/dotfiles.git
+    version: master
+    accept_newhostkey: true
+    recursive: false
+    update: false
+  environment:
+    GIT_TERMINAL_PROMPT: '0'
+  when: not df.stat.exists
+
+- name: Change ownership for {{ user.name }}
+  become: true
+  ansible.builtin.file:
+    path: /home/{{ user.name }}/git/private/dotfiles
+    owner: '{{ user.name }}'
+    group: '{{ user.gid }}'
+    state: directory
+    recurse: true
+  when: not df.stat.exists
+
+- name: Set proper folder permissions for {{ user.name }}
+  become: true
+  ansible.builtin.file:
+    path: /home/{{ user.name }}/git
+    mode: go-w
+  when: not df.stat.exists
+
+- name: Set proper folder permissions for {{ user.name }}
+  become: true
+  ansible.builtin.file:
+    path: /home/{{ user.name }}/git/private
+    mode: go-w
+  when: not df.stat.exists

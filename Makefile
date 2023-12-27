@@ -1,31 +1,38 @@
-.PHONY:           \
-	install       \
-	install-users \
-	setup-kde     \
-	upgrade-all   \
+.PHONY:            \
+	install        \
+	install-users  \
+	arch-devel     \
+	arch-must-have \
+	suse-must-have \
+	setup-kde      \
+	disable-ipv6   \
+	upgrade-all    \
 	upgrade-this
 
 install:
 	@lsblk
-	@ansible-playbook playbooks/install.yaml
+	@ansible-playbook -i localhost-not-ready.yaml playbooks/install.yaml
 
 install-users:
-	@ansible-playbook playbooks/install-users.yaml -i localhost.yaml -K --ask-vault-pass
+	@ansible-playbook --vault-password-file=vault-pass -i localhost-vault.yaml playbooks/install-users.yaml
 
-must-have:
-	@ansible-playbook -K playbooks/must-have.yaml
+arch-devel:
+	@ansible-playbook -K playbooks/arch-devel.yaml
+
+arch-must-have:
+	@ansible-playbook -K playbooks/arch-must-have.yaml
+
+suse-must-have:
+	@ansible-playbook -K playbooks/suse-must-have.yaml
 
 setup-kde:
-	@echo "Updating pacman mirrors..."
-	@sudo systemctl restart reflector
-	@echo "Applying playbooks..."
-	@ansible-playbook playbooks/setup-basic.yaml playbooks/setup-kde.yaml -K
-
-upgrade-all:
-	ansible-role roles/system/upgrade -i hosts.yaml -l all -K --ask-vault-pass
-
-upgrade-this:
-	ansible-role roles/system/upgrade -i localhost.yaml -K
+	@ansible-playbook setup/aur.yaml playbooks/setup-basic.yaml playbooks/setup-kde.yaml -K
 
 disable-ipv6:
-	ansible-role roles/system/disable-ipv6 -K -i localhost.yaml
+	ansible-role roles/system/disable-ipv6 -K
+
+upgrade-all:
+	ansible-role roles/system/upgrade -K -i hosts.yaml -l all
+
+upgrade-this:
+	ansible-role roles/system/upgrade -K

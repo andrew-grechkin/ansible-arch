@@ -3,7 +3,7 @@
   become: true
   ansible.builtin.user:
     name: root
-    password: "*"
+    password: '*'
 
 - name: Disable root
   become: true

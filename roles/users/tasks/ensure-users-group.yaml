@@ -1,0 +1,42 @@
+---
+- name: Ensure password-less groups exist
+  become: true
+  ansible.builtin.group:
+    name: '{{ gp.name }}'
+    gid: '{{ gp.gid }}'
+  with_items:
+    - name: nopwnet
+      gid: 47571
+    - name: nopwpwr
+      gid: 47572
+    - name: nopwstor
+      gid: 47573
+    - name: nopwsys
+      gid: 47574
+  loop_control:
+    loop_var: gp
+
+- name: Check if exists
+  ansible.builtin.getent:
+    database: group
+    key: 100
+    fail_key: false
+
+- name: Ensure users group exist
+  become: true
+  ansible.builtin.group:
+    gid: 100
+    name: synusers
+  when: ansible_facts.getent_group is defined and not (ansible_facts.getent_group.values() | first)
+
+- name: Read group data
+  ansible.builtin.getent:
+    database: group
+    key: 100
+    fail_key: true
+  when: ansible_facts.getent_group is defined and not (ansible_facts.getent_group.values() | first)
+
+- name: Print
+  ansible.builtin.debug:
+    var: ansible_facts.getent_group
+  when: ansible_facts.getent_group is defined

@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+PROGRESS=0
+STEPS=10
+
+mapfile -d ' ' -t DBUS_REF < <(kdialog --title "Desktop first login" --geometry 800x600 --progressbar "Desktop first login" "$STEPS" | tr -d '\n')
+
+tick()
+{
+	qdbus-qt5 "${DBUS_REF[@]}" Set "" value "$((++PROGRESS))"
+}
+
+install_package ()
+{
+	NAME="$1"
+	PACKAGE="$2"
+	qdbus-qt5 "${DBUS_REF[@]}" setLabelText "Installing $NAME"
+	if ! /usr/bin/flatpak install --user --noninteractive flathub "$PACKAGE"; then
+		kdialog --error "Installing $NAME failed"
+		exit 1
+	fi
+	tick
+}
+
+
+qdbus-qt5 "${DBUS_REF[@]}" setLabelText "Waiting for Internet connection"
+until /usr/bin/ping -q -c 1 flathub.org; do
+	sleep 1
+done
+tick
+
+qdbus-qt5 "${DBUS_REF[@]}" setLabelText "Adding Flathub repository"
+
+if ! /usr/bin/flatpak remote-add --user --if-not-exists flathub "https://dl.flathub.org/repo/flathub.flatpakrepo"; then
+	kdialog --error "Adding Flathub repository failed"
+	exit 1
+fi
+tick
+
+install_package "Opera" "com.opera.Opera"
+install_package "Chrome" "com.google.Chrome"
+
+qdbus-qt5 "${DBUS_REF[@]}" setLabelText "Setting default browser"
+kwriteconfig5 --file ~/.config/kdeglobals --group General --key BrowserApplication com.opera.Opera.desktop
+tick
+
+qdbus-qt5 "${DBUS_REF[@]}" setLabelText "Cleaning up"
+rm ~/.config/autostart/first-login.desktop
+tick
+
+qdbus-qt5 "${DBUS_REF[@]}" close

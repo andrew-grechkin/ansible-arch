@@ -1,0 +1,105 @@
+---
+- name: Copy AccountsService icon for {{ user.name }}
+  become: true
+  ansible.builtin.copy:
+    src: icons/{{ user.name | hash('sha256') }}
+    dest: /var/lib/AccountsService/icons/{{ user.name }}
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Copy AccountsService user for {{ user.name }}
+  become: true
+  ansible.builtin.copy:
+    src: users/{{ user.name | hash('sha256') }}
+    dest: /var/lib/AccountsService/users/{{ user.name }}
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: Create home dir for {{ user.name }}
+  become: true
+  ansible.builtin.file:
+    path: /home/{{ user.name }}
+    state: directory
+    mode: '{{ user.mode }}'
+
+- name: Add the user with default group {{ user.name }}
+  become: true
+  ansible.builtin.user:
+    append: true
+    comment: '{{ user.comment }}'
+    create_home: false
+    groups: '{{ user.groups }},{{ ansible_facts.getent_group.keys() | first }}'
+    name: '{{ user.name }}'
+    password: '{{ user.password }}'
+    shell: /bin/zsh
+    uid: '{{ user.uid }}'
+  when: user.gid != 100
+  register: changed_user
+
+- name: Add the user {{ user.name }}
+  become: true
+  ansible.builtin.user:
+    append: true
+    comment: '{{ user.comment }}'
+    create_home: false
+    group: '{{ ansible_facts.getent_group.keys() | first }}'
+    groups: '{{ user.groups }}'
+    name: '{{ user.name }}'
+    password: '{{ user.password }}'
+    shell: /bin/zsh
+    uid: '{{ user.uid }}'
+  when: user.gid == 100
+
+- name: Set proper dir owner for {{ user.name }}
+  become: true
+  ansible.builtin.file:
+    path: /home/{{ user.name }}
+    owner: '{{ user.name }}'
+    group: '{{ user.gid }}'
+
+- name: Create directories for {{ user.name }}
+  become: true
+  when: user.adirs is defined and user.adirs
+  ansible.builtin.file:
+    path: /home/{{ user.name }}/{{ dir }}
+    owner: '{{ user.name }}'
+    group: '{{ user.gid }}'
+    state: directory
+    mode: u=rwX,g=rwXs,o-rwX
+  with_items: '{{ user.adirs }}'
+  loop_control:
+    loop_var: dir
+
+- name: Create files for {{ user.name }}
+  become: true
+  when: user.afiles is defined and user.afiles
+  ansible.builtin.copy:
+    dest: /home/{{ user.name }}/{{ file.path }}
+    owner: '{{ user.name }}'
+    group: '{{ user.gid }}'
+    mode: '0644'
+    content: '{{ file.content }}'
+  with_items: '{{ user.afiles }}'
+  loop_control:
+    loop_var: file
+
+# - name: Remove unnecessary files for {{ user.name }}
+#   become: true
+#   ansible.builtin.file:
+#     path: /home/{{ user.name }}/{{ file }}
+#     state: absent
+#   with_items: [.bash_logout, .bash_profile, .bashrc, bin]
+#   loop_control:
+#     loop_var: file
+
+- name: Copy kdedefaults for {{ user.name }}
+  become: true
+  when: user.kdedefaults is defined and user.kdedefaults
+  ansible.builtin.copy:
+    src: kdedefaults
+    dest: /home/{{ user.name }}/.config/
+    owner: '{{ user.name }}'
+    group: '{{ user.gid }}'
+    mode: '0644'

@@ -1,6 +1,0 @@
----
-- hosts: all
-  any_errors_fatal: true
-  vars:
-    install_pacman_mirror_country: Netherlands
-  roles: [system/upgrade, application/core/must-have, application/core/devel, application/aur/must-have]
