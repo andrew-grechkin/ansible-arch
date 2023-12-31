@@ -4,8 +4,7 @@
   vars:
     install_pacman_mirror_country: Netherlands
   roles:
-    - system/upgrade
+    - system/disable-ipv6
+    - system/sddm
+    - system/sudo
     - application/core/must-have
-    - application/core/devel
-    - application/core/podman
-    - application/aur/must-have

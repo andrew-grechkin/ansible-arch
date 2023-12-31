@@ -1,0 +1,2 @@
+---
+application_packages_common: [ansible, git, make, tmux, vifm, vim, zsh]

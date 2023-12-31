@@ -1,0 +1,30 @@
+---
+- name: Install VNC support
+  become: true
+  ansible.builtin.package:
+    name: '{{ application_packages_vnc }}'
+
+- name: Remove unused packages
+  become: true
+  ansible.builtin.package:
+    state: absent
+    name:
+      - filelight
+      - kcm_tablet
+      - kmousetool
+      - kompare
+      - konversation
+      - netcat-openbsd
+      - tigervnc
+      - xscreensaver
+      - xterm
+
+- name: Install fonts
+  become: true
+  ansible.builtin.package:
+    name: [iosevka-fonts, symbols-only-nerd-fonts]
+
+- name: Install packages
+  become: true
+  ansible.builtin.package:
+    name: [wezterm, Mesa-libEGL-devel, mpv, mpv-mpris, sshfs, yt-dlp]

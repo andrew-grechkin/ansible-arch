@@ -1,0 +1,10 @@
+---
+application_packages_essential: []
+application_packages_file: [gnu_parallel]
+application_packages_man: [man-pages]
+application_packages_network: []
+application_packages_perl_additional: []
+application_packages_perl_base: [perl-App-perlbrew]
+application_packages_python_additional: []
+application_packages_search: [ripgrep]
+application_packages_vnc: [vncmanager, xorg-x11-Xvnc-novnc]

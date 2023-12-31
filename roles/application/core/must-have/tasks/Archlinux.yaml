@@ -1,0 +1,5 @@
+---
+- name: Install reflector
+  become: true
+  community.general.pacman:
+    name: [reflector]
