@@ -1,0 +1,23 @@
+---
+- name: Include distribution specific tasks
+  ansible.builtin.include_tasks: '{{ ansible_distribution }}.yaml'
+
+- name: Ensure directory exists
+  become: true
+  ansible.builtin.file:
+    path: '{{ item.path }}'
+    mode: '{{ item.mode }}'
+    owner: root
+    group: root
+    state: directory
+  with_items:
+    - {path: /etc/sudoers.d, mode: '0750'}
+
+- name: Copy additional sudoers
+  become: true
+  ansible.builtin.copy:
+    src: sudoers.d/additional
+    dest: /etc/sudoers.d/additional
+    owner: root
+    group: root
+    mode: '0640'

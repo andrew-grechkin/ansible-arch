@@ -1,0 +1,9 @@
+---
+- name: Copy proper polkit default rules
+  become: true
+  ansible.builtin.copy:
+    src: rules.d/50-default.rules
+    dest: /usr/share/polkit-1/rules.d/50-default.rules
+    owner: root
+    group: root
+    mode: '0644'
