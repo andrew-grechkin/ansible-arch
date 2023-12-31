@@ -1,0 +1,6 @@
+---
+- name: Install VNC support
+  become: true
+  ansible.builtin.package:
+    name: [xorg-x11-Xvnc]
+    state: installed

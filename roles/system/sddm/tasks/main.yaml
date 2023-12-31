@@ -1,8 +1,21 @@
 ---
 - name: Install sddm
   become: true
-  community.general.pacman:
+  ansible.builtin.package:
     name: [sddm]
+    state: present
+
+- name: Copy sddm config file
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/sddm.conf.d/kde_settings.conf
+    mode: '0644'
+    owner: root
+    group: root
+    src: '{{ ansible_distribution }}-kde_settings.conf'
+
+- name: Include distribution specific tasks
+  ansible.builtin.include_tasks: '{{ ansible_distribution }}.yaml'
 
 - name: Populate service facts
   ansible.builtin.service_facts: null
