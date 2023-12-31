@@ -1,0 +1,9 @@
+[Unit]
+Description=Automount NAS video share using NFS
+
+[Automount]
+Where=/media/nfs/home/video
+TimeoutIdleSec=10min
+
+[Install]
+WantedBy=multi-user.target

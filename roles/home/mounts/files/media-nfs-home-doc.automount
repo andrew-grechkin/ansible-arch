@@ -1,0 +1,9 @@
+[Unit]
+Description=Automount NAS doc share using NFS
+
+[Automount]
+Where=/media/nfs/home/doc
+TimeoutIdleSec=10min
+
+[Install]
+WantedBy=multi-user.target

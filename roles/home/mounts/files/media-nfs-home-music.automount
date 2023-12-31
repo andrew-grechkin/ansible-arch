@@ -1,0 +1,9 @@
+[Unit]
+Description=Automount NAS music share using NFS
+
+[Automount]
+Where=/media/nfs/home/music
+TimeoutIdleSec=10min
+
+[Install]
+WantedBy=multi-user.target

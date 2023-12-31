@@ -1,0 +1,11 @@
+[Unit]
+Description=Mount NAS doc share using NFS
+
+[Mount]
+What=home.ams:/volume1/doc
+Where=/media/nfs/home/doc
+Type=nfs
+Options=noauto,user,x-systemd.automount,x-systemd.idle-timeout=10min
+
+[Install]
+WantedBy=multi-user.target

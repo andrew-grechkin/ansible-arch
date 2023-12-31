@@ -1,0 +1,9 @@
+[Unit]
+Description=Automount NAS homes share using NFS
+
+[Automount]
+Where=/media/nfs/home/homes
+TimeoutIdleSec=10min
+
+[Install]
+WantedBy=multi-user.target
