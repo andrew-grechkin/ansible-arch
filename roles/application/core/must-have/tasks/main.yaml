@@ -33,12 +33,17 @@
 - name: Install network tools
   become: true
   ansible.builtin.package:
-    name: [dog, gnu-netcat, ngrep, rsync, socat, wireguard-tools, xh]
+    name: [bind, dog, gnu-netcat, rsync, socat, wireguard-tools, xh]
 
 - name: Install network tools (distribution)
   become: true
   ansible.builtin.package:
     name: '{{ application_packages_network }}'
+
+- name: Install network monitoring tools
+  become: true
+  ansible.builtin.package:
+    name: [iftop, iptraf-ng, mtr, nethogs, ngrep, nload, tcpdump, tcpflow, vnstat]
 
 - name: Install man/help
   become: true
@@ -79,6 +84,11 @@
   become: true
   ansible.builtin.package:
     name: [zbar]
+
+- name: Install documentation tools
+  become: true
+  ansible.builtin.package:
+    name: [glow]
 
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 

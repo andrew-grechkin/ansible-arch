@@ -1,16 +1,4 @@
 ---
-- name: Install network packages
-  become: true
-  community.general.pacman:
-    name: [bind]
-
-- name: Install monitoring packages
-  become: true
-  community.general.pacman:
-    name: [iptraf-ng, mtr, nethogs, nload, iftop, vnstat, tcpdump, tcpflow]
-    # - proxychains
-    # - qbittorrent
-
 - name: Install favorite network tools
   become: true
   community.general.pacman:

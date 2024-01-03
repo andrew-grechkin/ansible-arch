@@ -14,11 +14,6 @@
   community.general.pacman:
     name: [foliate]
 
-- name: Markdown
-  become: true
-  community.general.pacman:
-    name: [glow, obsidian]
-
 #
 # - name: Install fb2 viewers
 #   become: true

@@ -1,0 +1,6 @@
+---
+- name: Enable smartcard daemon
+  become: true
+  ansible.builtin.service:
+    name: pcscd.socket
+    enabled: true

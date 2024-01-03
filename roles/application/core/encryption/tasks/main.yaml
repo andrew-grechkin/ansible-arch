@@ -1,8 +1,8 @@
 ---
-- name: Certificates support
-  become: true
-  community.general.pacman:
-    name: [easy-rsa]
+# - name: Certificates support
+#   become: true
+#   community.general.pacman:
+#     name: [easy-rsa]
 
 - name: Encryption support
   become: true
@@ -13,9 +13,4 @@
   become: true
   community.general.pacman:
     name: [ccid, pcsc-tools]
-
-- name: Enable smartcard daemon
-  become: true
-  ansible.builtin.service:
-    name: pcscd.socket
-    enabled: true
+  notify: [Enable smartcard daemon]
