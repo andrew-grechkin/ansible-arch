@@ -5,6 +5,15 @@
     name: [sddm]
     state: present
 
+- name: Create sddm config dir
+  become: true
+  ansible.builtin.file:
+    path: /etc/sddm.conf.d
+    owner: root
+    group: root
+    state: directory
+    mode: '0755'
+
 - name: Copy sddm config file
   become: true
   ansible.builtin.copy:
