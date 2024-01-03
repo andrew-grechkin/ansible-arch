@@ -1,5 +1,4 @@
 ---
 dependencies:
   - role: system/sudo
-  - role: application/aur/trizen
   - role: application/core/must-have
