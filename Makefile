@@ -1,3 +1,5 @@
+FLAGS ?=
+
 .PHONY:            \
 	install        \
 	install-users  \
@@ -26,7 +28,7 @@ suse-must-have:
 	@ansible-playbook -K playbooks/suse-must-have.yaml
 
 setup-kde:
-	@ansible-playbook -K playbooks/setup-aur.yaml playbooks/setup-kde.yaml
+	@ansible-playbook playbooks/setup-aur.yaml playbooks/setup-kde-only.yaml $(FLAGS)
 
 disable-ipv6:
 	ansible-role roles/system/disable-ipv6 -K
