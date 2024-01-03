@@ -142,14 +142,14 @@
 - name: Mount home subvolume structure /home
   ansible.posix.mount:
     fstype: btrfs
-    opts: subvol=@/.snapshots/init/snapshot
+    opts: subvol=@home/.snapshots/init/snapshot
     path: /mnt/home
     src: LABEL=home{{ install_suffix }}
     state: mounted
 - name: Mount home subvolume structure /home/.snapshots
   ansible.posix.mount:
     fstype: btrfs
-    opts: subvol=@/.snapshots
+    opts: subvol=@home/.snapshots
     path: /mnt/home/.snapshots
     src: LABEL=home{{ install_suffix }}
     state: mounted
