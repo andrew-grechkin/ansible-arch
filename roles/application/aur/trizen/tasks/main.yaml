@@ -2,21 +2,22 @@
 - name: Install base devel
   become: true
   community.general.pacman:
-    name:
-      - base-devel
+    name: [base-devel]
 
 - name: Install trizen
+  become: true
   ansible.builtin.script: install-trizen.sh
   args:
     creates: /usr/bin/trizen
 
 - name: Install ansible aur module
+  become: true
   ansible.builtin.command: trizen -S --needed --noedit --noconfirm ansible-aur-git
   args:
     creates: /usr/share/ansible/plugins/modules/aur.py
 
 # - name: Install trizen using makepkg, skip if trizen is already installed
-#   become: yes
+#   become: true
 #   aur:
 #     name: trizen
 #     use: makepkg

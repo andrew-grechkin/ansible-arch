@@ -26,7 +26,7 @@ suse-must-have:
 	@ansible-playbook -K playbooks/suse-must-have.yaml
 
 setup-kde:
-	@ansible-playbook setup/aur.yaml playbooks/setup-basic.yaml playbooks/setup-kde.yaml -K
+	@ansible-playbook -K playbooks/setup-aur.yaml playbooks/setup-kde.yaml
 
 disable-ipv6:
 	ansible-role roles/system/disable-ipv6 -K
