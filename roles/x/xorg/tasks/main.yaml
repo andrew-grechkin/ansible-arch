@@ -1,5 +1,5 @@
 ---
-- name: Install xorg
+- name: Install Xorg
   become: true
   community.general.pacman:
     name:
@@ -13,6 +13,16 @@
       - xorg-xkill
       - xsel
 
+- name: Install xdg
+  become: true
+  community.general.pacman:
+    name: [xdg-user-dirs, xdg-utils]
+
+- name: Install essential tools
+  become: true
+  ansible.builtin.package:
+    name: [sxhkd]
+
 - name: Install terminal emulator
   become: true
   community.general.pacman:
@@ -22,17 +32,6 @@
   become: true
   community.general.pacman:
     name: [gnome-keyring, seahorse]
-# paperkey
-
-- name: Install xdg
-  become: true
-  community.general.pacman:
-    name: [xdg-user-dirs, xdg-utils]
-
-- name: Install bspwm
-  become: true
-  community.general.pacman:
-    name: [bspwm, sxhkd, autorandr, picom, redshift, geoclue]
 
 - name: Install themes
   become: true
@@ -42,11 +41,7 @@
 - name: Update keyboard mapping
   become: true
   ansible.builtin.command: localectl set-x11-keymap us,ru pc105 , grp:shifts_toggle --no-convert
-
-- name: Install emoji support
-  become: true
-  community.general.pacman:
-    name: [ttf-joypixels, unicode-emoji]
+  changed_when: false
 
 - name: Copy configs
   become: true
@@ -56,3 +51,4 @@
     archive: false
     compress: false
     recursive: true
+  changed_when: false

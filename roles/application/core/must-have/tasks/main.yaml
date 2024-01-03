@@ -63,7 +63,7 @@
 - name: Install file management tools
   become: true
   ansible.builtin.package:
-    name: [duf, inotify-tools, fuseiso, jq, ncdu, pigz, progress, pv, vifm, yq]
+    name: [duf, inotify-tools, fuseiso, jq, ncdu, pigz, progress, pv, sshfs, vifm, yq]
 
 - name: Install file management tools (distribution)
   become: true

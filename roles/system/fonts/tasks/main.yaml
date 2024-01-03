@@ -14,6 +14,13 @@
   community.general.pacman:
     name: [powerline-fonts, ttf-font-awesome, ttf-liberation]
 
+- name: Install emoji support
+  become: true
+  community.general.pacman:
+    name: [ttf-joypixels, unicode-emoji]
+
+# => -------------------------------------------------------------------------------------------------------------- {{{1
+
 - name: Install developer fonts (aur)
   aur:
     name: [ttf-iosevka]

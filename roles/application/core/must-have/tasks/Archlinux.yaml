@@ -3,3 +3,4 @@
   become: true
   community.general.pacman:
     name: [reflector]
+  notify: [Enable reflector service]

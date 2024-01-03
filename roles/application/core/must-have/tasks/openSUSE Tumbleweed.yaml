@@ -27,4 +27,4 @@
 - name: Install packages
   become: true
   ansible.builtin.package:
-    name: [wezterm, Mesa-libEGL-devel, mpv, mpv-mpris, sshfs, yt-dlp]
+    name: [wezterm, Mesa-libEGL-devel, mpv, mpv-mpris, yt-dlp]

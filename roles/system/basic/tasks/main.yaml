@@ -1,60 +1,4 @@
 ---
-- name: Install filesystem/partition tools
-  become: true
-  community.general.pacman:
-    name: [btrfs-progs, dosfstools, ntfs-3g, udftools]
-
-- name: Install search tools
-  become: true
-  community.general.pacman:
-    name: [mlocate]
-
-- name: Install boot tools
-  become: true
-  community.general.pacman:
-    name: [efibootmgr]
-
-- name: Install hdd tools
-  become: true
-  community.general.pacman:
-    name: [smartmontools, hdparm]
-    # - hd-idle
-
-- name: Enable hdd smart service
-  become: true
-  ansible.builtin.service:
-    name: smartd
-    enabled: true
-
-- name: Install common tools
-  become: true
-  community.general.pacman:
-    name: [hwinfo, iotop, lsb-release, usbutils]
-
-- name: Install network tools
-  become: true
-  community.general.pacman:
-    name: [cifs-utils, inetutils, iw, nfs-utils, nss-mdns, sshfs, wireless-regdb]
-
-- name: Install pacman tools
-  become: true
-  community.general.pacman:
-    name: [pacman-contrib, pkgstats, reflector]
-
-# => -------------------------------------------------------------------------------------------------------------- {{{1
-
-- name: Install compression tools
-  become: true
-  community.general.pacman:
-    name: [cpio, lzop, p7zip, unrar, unzip]
-
-# - name: Install backup tools
-#   become: true
-#   community.general.pacman:
-#     name:
-#       - borg
-#       - restic
-
 - name: Install pipewire
   become: true
   community.general.pacman:
@@ -84,24 +28,54 @@
   community.general.pacman:
     name: [bluez, bluez-utils]
     # name: [bluez-cups, bluez-utils, pulseaudio-bluetooth]
+  notify: [Enable bluetooth services]
 
-- name: Enable bluetooth services
+# => -------------------------------------------------------------------------------------------------------------- {{{1
+
+- name: Install boot tools
   become: true
-  ansible.builtin.service:
-    name: bluetooth
-    enabled: true
+  community.general.pacman:
+    name: [efibootmgr]
 
-- name: Enable search service
+- name: Install filesystem/partition tools
   become: true
-  ansible.builtin.service:
-    name: updatedb.timer
-    enabled: true
+  community.general.pacman:
+    name: [btrfs-progs, ntfs-3g, udftools]
 
-# - name: Clean unnecessary packages
-#   become: true
-#   community.general.pacman:
-#     state: absent
-#     name: []
+- name: Install search tools
+  become: true
+  community.general.pacman:
+    name: [mlocate]
+  notify: [Enable search service]
+
+- name: Install hdd tools
+  become: true
+  community.general.pacman:
+    name: [smartmontools, hdparm]
+    # - hd-idle
+  notify: [Enable hdd smart service]
+
+- name: Install common tools
+  become: true
+  community.general.pacman:
+    name: [hwinfo, iotop, lsb-release, usbutils]
+
+- name: Install network tools
+  become: true
+  community.general.pacman:
+    name: [cifs-utils, inetutils, iw, nfs-utils, nss-mdns, wireless-regdb]
+
+- name: Install compression tools
+  become: true
+  community.general.pacman:
+    name: [cpio, lzop, p7zip, unrar, unzip]
+
+- name: Install pacman tools
+  become: true
+  community.general.pacman:
+    name: [pacman-contrib, pkgstats]
+
+# => -------------------------------------------------------------------------------------------------------------- {{{1
 
 # - name: Allow RSYNC for new super user without SUDO password
 #   become: true
@@ -126,9 +100,3 @@
 #     path: /etc/sudoers
 #     state: absent
 #     line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
-
-- name: Enable reflector service
-  become: true
-  ansible.builtin.service:
-    name: reflector.timer
-    enabled: true
