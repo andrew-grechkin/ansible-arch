@@ -63,7 +63,29 @@ arch-chroot /mnt useradd -m -s /usr/bin/zsh -G network,systemd-journal,users,uuc
 arch-chroot /mnt usermod -p "$USER_PASS" "$USR_NAM"
 arch-chroot /mnt usermod -p "$ROOT_PASS" root
 
-echo '%wheel      ALL         = (ALL) ALL' > /mnt/etc/sudoers.d/additional
+cat <<HEREDOC > /mnt/etc/sudoers.d/additional
+Defaults always_set_home
+Defaults env_reset
+Defaults timestamp_timeout = 30
+Defaults env_keep += "DISPLAY SSH_AUTH_SOCK XDG_SESSION_COOKIE"
+Defaults env_keep += "EDITOR LESS PAGER VISUAL"
+Defaults env_keep += "LANGUAGE LANG LC_ADDRESS LC_COLLATE LC_CTYPE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME LC_ALL"
+Defaults env_keep += "all_proxy http_proxy https_proxy no_proxy"
+
+Cmnd_Alias  FIREWALL    = /usr/sbin/iptables, /usr/sbin/ip6tables
+Cmnd_Alias  KILL        = /usr/bin/killall
+Cmnd_Alias  NETWORK     = /usr/bin/netctl, /usr/bin/nmtui, /usr/bin/nmcli, /usr/sbin/ss
+Cmnd_Alias  PKGMAN      = /usr/bin/pacman, /usr/bin/apt, /usr/bin/dnf, /usr/bin/yum, /usr/bin/zypper
+Cmnd_Alias  POWER       = /usr/sbin/shutdown, /usr/sbin/halt, /usr/sbin/poweroff, /usr/sbin/reboot
+Cmnd_Alias  STORAGE     = /usr/sbin/losetup, /usr/bin/umount, /usr/bin/mount -o nosuid\,nodev\,noexec
+Cmnd_Alias  SYSTEMD     = /usr/bin/journalctl, /usr/bin/systemctl
+
+%wheel      ALL         = (ALL) ALL
+%nopwnet    ALL         = (ALL) NOPASSWD: NETWORK, FIREWALL
+%nopwpwr    ALL         = (ALL) NOPASSWD: POWER
+%nopwstor   ALL         = (ALL) NOPASSWD: STORAGE
+%nopwsys    ALL         = (ALL) NOPASSWD: PKGMAN, SYSTEMD, KILL
+HEREDOC
 
 # copy server ssh keys
 #cp -f /etc/ssh/ssh_host_* /mnt/etc/ssh/

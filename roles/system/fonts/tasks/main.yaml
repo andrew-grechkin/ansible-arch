@@ -22,11 +22,9 @@
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 
 - name: Install developer fonts (aur)
-  become: true
   aur:
     name: [ttf-iosevka]
 
 - name: Install additional fonts (aur)
-  become: true
   aur:
     name: [open-dyslexic-fonts, ttf-symbola-free]
