@@ -20,6 +20,7 @@
       private: false
     - name: username
       prompt: New user name
+      default: dummy
       private: false
     - name: useruid
       prompt: New user uid
