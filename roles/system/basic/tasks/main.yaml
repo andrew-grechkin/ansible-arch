@@ -93,6 +93,7 @@
     archive: false
     compress: false
     recursive: true
+  changed_when: false
 
 # - name: Disallow RSYNC for new super user without SUDO password
 #   become: true
