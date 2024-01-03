@@ -20,13 +20,13 @@ OPTIONS="nowatchdog splash quiet udev.log_priority=3"
 CRYPT="cryptdevice=LABEL=lvm-encrypted${2}:lvm:allow-discards"
 
 if [ "$1" = "True" ]; then
-{
-	echo "\"Boot with crypt+ucode\" \"rw $DRIVES $OPTIONS $CRYPT $INITRD_U $INITRD_K\""
-} > /mnt/boot/refind_linux.conf
+	{
+		echo "\"Boot with crypt+ucode\" \"rw $DRIVES $OPTIONS $CRYPT $INITRD_U $INITRD_K\""
+	} > /mnt/boot/refind_linux.conf
 else
-{
-	echo "\"Boot with ucode\"       \"rw $DRIVES $OPTIONS $INITRD_U $INITRD_K\""
-} > /mnt/boot/refind_linux.conf
+	{
+		echo "\"Boot with ucode\"       \"rw $DRIVES $OPTIONS $INITRD_U $INITRD_K\""
+	} > /mnt/boot/refind_linux.conf
 fi
 {
 	echo "\"Boot with defaults\"    \"rw $DRIVES $OPTIONS\""

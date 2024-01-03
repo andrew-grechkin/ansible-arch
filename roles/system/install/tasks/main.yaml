@@ -172,7 +172,7 @@
     pacstrap /mnt
     base base-devel linux linux-firmware refind
     btrfs-progs cryptsetup lvm2 mdadm
-    avahi bind inetutils networkmanagerd nss-mdns systemd-resolvconf
+    avahi bind inetutils networkmanagerd nss-mdns openssh systemd-resolvconf
     grml-zsh-config git tmux vifm vim zsh zsh-completions
     ansible
   args:
@@ -220,7 +220,10 @@
     creates: /mnt/etc/pacman.d/mirrorlist
 
 - name: Post install
-  ansible.builtin.script: post-install.sh "{{ username }}" "{{ useruid }}" "{{ userpass }}"
+  ansible.builtin.script: >
+    post-install.sh
+    "{{ username }}" "{{ useruid }}" "{{ userpass }}"
+    "{{ default_hostname }}" "{{ default_locale }}" "{{ default_timezone }}"
   args:
     creates: /mnt/etc/locale.conf
 

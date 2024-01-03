@@ -37,4 +37,16 @@
       prompt: Safe 20GiB at the end of the disk
       default: 'true'
       private: false
+    - name: default_hostname
+      prompt: Default hostname
+      default: arch
+      private: false
+    - name: default_locale
+      prompt: Default locale
+      default: en_DK.UTF-8
+      private: false
+    - name: default_timezone
+      prompt: Default timezone
+      default: Europe/Amsterdam
+      private: false
   roles: [system/install]
