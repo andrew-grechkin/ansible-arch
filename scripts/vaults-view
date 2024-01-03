@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -Euo pipefail
+
+rg -l0 "VAULT" | xargs -0 -n 1 -t -- ansible-vault view --vault-pass-file=vault-pass

@@ -7,7 +7,7 @@ After=display-manager.service
 [Service]
 Type=simple
 ExecStartPre=/usr/bin/bash -c "/usr/bin/systemctl set-environment XAUTHORITY=$(find /var/run/sddm/ -type f)"
-ExecStart=/usr/bin/x0vncserver -display=:0 -rfbport=59000 -PAMService=login -PlainUsers="*" -SecurityTypes=TLSPlain
+ExecStart=/usr/bin/x0vncserver -display=:0 -rfbport=5900 -UseIPv6=0 -PAMService=login -PlainUsers="*" -SecurityTypes=TLSPlain
 Restart=on-failure
 RestartSec=500ms
 

@@ -2,40 +2,22 @@
 - name: Install base fonts
   become: true
   community.general.pacman:
-    name:
-      - noto-fonts
-      - noto-fonts-cjk
-      - noto-fonts-emoji
-      - ttf-dejavu
+    name: [noto-fonts, noto-fonts-cjk, noto-fonts-emoji, ttf-dejavu, ttf-nerd-fonts-symbols-mono]
 
 - name: Install developer fonts
   become: true
   community.general.pacman:
-    name:
-      - ttf-cascadia-code
-      - ttf-fira-code
-      - ttf-jetbrains-mono
+    name: [ttf-cascadia-code, ttf-fira-code, ttf-jetbrains-mono]
 
 - name: Install additional fonts
   become: true
   community.general.pacman:
-    name:
-      # - adobe-source-code-pro-fonts
-      # - adobe-source-han-sans-otc-fonts
-      # - adobe-source-han-serif-otc-fonts
-      # - adobe-source-sans-pro-fonts
-      # - inter-font
-      # - opendesktop-fonts
-      - powerline-fonts
-      - ttf-font-awesome
-      - ttf-liberation
-      # - ttf-linux-libertine
-      # - ttf-opensans
+    name: [powerline-fonts, ttf-font-awesome, ttf-liberation]
 
 - name: Install developer fonts (aur)
   aur:
-    name:
-      # - nerd-fonts-dejavu-complete
-      # - nerd-fonts-jetbrains-mono
-      - open-dyslexic-fonts
-      - ttf-iosevka
+    name: [ttf-iosevka]
+
+- name: Install additional fonts (aur)
+  aur:
+    name: [open-dyslexic-fonts, ttf-symbola-free]

@@ -1,7 +1,7 @@
 ---
 - name: Install lightdm
   become: true
-  community.general.pacman:
+  ansible.builtin.package:
     name: [lightdm-gtk-greeter, lightdm-gtk-greeter-settings]
 
 - name: Populate service facts

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -Euo pipefail
+
+rg -l0 "VAULT" | xargs -0 -n 1 -t -- ansible-vault rekey --vault-password-file=vault-pass --new-vault-password-file=vault-pass-new

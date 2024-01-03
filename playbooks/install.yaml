@@ -3,7 +3,6 @@
   any_errors_fatal: true
   vars:
     install_home_size: 80%FREE
-    install_pacman_mirror_country: Netherlands
   vars_prompt:
     - name: install_device
       prompt: Install device
@@ -11,7 +10,7 @@
       private: false
     - name: install_suffix
       prompt: Suffix for all device labels (make labels unique)
-      default: ""
+      default: ''
       private: false
     - name: install_root_size
       prompt: Root partition size
@@ -26,7 +25,7 @@
       private: false
     - name: useruid
       prompt: New user uid
-      default: "1000"
+      default: '1000'
       private: false
     - name: userpass
       prompt: New user password
@@ -34,11 +33,10 @@
       private: true
     - name: install_encrypt
       prompt: Use LUKS2
-      default: "false"
+      default: 'false'
       private: false
     - name: safe_disk_space_at_the_end
       prompt: Safe 20GiB at the end of the disk
-      default: "true"
+      default: 'true'
       private: false
-  roles:
-    - system/install
+  roles: [system/install]

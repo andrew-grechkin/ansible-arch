@@ -1,4 +1,7 @@
 ---
+# - debug:
+#     var: vars
+
 - name: Include distribution specific tasks
   ansible.builtin.include_tasks: '{{ ansible_distribution }}.yaml'
 
