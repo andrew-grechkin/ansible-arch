@@ -1,0 +1,16 @@
+[Unit]
+Description=Remote desktop service (VNC) on LightDM for :0 display
+Requires=display-manager.service
+After=network-online.target
+After=display-manager.service
+
+[Service]
+Type=simple
+Environment=HOME=/root
+Environment=XAUTHORITY=/var/run/lightdm/root/:0
+ExecStart=/usr/bin/x0vncserver -display=:0 -rfbport=5900 -UseIPv6=0 -PAMService=login -PlainUsers="*" -SecurityTypes=TLSPlain
+Restart=on-failure
+RestartSec=500ms
+
+[Install]
+WantedBy=multi-user.target

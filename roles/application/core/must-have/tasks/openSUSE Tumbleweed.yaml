@@ -9,6 +9,8 @@
   ansible.builtin.package:
     state: absent
     name:
+      - MozillaFirefox
+      - MozillaFirefox-branding-openSUSE
       - filelight
       - kcm_tablet
       - kmousetool
@@ -27,4 +29,4 @@
 - name: Install packages
   become: true
   ansible.builtin.package:
-    name: [wezterm, Mesa-libEGL-devel, mpv, mpv-mpris, yt-dlp]
+    name: [libopenh264-7, Mesa-libEGL-devel, mpv, mpv-mpris, wezterm, yt-dlp]

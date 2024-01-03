@@ -1,0 +1,22 @@
+---
+- name: Install snapper
+  become: true
+  community.general.pacman:
+    name: [snapper, snap-pac, snap-sync]
+
+- name: Create conf.d
+  become: true
+  ansible.builtin.file:
+    path: /etc/conf.d
+    state: directory
+    mode: '0755'
+
+- name: Copy conf.d files
+  become: true
+  ansible.builtin.copy:
+    src: '{{ item }}'
+    dest: /etc/conf.d/{{ item | basename }}
+    owner: root
+    group: root
+    mode: '0644'
+  with_fileglob: [etc/conf.d/*]

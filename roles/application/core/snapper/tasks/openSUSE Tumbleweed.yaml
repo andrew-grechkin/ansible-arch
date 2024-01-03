@@ -1,0 +1,10 @@
+---
+- name: Copy sysconfig files
+  become: true
+  ansible.builtin.copy:
+    src: '{{ item }}'
+    dest: /etc/sysconfig/{{ item | basename }}
+    owner: root
+    group: root
+    mode: '0644'
+  with_fileglob: [etc/conf.d/*]
