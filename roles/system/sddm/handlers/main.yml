@@ -1,0 +1,12 @@
+---
+- name: Disable lightdm service
+  become: true
+  ansible.builtin.service:
+    name: lightdm
+    enabled: false
+
+- name: Enable sddm service
+  become: true
+  ansible.builtin.service:
+    name: sddm
+    enabled: true

@@ -34,10 +34,5 @@
   ansible.builtin.service:
     name: lightdm
     enabled: false
+  notify: [Enable sddm service, Disable lightdm service]
   when: "'lightdm.service' in ansible_facts.services and ansible_facts.services['lightdm.service'].state == 'running'"
-
-- name: Enable sddm service
-  become: true
-  ansible.builtin.service:
-    name: sddm
-    enabled: true

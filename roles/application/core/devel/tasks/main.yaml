@@ -1,4 +1,9 @@
 ---
+- name: Install neovim apckages
+  become: true
+  community.general.pacman:
+    name: [neovim, python-neovim]
+
 # - name: Install asciidoc
 #   become: true
 #   community.general.pacman:

@@ -1,5 +1,5 @@
 ---
-application_packages_essential: [neovim, zsh-completions]
+application_packages_essential: [zsh-completions]
 application_packages_file: [parallel]
 application_packages_man: [man-db]
 application_packages_network: [base]
@@ -21,6 +21,6 @@ application_packages_perl_additional:
   - perl-yaml-libyaml
 
 application_packages_perl_base: [perlbrew]
-application_packages_python_additional: [python-neovim, python-pip]
+application_packages_python_additional: [python-pip]
 application_packages_search: [ripgrep-all]
 application_packages_vnc: []
