@@ -4,3 +4,9 @@ all:
     localhost:
       ansible_connection: local
       ansible_python_interpreter: /usr/bin/python
+
+localhost-not-ready:
+  hosts:
+    localhost:
+      ansible_connection: local
+      ansible_python_interpreter: /usr/bin/python

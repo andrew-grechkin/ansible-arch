@@ -1,8 +1,6 @@
 ---
-- hosts: [localhost]
+- hosts: localhost-not-ready
   any_errors_fatal: true
-  vars:
-    install_home_size: 80%FREE
   vars_prompt:
     - name: install_device
       prompt: Install device
