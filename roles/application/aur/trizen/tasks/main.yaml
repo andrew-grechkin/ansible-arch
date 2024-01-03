@@ -5,7 +5,6 @@
     name: [base-devel]
 
 - name: Install trizen
-  become: true
   ansible.builtin.script: install-trizen.sh
   args:
     creates: /usr/bin/trizen

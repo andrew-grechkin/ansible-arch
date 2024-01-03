@@ -1,5 +1,5 @@
 ---
-- hosts: localhost_not_ready
+- hosts: [localhost]
   any_errors_fatal: true
   vars_prompt:
     - name: install_device

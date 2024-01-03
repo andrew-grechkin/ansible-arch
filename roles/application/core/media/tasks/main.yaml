@@ -13,27 +13,27 @@
       - gst-plugins-ugly
 # a52dec jasper libdca libdv libmpeg2 libtheora libxv
 
-- name: CD ripping support
-  become: true
-  community.general.pacman:
-    name:
-      - cdparanoia
-      # - abcde
-      # - cdrdao
-      # - mkcue
+# - name: CD ripping support
+#   become: true
+#   community.general.pacman:
+#     name:
+#       - cdparanoia
+#       # - abcde
+#       # - cdrdao
+#       # - mkcue
 
-- name: Media decoding/ripping
-  become: true
-  community.general.pacman:
-    name:
-      - libdvdcss
-      - dvd+rw-tools
-      - dvdauthor
-      # - dvgrab
-      - vcdimager
-      - transcode
-      # - sox
-      - emovix
+# - name: Media decoding/ripping
+#   become: true
+#   community.general.pacman:
+#     name:
+#       - libdvdcss
+#       - dvd+rw-tools
+#       - dvdauthor
+#       # - dvgrab
+#       - vcdimager
+#       - transcode
+#       # - sox
+#       - emovix
 
 # - name: Media info
 #   become: true

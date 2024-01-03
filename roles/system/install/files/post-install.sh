@@ -81,10 +81,7 @@ Cmnd_Alias  STORAGE     = /usr/sbin/losetup, /usr/bin/umount, /usr/bin/mount -o 
 Cmnd_Alias  SYSTEMD     = /usr/bin/journalctl, /usr/bin/systemctl
 
 %wheel      ALL         = (ALL) ALL
-%nopwnet    ALL         = (ALL) NOPASSWD: NETWORK, FIREWALL
-%nopwpwr    ALL         = (ALL) NOPASSWD: POWER
-%nopwstor   ALL         = (ALL) NOPASSWD: STORAGE
-%nopwsys    ALL         = (ALL) NOPASSWD: PKGMAN, SYSTEMD, KILL
+%wheel      ALL         = (ALL) NOPASSWD: PKGMAN, SYSTEMD, KILL
 HEREDOC
 
 # copy server ssh keys
