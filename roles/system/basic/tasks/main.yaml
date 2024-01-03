@@ -1,13 +1,8 @@
 ---
-- name: Install essential tools
-  become: true
-  community.general.pacman:
-    name: [polkit, sudo]
-
 - name: Install filesystem/partition tools
   become: true
   community.general.pacman:
-    name: [btrfs-progs, dosfstools, ntfs-3g, sshfs, udftools]
+    name: [btrfs-progs, dosfstools, ntfs-3g, udftools]
 
 - name: Install search tools
   become: true
@@ -17,7 +12,7 @@
 - name: Install boot tools
   become: true
   community.general.pacman:
-    name: [efibootmgr, refind]
+    name: [efibootmgr]
 
 - name: Install hdd tools
   become: true
@@ -39,7 +34,7 @@
 - name: Install network tools
   become: true
   community.general.pacman:
-    name: [cifs-utils, inetutils, iw, nfs-utils, nss-mdns, wireless-regdb]
+    name: [cifs-utils, inetutils, iw, nfs-utils, nss-mdns, sshfs, wireless-regdb]
 
 - name: Install pacman tools
   become: true

@@ -2,6 +2,11 @@
 # - debug:
 #     var: vars
 
+- name: Install packages
+  become: true
+  ansible.builtin.package:
+    name: [polkit, sudo]
+
 - name: Include distribution specific tasks
   ansible.builtin.include_tasks: '{{ ansible_distribution }}.yaml'
 
