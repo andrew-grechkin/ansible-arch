@@ -3,7 +3,6 @@
   roles:
     - x/xfce
     - application/aur/must-have
-    - application/aur/fonts
     - application/aur/google-chrome
     - application/core/browser
     - application/core/encryption
