@@ -11,4 +11,4 @@
     group: root
     mode: '0644'
   with_fileglob: [etc/snapper/configs/*]
-  notify: [Enable grub-btrfs service, Enable snapper timeline timer, Enable snapper cleanup timer]
+  notify: [Enable grub-btrfsd service, Enable snapper timeline timer, Enable snapper cleanup timer]
