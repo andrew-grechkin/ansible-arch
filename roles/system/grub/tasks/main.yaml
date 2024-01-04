@@ -2,10 +2,14 @@
 - name: Install packages
   become: true
   ansible.builtin.package:
-    name: [grub]
+    name: [grub, grub-btrfs]
 
 - name: Include distribution specific tasks
   ansible.builtin.include_tasks: '{{ ansible_distribution }}.yaml'
+
+- name: Prepare grub
+  become: true
+  ansible.builtin.script: prepare-grub.sh
 
 # - name: Ensure directory exists
 #   become: true
