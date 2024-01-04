@@ -1,0 +1,9 @@
+[Unit]
+Description=Automount EFI
+
+[Automount]
+Where=/efi
+TimeoutIdleSec=10min
+
+[Install]
+WantedBy=multi-user.target

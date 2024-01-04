@@ -1,0 +1,11 @@
+[Unit]
+Description=Mount EFI
+
+[Mount]
+What=LABEL=EFI
+Where=/efi
+Type=vfat
+Options=nofail,nodev,nosuid,noexec,utf8
+
+[Install]
+WantedBy=multi-user.target

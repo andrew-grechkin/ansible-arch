@@ -241,7 +241,57 @@
   ansible.builtin.command: chown -R "{{ useruid }}:{{ useruid }}" "/mnt/home/{{ username }}/git"
   changed_when: false
 
-- name: Unmount all
-  ansible.builtin.command: umount -R /mnt
-  args:
-    removes: /mnt/root
+- name: Create /efi directory
+  become: true
+  ansible.builtin.file:
+    path: /mnt/efi
+    owner: root
+    group: root
+    state: directory
+    mode: '0755'
+- name: Unmount esp partition
+  ansible.posix.mount:
+    path: /mnt/boot
+    src: LABEL=EFI{{ install_suffix }}
+    state: absent
+- name: Mount esp partition to /efi
+  ansible.posix.mount:
+    fstype: vfat
+    path: /mnt/efi
+    src: LABEL=EFI{{ install_suffix }}
+    state: ephemeral
+- name: Copy /efi to /boot
+  become: true
+  ansible.posix.synchronize:
+    dest: /mnt/boot/
+    src: /mnt/efi/
+- name: Copy pacman hook
+  become: true
+  ansible.builtin.copy:
+    dest: /mnt/usr/share/libalpm/hooks/99-kernel-propagate-efi.hook
+    mode: '0644'
+    owner: root
+    group: root
+    src: 99-kernel-propagate-efi
+
+- name: Copy mount files
+  become: true
+  ansible.builtin.copy:
+    dest: /mnt/etc/systemd/system/{{ item }}
+    mode: '0644'
+    owner: root
+    group: root
+    src: '{{ item }}'
+  with_items: [efi.automount, efi.mount]
+# - name: Enable automounts
+#   become: true
+#   ansible.builtin.service:
+#     name: '{{ item }}'
+#     enabled: true
+#   with_items:
+#     - efi.automount
+
+# - name: Unmount all
+#   ansible.builtin.command: umount -R /mnt
+#   args:
+#     removes: /mnt/root

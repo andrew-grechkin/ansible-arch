@@ -18,4 +18,4 @@ LABEL=home              /home                           btrfs   nofail          
 LABEL=home              /home/.snapshots                btrfs   nofail,subvol=@home/.snapshots                      0 0
 
 # boot
-LABEL=EFI               /boot                           vfat    nofail,nodev,nosuid,noexec,utf8                     0 2
+# LABEL=EFI               /boot                           vfat    nofail,nodev,nosuid,noexec,utf8                     0 2
