@@ -11,15 +11,4 @@
     group: root
     mode: '0644'
   with_fileglob: [etc/snapper/configs/*]
-
-- name: Enable snapper timeline timer
-  become: true
-  ansible.builtin.service:
-    name: snapper-timeline.timer
-    enabled: true
-
-- name: Enable snapper cleanup timer
-  become: true
-  ansible.builtin.service:
-    name: snapper-cleanup.timer
-    enabled: true
+  notify: [Enable grub-btrfs service, Enable snapper timeline timer, Enable snapper cleanup timer]
