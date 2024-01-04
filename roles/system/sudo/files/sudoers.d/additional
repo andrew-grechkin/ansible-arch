@@ -15,7 +15,8 @@ Cmnd_Alias  STORAGE     = /usr/sbin/losetup, /usr/bin/umount, /usr/bin/mount -o 
 Cmnd_Alias  SYSTEMD     = /usr/bin/journalctl, /usr/bin/systemctl
 
 %wheel      ALL         = (ALL) ALL
-%nopwnet    ALL         = (ALL) NOPASSWD: NETWORK, FIREWALL
+%wheel      ALL         = (ALL) NOPASSWD: PKGMAN
+%nopwnet    ALL         = (ALL) NOPASSWD: FIREWALL, NETWORK
 %nopwpwr    ALL         = (ALL) NOPASSWD: POWER
 %nopwstor   ALL         = (ALL) NOPASSWD: STORAGE
-%nopwsys    ALL         = (ALL) NOPASSWD: PKGMAN, SYSTEMD, KILL
+%nopwsys    ALL         = (ALL) NOPASSWD: KILL, SYSTEMD
