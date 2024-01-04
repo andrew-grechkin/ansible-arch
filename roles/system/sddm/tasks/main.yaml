@@ -29,9 +29,16 @@
 - name: Populate service facts
   ansible.builtin.service_facts: null
 
-- name: Notify if service needs to be enabled
+- name: Notify if sddm service needs to be enabled
   ansible.builtin.debug:
     var: ansible_facts.services['sddm.service']
   changed_when: true
-  notify: [Enable sddm service, Disable lightdm service]
+  notify: [Enable sddm service]
   when: "'sddm.service' in ansible_facts.services and ansible_facts.services['sddm.service'].status != 'enabled'"
+
+- name: Notify if lightdm service needs to be disabled
+  ansible.builtin.debug:
+    var: ansible_facts.services['lightdm.service']
+  changed_when: true
+  notify: [Disable lightdm service]
+  when: "'lightdm.service' in ansible_facts.services and ansible_facts.services['lightdm.service'].status == 'enabled'"
