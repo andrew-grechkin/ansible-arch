@@ -249,11 +249,10 @@
     group: root
     state: directory
     mode: '0755'
-- name: Unmount esp partition
-  ansible.posix.mount:
-    path: /mnt/boot
-    src: LABEL=EFI{{ install_suffix }}
-    state: absent
+- name: Unmount esp partition from /boot
+  ansible.builtin.command: umount -R /mnt/boot
+  args:
+    removes: /mnt/boot/vmlinuz-linux
 - name: Mount esp partition to /efi
   ansible.posix.mount:
     fstype: vfat
