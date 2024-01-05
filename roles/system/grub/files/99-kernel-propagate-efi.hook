@@ -1,0 +1,12 @@
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Depends = rsync
+Description = Propagating /boot changes to /efi
+When = PostTransaction
+Exec = /usr/bin/bash -c 'test -d /efi && /usr/bin/rsync -rtv --delete /boot/ /efi 1>/dev/null'

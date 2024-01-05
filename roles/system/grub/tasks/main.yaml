@@ -7,11 +7,12 @@
 - name: Copy pacman hook
   become: true
   ansible.builtin.copy:
-    dest: /usr/share/libalpm/hooks/98-grub-mkconfig.hook
+    dest: /usr/share/libalpm/hooks/{{ item }}
     mode: '0644'
     owner: root
     group: root
-    src: 98-grub-mkconfig.hook
+    src: '{{ item }}'
+  with_items: [98-grub-mkconfig.hook, 99-kernel-propagate-efi.hook]
 
 - name: Include distribution specific tasks
   ansible.builtin.include_tasks: '{{ ansible_distribution }}.yaml'
