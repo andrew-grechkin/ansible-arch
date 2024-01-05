@@ -22,4 +22,4 @@ Target = linux*
 Depends = grub
 Description = Regenerating grub config
 When = PostTransaction
-Exec = /usr/bin/bash -c 'grub-mkconfig -o /boot/grub/grub.cfg'
+Exec = /usr/bin/bash -c 'grub-mkconfig -o /boot/grub/grub.cfg >/dev/null'

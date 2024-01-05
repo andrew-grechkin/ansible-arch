@@ -1,11 +1,4 @@
 ---
-- name: Enable grub-btrfsd service
-  become: true
-  ansible.builtin.service:
-    name: grub-btrfsd
-    enabled: true
-    state: started
-
 - name: Enable snapper timeline timer
   become: true
   ansible.builtin.service:
