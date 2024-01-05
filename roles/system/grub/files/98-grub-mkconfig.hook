@@ -9,7 +9,6 @@ Target = usr/lib/initcpio/*
 Type = Path
 Operation = Install
 Operation = Upgrade
-Operation = Remove
 Target = boot/*
 
 [Trigger]
@@ -20,7 +19,7 @@ Operation = Remove
 Target = linux*
 
 [Action]
-Depends = rsync
-Description = Propagating /boot changes to /efi
+Depends = grub
+Description = Regenerating grub config
 When = PostTransaction
-Exec = /usr/bin/bash -c 'test -d /efi && /usr/bin/rsync -rtv --delete /boot/ /efi 1>/dev/null'
+Exec = grub-mkconfig -o /boot/grub/grub.cfg
