@@ -6,12 +6,12 @@ if [[ -d "/efi" ]]; then
 	MNT="$(grep '/efi' /etc/fstab | awk '{print $1}')"
 	if [[ -n "$MNT" ]]; then
 		if ! grep 'GRUB_CMDLINE_LINUX_DEFAULT.+resume=' /etc/default/grub; then
-			sed -i 's|\(GRUB_CMDLINE_LINUX_DEFAULT="\)|\1resume='"$MNT"' |' /etc/default/grub
+			sed -i 's|\(GRUB_CMDLINE_LINUX_DEFAULT="\)|\1resume='"$MNT"' nowatchdog splash |' /etc/default/grub
 		fi
 
-		if ! grep 'HOOKS=.+grub-btrfs-overlayfs' /etc/mkinitcpio.conf; then
-			sed -i 's|\(HOOKS=.*\))$|\1 grub-btrfs-overlayfs)|' /etc/mkinitcpio.conf
-		fi
+		# if ! grep 'HOOKS=.+grub-btrfs-overlayfs' /etc/mkinitcpio.conf; then
+		# 	sed -i 's|\(HOOKS=.*\))$|\1 grub-btrfs-overlayfs)|' /etc/mkinitcpio.conf
+		# fi
 
 		rm -f  /boot/*.png
 		rm -rf /boot/EFI/BOOT
