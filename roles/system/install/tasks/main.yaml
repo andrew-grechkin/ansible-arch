@@ -238,22 +238,24 @@
     group: root
     state: directory
     mode: '0755'
+  with: [/mnt/efi, /efi]
 - name: Unmount esp partition from /boot
   ansible.builtin.command: umount -R /mnt/boot
   args:
     removes: /mnt/boot/vmlinuz-linux
 - name: Mount esp partition to /efi
   ansible.posix.mount:
-    fstype: vfat
-    path: /mnt/efi
-    src: LABEL=EFI{{ install_suffix }}
     fstab: /mnt/etc/fstab
+    fstype: vfat
+    opts: nofail,nodev,nosuid,noexec,utf8
+    path: /efi
+    src: LABEL=EFI{{ install_suffix }}
     state: mounted
 - name: Copy /efi to /boot
   become: true
   ansible.posix.synchronize:
     dest: /mnt/boot/
-    src: /mnt/efi/
+    src: /efi/
 - name: Copy pacman hook
   become: true
   ansible.builtin.copy:
@@ -262,27 +264,6 @@
     owner: root
     group: root
     src: 99-kernel-propagate-efi.hook
-# - name: Copy mount files
-#   become: true
-#   ansible.builtin.copy:
-#     dest: /mnt/etc/systemd/system/{{ item }}
-#     mode: '0644'
-#     owner: root
-#     group: root
-#     src: '{{ item }}'
-#   with_items: [efi.automount, efi.mount]
-# - name: Finalize
-#   ansible.builtin.script: >
-#     finalize.sh
-#     "{{ username }}" "{{ useruid }}" "{{ userpass }}"
-#     "{{ default_hostname }}" "{{ default_locale }}" "{{ default_timezone }}"
-# - name: Enable automounts
-#   become: true
-#   ansible.builtin.service:
-#     name: '{{ item }}'
-#     enabled: true
-#   with_items:
-#     - efi.automount
 
 - name: Checkout ansible scripts
   ansible.builtin.git:
