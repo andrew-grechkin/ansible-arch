@@ -5,7 +5,7 @@ set -e
 if [[ -d "/efi" ]]; then
 	MNT="$(grep '/efi' < /etc/fstab | awk '{print $1}')"
 	if [[ -n "$MNT" ]]; then
-		sed -i 's|\(GRUB_CMDLINE_LINUX_DEFAULT="\)|\1resume='"$MNT"'|' /etc/default/grub
+		sed -i 's|\(GRUB_CMDLINE_LINUX_DEFAULT="\)|\1resume='"$MNT"' |' /etc/default/grub
 
 		rm -f  /boot/*.png
 		rm -rf /boot/EFI/BOOT
