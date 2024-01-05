@@ -238,7 +238,7 @@
     group: root
     state: directory
     mode: '0755'
-  with: [/mnt/efi, /efi]
+  with_items: [/mnt/efi, /efi]
 - name: Unmount esp partition from /boot
   ansible.builtin.command: umount -R /mnt/boot
   args:
