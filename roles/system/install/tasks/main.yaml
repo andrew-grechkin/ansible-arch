@@ -233,7 +233,7 @@
 - name: Create /efi directory
   become: true
   ansible.builtin.file:
-    path: /mnt/efi
+    path: '{{ item }}'
     owner: root
     group: root
     state: directory
