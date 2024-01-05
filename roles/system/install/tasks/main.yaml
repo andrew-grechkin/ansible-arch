@@ -117,7 +117,7 @@
     opts: subvol=@/.snapshots/init/snapshot
     path: /mnt
     src: LABEL=root{{ install_suffix }}
-    state: mounted
+    state: ephemeral
 - name: Mount root subvolume structure /srv
   ansible.posix.mount:
     fstype: btrfs
@@ -230,17 +230,6 @@
 - name: Update initcpio
   ansible.builtin.script: update-initcpio.sh "{{ install_encrypt | bool }}"
 
-- name: Checkout ansible scripts
-  ansible.builtin.git:
-    dest: /mnt/home/{{ username }}/git/private/ansible-arch
-    repo: https://github.com/andrew-grechkin/ansible-arch.git
-    version: master
-  environment:
-    GIT_TERMINAL_PROMPT: '0'
-- name: Change owner of the files
-  ansible.builtin.command: chown -R "{{ useruid }}:{{ useruid }}" "/mnt/home/{{ username }}/git"
-  changed_when: false
-
 - name: Create /efi directory
   become: true
   ansible.builtin.file:
@@ -258,7 +247,8 @@
     fstype: vfat
     path: /mnt/efi
     src: LABEL=EFI{{ install_suffix }}
-    state: ephemeral
+    fstab: /mnt/etc/fstab
+    state: mounted
 - name: Copy /efi to /boot
   become: true
   ansible.posix.synchronize:
@@ -271,17 +261,21 @@
     mode: '0644'
     owner: root
     group: root
-    src: 99-kernel-propagate-efi
-
-- name: Copy mount files
-  become: true
-  ansible.builtin.copy:
-    dest: /mnt/etc/systemd/system/{{ item }}
-    mode: '0644'
-    owner: root
-    group: root
-    src: '{{ item }}'
-  with_items: [efi.automount, efi.mount]
+    src: 99-kernel-propagate-efi.hook
+# - name: Copy mount files
+#   become: true
+#   ansible.builtin.copy:
+#     dest: /mnt/etc/systemd/system/{{ item }}
+#     mode: '0644'
+#     owner: root
+#     group: root
+#     src: '{{ item }}'
+#   with_items: [efi.automount, efi.mount]
+# - name: Finalize
+#   ansible.builtin.script: >
+#     finalize.sh
+#     "{{ username }}" "{{ useruid }}" "{{ userpass }}"
+#     "{{ default_hostname }}" "{{ default_locale }}" "{{ default_timezone }}"
 # - name: Enable automounts
 #   become: true
 #   ansible.builtin.service:
@@ -289,6 +283,17 @@
 #     enabled: true
 #   with_items:
 #     - efi.automount
+
+- name: Checkout ansible scripts
+  ansible.builtin.git:
+    dest: /mnt/home/{{ username }}/git/private/ansible-arch
+    repo: https://github.com/andrew-grechkin/ansible-arch.git
+    version: master
+  environment:
+    GIT_TERMINAL_PROMPT: '0'
+- name: Change owner of the files
+  ansible.builtin.command: chown -R "{{ useruid }}:{{ useruid }}" "/mnt/home/{{ username }}/git"
+  changed_when: false
 
 # - name: Unmount all
 #   ansible.builtin.command: umount -R /mnt
