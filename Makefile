@@ -28,7 +28,7 @@ suse-must-have:
 	@ansible-playbook -K playbooks/suse-must-have.yaml
 
 setup-grub:
-	@ansible-playbook -K playbooks/grub.yaml
+	@ansible-playbook -K playbooks/setup-grub.yaml
 
 setup-kde:
 	@ansible-playbook -K playbooks/setup-aur.yaml playbooks/setup-kde-only.yaml
