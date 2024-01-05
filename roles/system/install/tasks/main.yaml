@@ -172,7 +172,7 @@
     pacstrap /mnt
     base base-devel linux linux-firmware refind
     btrfs-progs cryptsetup lvm2 mdadm
-    avahi bind inetutils networkmanager nss-mdns openssh systemd-resolvconf
+    avahi bind inetutils networkmanager nss-mdns openssh rsync systemd-resolvconf
     grml-zsh-config git tmux vifm vim zsh zsh-completions
     ansible
   args:
