@@ -114,7 +114,7 @@
 - name: Mount root subvolume structure /
   ansible.posix.mount:
     fstype: btrfs
-    opts: subvol=@/.snapshots/init/snapshot
+    opts: subvol=@/.snapshots/1/snapshot
     path: /mnt
     src: LABEL=root{{ install_suffix }}
     state: ephemeral
