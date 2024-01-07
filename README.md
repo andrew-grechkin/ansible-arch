@@ -6,7 +6,7 @@ Basic ansible scripts to install and setup Arch my way
 
 * `ansible-playbook playbooks/install.yaml`
 * reboot
-* `ansible-playbook playbooks/install-users.yaml --ask-become-pass --ask-vauld-pass`
+* `make add-home-users`
 
 ### Setup
 

@@ -1,22 +1,17 @@
 FLAGS ?=
 
-.PHONY:            \
-	install        \
-	install-users  \
-	arch-devel     \
-	arch-must-have \
-	suse-must-have \
-	setup-kde      \
-	disable-ipv6   \
-	upgrade-all    \
+.PHONY:             \
+	arch-devel      \
+	arch-must-have  \
+	suse-must-have  \
+	setup-grub      \
+	setup-kde       \
+	add-home-users  \
+	arch-add-trizen \
+	arch-install-os \
+	disable-ipv6    \
+	upgrade-all     \
 	upgrade-this
-
-install:
-	@lsblk
-	@ansible-playbook -i localhost-not-ready.yaml playbooks/install.yaml
-
-install-users:
-	@ansible-playbook --vault-password-file=vault-pass -i localhost-vault.yaml playbooks/install-users.yaml
 
 arch-devel:
 	@ansible-playbook -K playbooks/arch-devel.yaml
@@ -32,6 +27,18 @@ setup-grub:
 
 setup-kde:
 	@ansible-playbook -K playbooks/setup-aur.yaml playbooks/setup-kde-only.yaml
+
+add-home-users:
+	@ansible-playbook --vault-password-file=vault-pass -i localhost-vault.yaml playbooks/add-home-users.yaml
+
+arch-add-trizen:
+	@ansible-playbook -K -i localhost.yaml playbooks/arch-add-trizen.yaml
+
+arch-install-os:
+	@lsblk
+	@ansible-playbook -i localhost-not-ready.yaml playbooks/arch-install-os.yaml
+
+# => -------------------------------------------------------------------------------------------------------------- {{{1
 
 disable-ipv6:
 	ansible-role roles/system/disable-ipv6 -K

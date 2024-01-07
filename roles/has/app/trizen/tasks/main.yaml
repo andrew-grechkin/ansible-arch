@@ -1,10 +1,12 @@
 ---
 - name: Install trizen
+  when: ansible_distribution == "Archlinux"
   ansible.builtin.script: install-trizen.sh
   args:
     creates: /usr/bin/trizen
 
 - name: Install ansible aur module
+  when: ansible_distribution == "Archlinux"
   ansible.builtin.command: trizen -S --needed --noedit --noconfirm ansible-aur-git
   args:
     creates: /usr/share/ansible/plugins/modules/aur.py
