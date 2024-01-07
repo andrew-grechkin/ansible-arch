@@ -170,7 +170,7 @@
 - name: Run pacstrap
   ansible.builtin.command: >
     pacstrap /mnt
-    base base-devel linux linux-firmware refind
+    base base-devel linux linux-firmware refind reflector
     btrfs-progs cryptsetup lvm2 mdadm
     avahi bind inetutils networkmanager nss-mdns openssh rsync systemd-resolvconf
     grml-zsh-config git tmux vifm vim zsh zsh-completions
@@ -210,9 +210,9 @@
   ansible.posix.synchronize:
     archive: false
     compress: false
-    dest: /mnt/boot/EFI/
+    dest: /mnt/boot/EFI/BOOT
     recursive: true
-    src: refind
+    src: refind/
 
 - name: Use pacman mirrorlist
   ansible.builtin.command: cp -f /etc/pacman.d/mirrorlist /mnt/etc/pacman.d

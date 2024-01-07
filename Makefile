@@ -22,12 +22,6 @@ arch-must-have:
 suse-must-have:
 	@ansible-playbook -K playbooks/suse-must-have.yaml
 
-setup-grub:
-	@ansible-playbook -K playbooks/setup-grub.yaml
-
-setup-kde:
-	@ansible-playbook -K playbooks/setup-aur.yaml playbooks/setup-kde-only.yaml
-
 add-home-users:
 	@ansible-playbook --vault-password-file=vault-pass -i localhost-vault.yaml playbooks/add-home-users.yaml
 
@@ -37,6 +31,12 @@ arch-add-trizen:
 arch-install-os:
 	@lsblk
 	@ansible-playbook -i localhost-not-ready.yaml playbooks/arch-install-os.yaml
+
+setup-grub:
+	@ansible-playbook -K playbooks/setup-grub.yaml
+
+setup-kde:
+	@ansible-playbook -K playbooks/setup-kde-only.yaml
 
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 
