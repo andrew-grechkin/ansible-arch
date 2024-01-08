@@ -1,0 +1,15 @@
+---
+- name: Install packages
+  become: true
+  community.general.pacman:
+    name: [reflector]
+
+# - name: Create systemd units
+#   become: true
+#   notify: Enable reflector timer
+#   ansible.builtin.copy:
+#     dest: /home/{{ user.name }}/{{ file.path }}
+#     owner: '{{ user.name }}'
+#     group: '{{ user.gid }}'
+#     mode: '0644'
+#     content: '{{ file.content }}'

@@ -1,0 +1,6 @@
+---
+- name: Enable reflector timer
+  become: true
+  ansible.builtin.service:
+    name: reflector.timer
+    enabled: true

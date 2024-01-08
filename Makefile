@@ -16,8 +16,11 @@ FLAGS ?=
 arch-devel:
 	@ansible-playbook -K playbooks/arch-devel.yaml
 
+arch-devel-work:
+	@ansible-playbook -K playbooks/arch-add-trizen.yaml playbooks/arch-devel-work.yaml
+
 arch-must-have:
-	@ansible-playbook -K playbooks/arch-must-have.yaml
+	@ansible-playbook -K playbooks/arch-add-trizen.yaml playbooks/arch-must-have.yaml
 
 suse-must-have:
 	@ansible-playbook -K playbooks/suse-must-have.yaml
