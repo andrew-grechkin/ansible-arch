@@ -19,7 +19,7 @@
 
 			0.31 2013-02-25
 			- Added LED V4L2 control mapping for V3 Logitech cameras
-			
+
 			0.30, 2010-07-30:
 			- Added support for XU_TEST_PERIPHERAL_ACCESS_EXT_CONTROL.
 
@@ -126,13 +126,13 @@
 			<id>UVC_GUID_LOGITECH_CODECEX</id>
 			<value>49C532A0-4F15-4cfc-908A-5BCE154B1CEA</value>
 		</constant>
-		
+
 		<!-- UVC 1.1 H.264 public GUID -->
 		<constant type="guid">
 			<id>GUID_UVCX_H264_XU</id>
 			<value>A29E7641-DE04-47E3-8B2B-F4341AFF003B</value>
 		</constant>
-		
+
 		<!-- Control selectors for User Hardware Control (v1)-->
 		<constant type="integer">
 			<id>XU_HW_CONTROL_LED1</id>
@@ -474,7 +474,7 @@
 			<id>UVCX_QP_STEPS_LAYERS</id>
 			<value>0x0F</value>
 		</constant>
-		
+
 		<!-- Internal control selectors for the CodecEX XU -->
 		<constant type="integer">
 			<id>CXXU_STATIC_CONTROL</id>
@@ -545,7 +545,7 @@
 			<value>0x0A046D72</value>
 		</constant>
 		<!-- UVC 1.1 H264 DEFINITIONS -->
-		
+
 	</constants>
 
 
@@ -1462,7 +1462,7 @@
 						<request>SET_CUR</request>
 					</requests>
 				</control>
-				
+
 			</controls>
 		</device>
 	</devices>
@@ -1656,7 +1656,7 @@
 				<v4l2_type>V4L2_CTRL_TYPE_INTEGER</v4l2_type>
 			</v4l2>
 		</mapping>
-		
+
 		<mapping>
 			<name>Pan (relative)</name>
 			<uvc>
@@ -1684,7 +1684,7 @@
 				<v4l2_type>V4L2_CTRL_TYPE_INTEGER</v4l2_type>
 			</v4l2>
 		</mapping>
-		
+
 		<mapping>
 			<name>Tilt (relative)</name>
 			<uvc>
@@ -1712,7 +1712,7 @@
 				<v4l2_type>V4L2_CTRL_TYPE_BUTTON</v4l2_type>
 			</v4l2>
 		</mapping>
-		
+
 		<mapping>
 			<name>Pan Reset</name>
 			<uvc>
@@ -1740,7 +1740,7 @@
 				<v4l2_type>V4L2_CTRL_TYPE_BUTTON</v4l2_type>
 			</v4l2>
 		</mapping>
-		
+
 		<mapping>
 			<name>Tilt Reset</name>
 			<uvc>
@@ -1860,7 +1860,7 @@
 				<menu_entry name="Auto" value="3"/>
 			</v4l2>
 		</mapping>
-		
+
 
 		<mapping>
 			<name>LED1 Frequency</name>
@@ -1875,7 +1875,7 @@
 				<v4l2_type>V4L2_CTRL_TYPE_INTEGER</v4l2_type>
 			</v4l2>
 		</mapping>
-		
+
 		<!-- Mappings for uvc 1.1 H264 -->
 		<!--
 		<mapping>
@@ -1930,8 +1930,8 @@
 				<v4l2_type>V4L2_CTRL_TYPE_INTEGER</v4l2_type>
 			</v4l2>
 		</mapping>
-		
-						
+
+
 				<control id="uvcx_video_config_probe_wWidth">
 					<entity>GUID_UVCX_H264_XU</entity>
 					<selector>UVCX_VIDEO_CONFIG_PROBE</selector>

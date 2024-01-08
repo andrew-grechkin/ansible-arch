@@ -1,5 +1,3 @@
 ---
 - hosts: [localhost]
-  roles:
-    - application/core/lutris
-    - application/core/steam
+  roles: [has/apps/lutris, has/apps/steam]

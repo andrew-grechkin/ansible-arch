@@ -1,9 +1,4 @@
 ---
 - hosts: [localhost]
   any_errors_fatal: true
-  roles:
-    - system/upgrade
-    - application/core/must-have
-    - application/core/devel
-    - application/core/devel-work
-    - application/aur/must-have
+  roles: [system/upgrade, has/apps/must-have, has/apps/devel, has/apps/devel-work, has/aur/apps/must-have]

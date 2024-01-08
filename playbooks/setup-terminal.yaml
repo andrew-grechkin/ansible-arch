@@ -4,8 +4,8 @@
     terminal_only: true
   roles:
     - system/basic
-    - application/core/must-have
-    - application/core/encryption
-    - application/core/media
-    - application/core/snapper
-    - device/yubikey
+    - has/app/snapper
+    - has/apps/must-have
+    - has/apps/encryption
+    - has/apps/media
+    - has/device/yubikey

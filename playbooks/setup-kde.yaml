@@ -2,15 +2,15 @@
 - hosts: [localhost]
   roles:
     - x/kde
-    - application/aur/must-have
-    - application/aur/google-chrome
-    - application/core/browser
-    - application/core/encryption
-    - application/core/media
-    - application/core/network
-    - application/core/snapper
-    - application/core/viewer
-    - device/network
-    - device/touchpad
-    - device/video
-    - device/yubikey
+    - has/aur/apps/must-have
+    - has/aur/app/google-chrome
+    - has/app/snapper
+    - has/apps/browser
+    - has/apps/encryption
+    - has/apps/media
+    - has/apps/network
+    - has/apps/viewer
+    - has/device/network
+    - has/device/touchpad
+    - has/device/video
+    - has/device/yubikey

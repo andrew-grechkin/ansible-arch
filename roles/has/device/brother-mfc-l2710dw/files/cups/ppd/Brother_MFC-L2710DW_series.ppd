@@ -1,7 +1,7 @@
 *PPD-Adobe: "4.3"
 *cupsMandatory: attributes-charset attributes-natural-language printer-uri
 *%================================================
-*%	Copyright 2017      
+*%	Copyright 2017
 *%      Copyright 2006-2017 Copyright Brother Industries,Ltd 2006-2017
 *%      All Rights Reserved.
 *%	"Brother MFCL2710DW for CUPS"
@@ -37,19 +37,19 @@
 *DefaultColorSpace: Gray
 *FileSystem: True
 *?FileSystem:"
-save 
-	/devname (%disk0%) def 
-	/ret false def 
-	0 1 7{ 
-		devname exch 48 add 5 exch put 
-		devname devstatus { 
-			0 ne {/ret true def}if 
-			pop pop pop pop pop pop pop 
-		}if 
-	}for 
-	ret {(True)}{(False)} ifelse = flush 
-restore 
-" 
+save
+	/devname (%disk0%) def
+	/ret false def
+	0 1 7{
+		devname exch 48 add 5 exch put
+		devname devstatus {
+			0 ne {/ret true def}if
+			pop pop pop pop pop pop pop
+		}if
+	}for
+	ret {(True)}{(False)} ifelse = flush
+restore
+"
 *End
 
 *Throughput: "18"
@@ -216,9 +216,9 @@ restore
 *ImageableArea EnvDL/DL: "12 12 300 612"
 *ImageableArea EnvC5/C5: "12 12 447 637"
 *ImageableArea ISOB5/B5(ISO): "12 12 487 697"
-*ImageableArea B5/B5(JIS): "12 12 504 717" 
+*ImageableArea B5/B5(JIS): "12 12 504 717"
 *ImageableArea ISOB6/B6(ISO): "12 12 342 487"
-*ImageableArea B6/B6(JIS): "12 12 351 504" 
+*ImageableArea B6/B6(JIS): "12 12 351 504"
 *ImageableArea 4x6/4x6:  "12 12 277 419"
 *ImageableArea Postcard/Postcard: "12 12 271 408"
 *ImageableArea DoublePostcardRotated/Postcard(Double): "12 12 555 408"
@@ -411,4 +411,3 @@ save
 restore
 "
 *End
-
