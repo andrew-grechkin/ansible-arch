@@ -1,4 +1,10 @@
 ---
+
+- name: Install required libraries
+  become: true
+  community.general.pacman:
+    name: [libxcrypt-compat]
+
 - name: Install required tools
   become: true
   community.general.pacman:
