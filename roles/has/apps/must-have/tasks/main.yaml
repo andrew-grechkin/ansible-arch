@@ -33,7 +33,7 @@
 - name: Install network tools
   become: true
   ansible.builtin.package:
-    name: [bind, dog, gnu-netcat, rsync, socat, wireguard-tools, xh]
+    name: [bind, dog, gnu-netcat, rsync, socat, whois, wireguard-tools, xh]
 
 - name: Install network tools (distribution)
   become: true
