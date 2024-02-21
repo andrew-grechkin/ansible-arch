@@ -9,7 +9,6 @@
       - fuse-overlayfs
       - netavark
       - podman
-      - podman-compose
       - podman-dnsname
       - podman-docker
 
