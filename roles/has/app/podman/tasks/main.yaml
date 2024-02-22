@@ -2,15 +2,7 @@
 - name: Install podman
   become: true
   community.general.pacman:
-    name:
-      - aardvark-dns
-      - buildah
-      - docker-compose
-      - fuse-overlayfs
-      - netavark
-      - podman
-      - podman-dnsname
-      - podman-docker
+    name: [aardvark-dns, buildah, docker-compose, fuse-overlayfs, netavark, podman, podman-docker]
 
 - name: Install distrobox
   become: true
