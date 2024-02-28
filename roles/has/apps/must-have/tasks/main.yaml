@@ -28,7 +28,7 @@
 - name: Install common tools
   become: true
   ansible.builtin.package:
-    name: [eza, htop, lsof, moreutils, strace]
+    name: [atuin, dust, eza, htop, lsof, moreutils, strace]
 
 - name: Install network tools
   become: true
