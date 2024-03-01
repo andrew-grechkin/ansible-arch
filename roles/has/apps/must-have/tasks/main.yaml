@@ -58,7 +58,7 @@
 - name: Install search tools
   become: true
   ansible.builtin.package:
-    name: [fd, fzf, peco, up]
+    name: [fd, fzf, skim, up]
 
 - name: Install search tools (distribution)
   become: true
