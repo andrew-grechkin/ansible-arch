@@ -92,22 +92,27 @@
 
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 
-- name: Install perl base
+- name: Install Perl base
   become: true
   ansible.builtin.package:
     name: '{{ application_packages_perl_base }}'
 
-- name: Install perl additional
+- name: Install Perl additional
   become: true
   ansible.builtin.package:
     name: '{{ application_packages_perl_additional }}'
 
-- name: Install python base
+- name: Install Python base
   become: true
   ansible.builtin.package:
     name: [swig]
 
-- name: Install python additional
+- name: Install Python additional
   become: true
   ansible.builtin.package:
     name: '{{ application_packages_python_additional }}'
+
+- name: Install Rust base
+  become: true
+  ansible.builtin.package:
+    name: [rust]
