@@ -1,9 +1,8 @@
 ---
+- name: Install crow-translate prerequisites
+  aur:
+    name: [tesseract-data-eng, tesseract-data-nld, tesseract-data-osd, tesseract-data-rus]
+
 - name: Install crow-translate
   aur:
-    name:
-      - crow-translate
-      - tesseract-data-eng
-      - tesseract-data-nld
-      - tesseract-data-osd
-      - tesseract-data-rus
+    name: [crow-translate]

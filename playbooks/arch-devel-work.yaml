@@ -1,4 +1,10 @@
 ---
 - hosts: all
   any_errors_fatal: true
-  roles: [system/upgrade, has/apps/must-have, has/aur/apps/must-have, has/apps/devel, has/apps/devel-work]
+  roles:
+    - system/upgrade
+    - has/apps/must-have
+    - has/aur/apps/must-have
+    - has/aur/app/crow
+    - has/apps/devel
+    - has/apps/devel-work
