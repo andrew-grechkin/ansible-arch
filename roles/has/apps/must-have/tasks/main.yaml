@@ -115,4 +115,4 @@
 - name: Install Rust base
   become: true
   ansible.builtin.package:
-    name: [rust]
+    name: [rust, grex]
