@@ -5,6 +5,6 @@
     - system/upgrade
     - has/apps/must-have
     - has/aur/apps/must-have
-    - has/aur/app/crow
     - has/apps/devel
     - has/apps/devel-work
+    - has/aur/app/crow
