@@ -40,10 +40,11 @@
   community.general.pacman:
     name: [luarocks]
 
-- name: Install node.js support
-  become: true
-  community.general.pacman:
-    name: [npm]
+# use nvm
+# - name: Install node.js support
+#   become: true
+#   community.general.pacman:
+#     name: [npm]
 
 - name: Install python support
   become: true

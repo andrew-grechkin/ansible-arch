@@ -20,10 +20,11 @@
   community.general.pacman:
     name: [apache, maven]
 
-- name: Install node.js support
-  become: true
-  community.general.pacman:
-    name: [yarn]
+# use nvm
+# - name: Install node.js support
+#   become: true
+#   community.general.pacman:
+#     name: [yarn]
 
 - name: Install kubernetes
   become: true
