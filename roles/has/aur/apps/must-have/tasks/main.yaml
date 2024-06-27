@@ -14,3 +14,12 @@
 - name: Install perl support
   aur:
     name: [perl-mojolicious]
+
+# https://github.com/eBay/tsv-utils
+# https://github.com/harelba/q
+# https://github.com/johnkerl/miller
+# https://miller.readthedocs.io/en/6.12.0/
+# https://www.gnu.org/software/datamash/
+- name: TSV support
+  aur:
+    name: [datamash, miller, q, tsv-utils]
