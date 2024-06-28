@@ -11,9 +11,9 @@
   aur:
     name: [jqp-bin, task-spooler]
 
-- name: Install perl support
-  aur:
-    name: [perl-mojolicious]
+# - name: Install perl support
+#   aur:
+#     name: [perl-mojolicious]
 
 # https://github.com/eBay/tsv-utils
 # https://github.com/harelba/q

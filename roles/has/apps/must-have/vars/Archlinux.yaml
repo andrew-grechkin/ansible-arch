@@ -5,20 +5,20 @@ application_packages_man: [man-db]
 application_packages_network: [base]
 
 application_packages_perl_additional:
-  - perl-cpanel-json-xs
-  - perl-data-dump
-  - perl-datetime-timezone
-  - perl-dbd-pg
-  - perl-ev
-  - perl-image-exiftool
-  - perl-io-socket-ssl
-  - perl-log-any
-  - perl-path-tiny
-  - perl-perl-critic
+  # - perl-cpanel-json-xs
+  # - perl-data-dump
+  # - perl-datetime-timezone
+  # - perl-dbd-pg
+  # - perl-ev
+  # - perl-image-exiftool
+  # - perl-io-socket-ssl
+  # - perl-log-any
+  # - perl-path-tiny
+  # - perl-perl-critic
   - perl-rename
-  - perl-role-tiny
-  - perl-tidy
-  - perl-yaml-libyaml
+  # - perl-role-tiny
+  # - perl-tidy
+  # - perl-yaml-libyaml
 
 application_packages_perl_base: [perlbrew]
 application_packages_python_additional: [python-pip]
