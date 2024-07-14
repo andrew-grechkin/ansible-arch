@@ -1,10 +1,5 @@
 ---
 
-- name: Install required libraries
-  become: true
-  community.general.pacman:
-    name: [libxcrypt-compat]
-
 - name: Install required tools
   become: true
   community.general.pacman:
@@ -20,7 +15,7 @@
   community.general.pacman:
     name: [apache, maven]
 
-# use nvm
+# use nvm instead
 # - name: Install node.js support
 #   become: true
 #   community.general.pacman:
@@ -35,4 +30,4 @@
 
 - name: Install bazel
   aur:
-    name: [bazelisk]
+    name: [bazelisk, libxcrypt-compat]

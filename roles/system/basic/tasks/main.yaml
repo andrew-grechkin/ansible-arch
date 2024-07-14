@@ -4,7 +4,7 @@
   community.general.pacman:
     name:
       - pamixer
-      - paprefs
+      # - paprefs
       - pipewire-alsa
       - pipewire-jack
       - pipewire-pulse

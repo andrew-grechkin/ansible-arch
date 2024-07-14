@@ -1,5 +1,5 @@
 ---
-- name: Install neovim apckages
+- name: Install neovim packages
   become: true
   community.general.pacman:
     name: [neovim, python-neovim]
@@ -19,7 +19,7 @@
 - name: Install devel packages
   become: true
   community.general.pacman:
-    name: [gdb, git-sizer, lazygit, ninja]
+    name: [gdb, git-sizer, lazygit, ninja, rlwrap]
 
 - name: Install c/c++ support
   become: true
@@ -40,7 +40,7 @@
   community.general.pacman:
     name: [luarocks]
 
-# use nvm
+# use nvm instead
 # - name: Install node.js support
 #   become: true
 #   community.general.pacman:
