@@ -22,4 +22,5 @@
 # https://www.gnu.org/software/datamash/
 - name: TSV support
   aur:
-    name: [datamash, miller, q, tsv-utils]
+    name: [datamash, miller, q]
+    # name: [datamash, miller, q, tsv-utils]
