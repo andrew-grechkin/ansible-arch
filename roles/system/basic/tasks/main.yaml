@@ -45,7 +45,7 @@
 - name: Install search tools
   become: true
   community.general.pacman:
-    name: [mlocate]
+    name: [plocate]
   notify: [Enable search service]
 
 - name: Install hdd tools

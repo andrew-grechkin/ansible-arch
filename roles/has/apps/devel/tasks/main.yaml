@@ -4,6 +4,7 @@
   community.general.pacman:
     name: [neovim, python-neovim]
 
+# use gem instead
 # - name: Install asciidoc
 #   become: true
 #   community.general.pacman:
@@ -51,7 +52,8 @@
   community.general.pacman:
     name: [pyenv, pre-commit, python-poetry]
 
-- name: Install ruby
-  become: true
-  community.general.pacman:
-    name: [ruby]
+# use rvm instead
+# - name: Install ruby
+#   become: true
+#   community.general.pacman:
+#     name: [ruby]
