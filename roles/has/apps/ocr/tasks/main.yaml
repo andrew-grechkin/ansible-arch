@@ -1,0 +1,5 @@
+---
+- name: Install OCR
+  become: true
+  community.general.pacman:
+    name: [tesseract-data-eng, tesseract-data-nld, tesseract-data-rus, gimagereader-qt]

@@ -2,7 +2,7 @@ Defaults always_set_home
 Defaults env_reset
 Defaults timestamp_timeout = 30
 Defaults env_keep += "DISPLAY SSH_AUTH_SOCK XDG_SESSION_COOKIE"
-Defaults env_keep += "EDITOR LESS PAGER VISUAL"
+Defaults env_keep += "LESS PAGER"
 Defaults env_keep += "LANGUAGE LANG LC_ADDRESS LC_COLLATE LC_CTYPE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME LC_ALL"
 Defaults env_keep += "all_proxy http_proxy https_proxy no_proxy"
 

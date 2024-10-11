@@ -49,7 +49,7 @@
 - name: Image viewers (terminal)
   become: true
   community.general.pacman:
-    name: [chafa]
+    name: [chafa, viu]
 
 - name: Image viewers (gui)
   when: not terminal_only|default(false)
