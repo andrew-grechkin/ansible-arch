@@ -13,6 +13,8 @@
       gid: 47573
     - name: nopwsys
       gid: 47574
+    - name: uinput
+      gid: 47575
   loop_control:
     loop_var: gp
 

@@ -1,0 +1,13 @@
+---
+- name: Install kanata
+  aur:
+    name: [kanata-bin]
+
+- name: Copy proper polkit default rules
+  become: true
+  ansible.builtin.copy:
+    src: rules.d/99-input.rules
+    dest: /etc/udev/rules.d/99-input.rules
+    owner: root
+    group: root
+    mode: '0644'
