@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+if [[ -t 1 ]]; then
+	fzf_cmd=(
+		fzf
+		--ansi
+		--bind="alt-p:toggle-preview,ctrl-w:toggle-preview-wrap,ctrl-s:toggle-sort"
+		--bind="ctrl-m:execute(ansible-vault edit --vault-pass-file=vault-pass -- {1})"
+		--bind="esc:cancel"
+		--header="C-j/k:mv C-m/enter:edit A-p:preview C-n/p:p-move C-y:yank"
+		--preview-window="right:50%:border-left:wrap:nohidden"
+		--preview="ansible-vault view --vault-pass-file=vault-pass -- {1}"
+		--reverse
+		--scroll-off=4
+		--tabstop=4
+		--track
+	)
+
+	"$0" | "${fzf_cmd[@]}"
+else
+	rg -l --sort=path --glob='!icons' '^\$ANSIBLE_VAULT'
+fi
