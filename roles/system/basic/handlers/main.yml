@@ -14,5 +14,5 @@
 - name: Enable search service
   become: true
   ansible.builtin.service:
-    name: updatedb.timer
+    name: plocate-updatedb.timer
     enabled: true

@@ -2,4 +2,4 @@
 
 set -Euo pipefail
 
-rg -l0 "VAULT" | xargs -0 -n 1 -t -- ansible-vault view --vault-pass-file=vault-pass
+rg -l0 '^\$ANSIBLE_VAULT' | xargs -0 -n 1 -t -- ansible-vault view --vault-pass-file=vault-pass
