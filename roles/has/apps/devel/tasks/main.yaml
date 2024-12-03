@@ -50,7 +50,7 @@
 - name: Install python support
   become: true
   community.general.pacman:
-    name: [pyenv, pre-commit, python-poetry]
+    name: [pyenv, pre-commit, python-poetry, python-pipx]
 
 # use rvm instead
 # - name: Install ruby
