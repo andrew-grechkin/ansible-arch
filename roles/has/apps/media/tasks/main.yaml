@@ -44,7 +44,7 @@
 - name: Image encoding
   become: true
   community.general.pacman:
-    name: [imagemagick]
+    name: [imagemagick, jhead]
 
 - name: Image viewers (terminal)
   become: true
