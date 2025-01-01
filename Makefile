@@ -41,6 +41,9 @@ setup-grub:
 setup-kde:
 	@ansible-playbook -K playbooks/setup-kde-only.yaml
 
+setup-kde-full:
+	@ansible-playbook -K playbooks/setup-kde.yaml
+
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 
 disable-ipv6:

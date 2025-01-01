@@ -20,7 +20,7 @@
 - name: Install devel packages
   become: true
   community.general.pacman:
-    name: [gdb, git-sizer, lazygit, ninja, rlwrap]
+    name: [gdb, git-sizer, just, lazygit, ninja, rlwrap]
 
 - name: Install c/c++ support
   become: true

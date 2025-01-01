@@ -90,6 +90,11 @@
   ansible.builtin.package:
     name: [glow]
 
+- name: Install flatpak
+  become: true
+  ansible.builtin.package:
+    name: [flatpak]
+
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 
 - name: Install Perl base
