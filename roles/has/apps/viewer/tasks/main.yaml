@@ -2,7 +2,7 @@
 - name: Pdf viewers
   become: true
   community.general.pacman:
-    name: [zathura, zathura-djvu, zathura-pdf-poppler, poppler]
+    name: [zathura-djvu, zathura-pdf-poppler, poppler]
 
 - name: Pdf support
   become: true

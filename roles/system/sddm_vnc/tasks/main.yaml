@@ -1,4 +1,10 @@
 ---
+- name: Install tigervnc
+  become: true
+  community.general.pacman:
+    name:
+      - tigervnc
+
 - name: Copy window manager x0vncserver
   become: true
   ansible.builtin.copy:
