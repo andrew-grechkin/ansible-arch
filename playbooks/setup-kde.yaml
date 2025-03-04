@@ -11,6 +11,5 @@
     - has/apps/network
     - has/apps/viewer
     - has/device/network
-    - has/device/touchpad
     - has/device/video
     - has/device/yubikey

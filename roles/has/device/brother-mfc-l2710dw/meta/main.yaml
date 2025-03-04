@@ -1,4 +1,4 @@
 ---
 dependencies:
-  - role: device/printer
-  - role: device/scanner
+  - role: has/device/printer
+  - role: has/device/scanner

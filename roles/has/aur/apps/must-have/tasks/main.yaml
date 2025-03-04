@@ -9,7 +9,7 @@
 
 - name: Install tools
   aur:
-    name: [jqp-bin, task-spooler]
+    name: [task-spooler]
 
 # - name: Install perl support
 #   aur:
@@ -22,5 +22,5 @@
 # https://www.gnu.org/software/datamash/
 - name: TSV support
   aur:
-    name: [datamash, miller, q]
+    name: [datamash, miller]
     # name: [datamash, miller, q, tsv-utils]

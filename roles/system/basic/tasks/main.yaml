@@ -68,7 +68,7 @@
 - name: Install compression tools
   become: true
   community.general.pacman:
-    name: [cpio, lzop, p7zip, unrar, unzip]
+    name: [cpio]
 
 - name: Install pacman tools
   become: true

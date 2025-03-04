@@ -33,7 +33,7 @@
 - name: Install network tools
   become: true
   ansible.builtin.package:
-    name: [bind, dog, gnu-netcat, rsync, socat, whois, wireguard-tools, xh]
+    name: [bind, dog, nmap, rsync, socat, whois, wireguard-tools, xh]
 
 - name: Install network tools (distribution)
   become: true
@@ -68,7 +68,19 @@
 - name: Install file management tools
   become: true
   ansible.builtin.package:
-    name: [duf, inotify-tools, fuseiso, go-yq, jq, ncdu, pigz, progress, pv, sshfs, vifm]
+    name:
+      - duf
+      - fuseiso
+      - go-yq
+      - inotify-tools
+      - jq
+      - mbuffer
+      - ncdu
+      - pigz
+      - progress
+      - pv
+      - sshfs
+      - vifm
 
 - name: Install file management tools (distribution)
   become: true
@@ -89,6 +101,11 @@
   become: true
   ansible.builtin.package:
     name: [glow]
+
+- name: Install flatpak
+  become: true
+  ansible.builtin.package:
+    name: [flatpak]
 
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 

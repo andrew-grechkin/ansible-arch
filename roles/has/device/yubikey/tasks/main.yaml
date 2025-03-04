@@ -8,4 +8,4 @@
   when: not terminal_only|default(false)
   become: true
   community.general.pacman:
-    name: [yubikey-manager-qt, yubikey-personalization-gui]
+    name: [yubikey-personalization-gui]
