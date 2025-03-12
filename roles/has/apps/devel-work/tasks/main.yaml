@@ -19,7 +19,7 @@
 # - name: Install node.js support
 #   become: true
 #   community.general.pacman:
-#     name: [yarn]
+#     name: [yarn, node-gyp]
 
 - name: Install kubernetes
   become: true

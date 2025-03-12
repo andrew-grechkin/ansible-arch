@@ -1,0 +1,3 @@
+---
+dependencies:
+  - role: has/app/podman-remote

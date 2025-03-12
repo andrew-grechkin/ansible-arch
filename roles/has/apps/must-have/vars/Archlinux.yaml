@@ -20,7 +20,7 @@ application_packages_perl_additional:
   # - perl-tidy
   # - perl-yaml-libyaml
 
-application_packages_perl_base: [perlbrew]
+application_packages_perl_base: []
 application_packages_python_additional: [python-pip]
 application_packages_search: [ripgrep-all]
 application_packages_vnc: []

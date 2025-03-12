@@ -1,0 +1,20 @@
+---
+- name: Install podman-docker
+  become: true
+  community.general.pacman:
+    name: [docker-compose, podman-docker]
+
+- name: Stat file
+  ansible.builtin.stat:
+    path: /etc/containers/nodocker
+  register: p
+
+- name: Add nodocker file
+  become: true
+  ansible.builtin.file:
+    group: root
+    mode: '0644'
+    owner: root
+    path: /etc/containers/nodocker
+    state: touch
+  when: p.stat.exists is defined and not p.stat.exists
