@@ -18,3 +18,10 @@
     path: /etc/containers/nodocker
     state: touch
   when: p.stat.exists is defined and not p.stat.exists
+
+- name: Enable remote podman (host machine)
+  become: true
+  ansible.builtin.replace:
+    path: /etc/containers/containers.conf
+    regexp: .*?\bremote\s*=\s*false\b.*
+    replace: remote = true
