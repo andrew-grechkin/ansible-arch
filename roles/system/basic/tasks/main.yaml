@@ -58,7 +58,7 @@
 - name: Install common tools
   become: true
   community.general.pacman:
-    name: [hwinfo, iotop, lsb-release, usbutils]
+    name: [dmidecode, hwinfo, inxi, iotop, lsb-release, lshw, usbutils]
 
 - name: Install network tools
   become: true
