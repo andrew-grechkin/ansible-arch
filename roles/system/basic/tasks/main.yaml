@@ -26,7 +26,7 @@
 - name: Install bluetooth
   become: true
   community.general.pacman:
-    name: [bluez, bluez-utils]
+    name: [bluez, bluez-tools, bluez-utils]
     # name: [bluez-cups, bluez-utils, pulseaudio-bluetooth]
   notify: [Enable bluetooth services]
 

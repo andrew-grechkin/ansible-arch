@@ -17,7 +17,11 @@
 - name: Install emoji support
   become: true
   community.general.pacman:
-    name: [ttf-joypixels, unicode-emoji]
+    name: [unicode-emoji]
+
+- name: Install emoji support (aur)
+  aur:
+    name: [ttf-joypixels]
 
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 

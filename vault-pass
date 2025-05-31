@@ -2,11 +2,11 @@
 
 set -Eeuo pipefail
 
-PASS_PATH='home/home.ams/vault-pass'
+pass_path='home/home.ams/vault-pass'
 
-if [[ "${SSH_CLIENT:-}" != "" ]] || ! gpg --card-status &>/dev/null || ! pass show "$PASS_PATH"; then
-	echo 'Unable to read vault password with "pass" application' >/dev/stderr
-	echo 'Please provide vault password manually:' >/dev/stderr
-	read -s -r PASSWD
-	echo -n "$PASSWD"
+if [[ "${SSH_CLIENT:-}" != "" ]] || ! gpg --card-status &>/dev/null || ! pass show "$pass_path"; then
+	echo 'Unable to read vault password with "pass" application' >&2
+	echo 'Please provide vault password manually:' >&2
+	read -s -r passwd
+	echo -n "$passwd"
 fi

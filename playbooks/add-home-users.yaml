@@ -1,4 +1,4 @@
 ---
-- hosts: [localhost]
-
-  roles: [with/home/users]
+- any_errors_fatal: true
+  hosts: [localhost]
+  roles: [system/upgrade, with/home/users]
