@@ -36,7 +36,7 @@
       private: false
     - name: safe_disk_space_at_the_end
       prompt: Safe 20GiB at the end of the disk
-      default: 'true'
+      default: 'false'
       private: false
     - name: default_hostname
       prompt: Default hostname

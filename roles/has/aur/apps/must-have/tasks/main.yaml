@@ -7,9 +7,9 @@
   aur:
     name: [fuse3-p7zip-git]
 
-- name: Install tools
+- name: Install common tools
   aur:
-    name: [task-spooler]
+    name: [htop-vim-git]
 
 # - name: Install perl support
 #   aur:

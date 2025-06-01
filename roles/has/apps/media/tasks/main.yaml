@@ -73,12 +73,12 @@
 #   community.general.pacman:
 #     name: [cmus]
 
-- name: Audio players (gui)
-  when: not terminal_only|default(false)
-  become: true
-  community.general.pacman:
-    name:
-      - audacious
+# - name: Audio players (gui)
+#   when: not terminal_only|default(false)
+#   become: true
+#   community.general.pacman:
+#     name:
+#       - audacious
       # - mpd ncmpcpp mpc
 # mkdir -p ~/.cache/mpd
 # _enable_user_services mpd

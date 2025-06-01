@@ -4,6 +4,7 @@
   community.general.pacman:
     name:
       - accountsservice
+      - xclip
       - xdotool
       - xorg-server
       - xorg-xdpyinfo
@@ -11,6 +12,7 @@
       - xorg-xinit
       - xorg-xinput
       - xorg-xkill
+      - xorg-xwininfo
       - xsel
 
 - name: Install xdg

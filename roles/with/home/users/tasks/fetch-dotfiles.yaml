@@ -20,7 +20,7 @@
   ansible.builtin.git:
     dest: /home/{{ user.name }}/git/private/dotfiles
     repo: https://github.com/andrew-grechkin/dotfiles.git
-    version: master
+    version: main
     accept_newhostkey: true
     recursive: false
     update: false

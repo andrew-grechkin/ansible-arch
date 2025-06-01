@@ -25,9 +25,9 @@
     device: '{{ install_device }}'
     number: 1
     label: gpt
+    flags: [esp]
     state: present
     part_end: 1GiB
-    flags: [esp]
 - name: Create a new primary partition for LVM
   when: not safe_disk_space_at_the_end | bool
   community.general.parted:
@@ -36,7 +36,7 @@
     label: gpt
     flags: [lvm]
     state: present
-    part_start: 16GiB
+    part_start: 1GiB
 - name: Create a new primary partition for LVM
   when: safe_disk_space_at_the_end | bool
   community.general.parted:
@@ -45,7 +45,7 @@
     label: gpt
     flags: [lvm]
     state: present
-    part_start: 16GiB
+    part_start: 1GiB
     part_end: -20GiB
 
 - name: Create and open the LUKS2 container on 2 {{ install_device }}

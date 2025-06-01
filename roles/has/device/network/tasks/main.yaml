@@ -3,7 +3,7 @@
   become: true
   community.general.pacman:
     name:
-      - dhclient
+      # - dhclient
       # - network-manager-applet
       - networkmanager
       # - networkmanager-openconnect

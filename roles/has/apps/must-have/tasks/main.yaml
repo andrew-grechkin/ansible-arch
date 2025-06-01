@@ -18,7 +18,7 @@
 - name: Install essential tools
   become: true
   ansible.builtin.package:
-    name: [bash-completion, git, tmux]
+    name: [bash-completion, git, tmux, xdg-utils]
 
 - name: Install essential tools (distribution)
   become: true
@@ -28,7 +28,7 @@
 - name: Install common tools
   become: true
   ansible.builtin.package:
-    name: [atuin, dust, eza, htop, lsof, moreutils, strace]
+    name: [atuin, dust, just, eza, lsof, moreutils, powertop, strace]
 
 - name: Install network tools
   become: true

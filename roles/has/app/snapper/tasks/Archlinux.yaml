@@ -2,7 +2,11 @@
 - name: Install snapper
   become: true
   community.general.pacman:
-    name: [snapper, snap-pac, snap-sync]
+    name: [snapper, snap-pac]
+
+# - name: Install snapper (aur)
+#   aur:
+#     name: [snap-sync]
 
 - name: Create conf.d
   become: true
