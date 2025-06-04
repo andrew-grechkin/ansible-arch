@@ -102,10 +102,16 @@
   ansible.builtin.package:
     name: [glow]
 
+- name: Check if flatpak exists (created by distrobox)
+  stat:
+    path: /usr/local/bin/flatpak
+  register: flatpak
+
 - name: Install flatpak
   become: true
   ansible.builtin.package:
     name: [flatpak]
+  when: not flatpak.stat.exists
 
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 
