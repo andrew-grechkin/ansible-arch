@@ -5,6 +5,8 @@
     name: '{{ gp.name }}'
     gid: '{{ gp.gid }}'
   with_items:
+    - name: backup
+      gid: 47570
     - name: nopwnet
       gid: 47571
     - name: nopwpwr

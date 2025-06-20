@@ -11,7 +11,9 @@
       - kcolorchooser
       - kleopatra
       - konsole
+      - kwalletmanager
       - okular
       - packagekit-qt5
       - plasma-meta
+      - plasma-x11-session
       - spectacle
