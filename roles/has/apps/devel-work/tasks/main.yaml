@@ -15,11 +15,12 @@
   community.general.pacman:
     name: [apache, maven]
 
-# use nvm instead
-# - name: Install node.js support
-#   become: true
-#   community.general.pacman:
-#     name: [yarn, node-gyp]
+- name: Install node.js support
+  become: true
+  community.general.pacman:
+    name: [pcre]
+    # use fnm instead
+    # name: [yarn, node-gyp]
 
 - name: Install kubernetes
   become: true

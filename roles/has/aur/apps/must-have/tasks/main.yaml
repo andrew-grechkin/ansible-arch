@@ -24,3 +24,7 @@
   aur:
     name: [datamash, miller]
     # name: [datamash, miller, q, tsv-utils]
+
+- name: JS support
+  aur:
+    name: [fnm, deno]
