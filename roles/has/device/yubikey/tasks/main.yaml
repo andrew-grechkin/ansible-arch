@@ -2,7 +2,7 @@
 - name: Install yubikey
   become: true
   community.general.pacman:
-    name: [yubikey-manager, pam-u2f]
+    name: [yubikey-manager, pam-u2f, libp11, pkcs11-provider]
 
 - name: Install yubikey gui
   when: not terminal_only|default(false)

@@ -11,7 +11,7 @@ Cmnd_Alias  KILL        = /usr/bin/killall
 Cmnd_Alias  NETWORK     = /usr/bin/netctl, /usr/bin/nmtui, /usr/bin/nmcli, /usr/sbin/ss
 Cmnd_Alias  PKGMAN      = /usr/bin/pacman, /usr/bin/apt, /usr/bin/dnf, /usr/bin/yum, /usr/bin/zypper
 Cmnd_Alias  POWER       = /usr/sbin/shutdown, /usr/sbin/halt, /usr/sbin/poweroff, /usr/sbin/reboot
-Cmnd_Alias  STORAGE     = /usr/sbin/losetup, /usr/bin/umount, /usr/bin/mount -o nosuid\,nodev\,noexec
+Cmnd_Alias  STORAGE     = /usr/sbin/losetup, /usr/bin/umount, /usr/bin/mount -o nosuid\,nodev\,noexec, /usr/bin/btrfs send *, /usr/bin/btrfs receive *
 Cmnd_Alias  SYSTEMD     = /usr/bin/journalctl, /usr/bin/systemctl
 
 %wheel      ALL         = (ALL) ALL

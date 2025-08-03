@@ -41,7 +41,7 @@ setup-kde:
 setup-kde-full:
 	ansible-playbook -K playbooks/setup-kde.yaml
 
-setup-podman:
+@setup-podman:
 	ansible-role roles/has/app/podman -K
 
 # => -------------------------------------------------------------------------------------------------------------- {{{1

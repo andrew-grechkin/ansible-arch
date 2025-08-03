@@ -61,7 +61,7 @@
 
 - name: Create directories for {{ user.name }}
   become: true
-  when: user.adirs is defined and user.adirs
+  when: user.adirs is defined and (user.adirs|length > 0)
   ansible.builtin.file:
     path: /home/{{ user.name }}/{{ dir }}
     owner: '{{ user.name }}'
@@ -74,7 +74,7 @@
 
 - name: Create files for {{ user.name }}
   become: true
-  when: user.afiles is defined and user.afiles
+  when: user.afiles is defined and (user.afiles|length > 0)
   ansible.builtin.copy:
     dest: /home/{{ user.name }}/{{ file.path }}
     owner: '{{ user.name }}'

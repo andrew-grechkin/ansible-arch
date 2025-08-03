@@ -7,7 +7,7 @@
 - name: Pdf support
   become: true
   community.general.pacman:
-    name: [pdfgrep, pdftk]
+    name: [pdfgrep]
 
 - name: E-book reader
   become: true
