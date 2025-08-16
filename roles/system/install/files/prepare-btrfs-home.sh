@@ -4,14 +4,14 @@ set -e
 
 LAB=${1:-home}
 PREFIX=${2:-@}
-ROOT="/mnt-${LAB}/${PREFIX}/.snapshots/init/snapshot"
+ROOT="/mnt-${LAB}/${PREFIX}/.snapshots/head/snapshot"
 
 mkdir                             "/mnt-${LAB}"
 mount  -L "$LAB" -o subvolid=5    "/mnt-${LAB}"
 
 mkdir  -p                         "/mnt-${LAB}/${PREFIX}"
 btrfs subvolume create            "/mnt-${LAB}/${PREFIX}/.snapshots"
-mkdir  -p                         "/mnt-${LAB}/${PREFIX}/.snapshots/init"
+mkdir  -p                         "/mnt-${LAB}/${PREFIX}/.snapshots/head"
 btrfs subvolume create            "$ROOT"
 btrfs subvolume create            "${ROOT}/motion"
 chgrp video                       "${ROOT}/motion"

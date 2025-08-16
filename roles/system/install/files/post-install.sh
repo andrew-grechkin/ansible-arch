@@ -56,8 +56,8 @@ arch-chroot /mnt systemctl enable fstrim.timer
 arch-chroot /mnt systemctl enable sshd
 arch-chroot /mnt systemctl enable systemd-resolved
 
-USER_PASS=$(perl -MDigest::MD5=md5_hex -E '$pass=shift; $salt=md5_hex(rand); print crypt($pass,"\$6\$${salt}\$")' "$USR_PAS")
-ROOT_PASS=$(perl -MDigest::MD5=md5_hex -E '$pass=shift; $salt=md5_hex(rand); print crypt($pass,"\$6\$${salt}\$")' "$USR_PAS")
+USER_PASS=$(perl -MDigest::MD5=md5_hex -E '$pass=shift; $salt=md5_hex(rand); $opt="j9T"; print crypt($pass,"\$y\$${opt}\$${salt}\$")' "$USR_PAS")
+ROOT_PASS=$(perl -MDigest::MD5=md5_hex -E '$pass=shift; $salt=md5_hex(rand); $opt="j9T"; print crypt($pass,"\$y\$${opt}\$\$${salt}\$")' "$USR_PAS")
 
 arch-chroot /mnt useradd -m -s /usr/bin/zsh -G network,systemd-journal,users,uucp,wheel -u "$USR_UID" "$USR_NAM"
 arch-chroot /mnt usermod -p "$USER_PASS" "$USR_NAM"
