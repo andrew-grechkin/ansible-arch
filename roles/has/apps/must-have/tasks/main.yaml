@@ -28,12 +28,12 @@
 - name: Install common tools
   become: true
   ansible.builtin.package:
-    name: [atuin, dust, just, eza, lsof, moreutils, powertop, strace]
+    name: [dateutils, lsof, moreutils, powertop, strace]
 
 - name: Install network tools
   become: true
   ansible.builtin.package:
-    name: [bind, dog, nmap, rsync, socat, whois, wireguard-tools, xh]
+    name: [bind, dog, nmap, rsync, socat, whois, wireguard-tools]
 
 - name: Install network tools (distribution)
   become: true
@@ -58,7 +58,7 @@
 - name: Install search tools
   become: true
   ansible.builtin.package:
-    name: [fd, fzf, up]
+    name: [up]
 
 - name: Install search tools (distribution)
   become: true
@@ -68,39 +68,17 @@
 - name: Install file management tools
   become: true
   ansible.builtin.package:
-    name:
-      - duf
-      - fuseiso
-      - go-yq
-      - inotify-tools
-      - jq
-      - mbuffer
-      - ncdu
-      - pigz
-      - progress
-      - pv
-      - sshfs
-      - vifm
+    name: [duf, fuseiso, inotify-tools, jq, mbuffer, ncdu, pigz, progress, pv, sshfs, vifm]
 
 - name: Install file management tools (distribution)
   become: true
   ansible.builtin.package:
     name: '{{ application_packages_file }}'
 
-- name: Install highlight tools
-  become: true
-  ansible.builtin.package:
-    name: [bat, git-delta]
-
 - name: Install barcode/qrcode tools
   become: true
   ansible.builtin.package:
     name: [zbar]
-
-- name: Install documentation tools
-  become: true
-  ansible.builtin.package:
-    name: [glow]
 
 - name: Install flatpak
   become: true
