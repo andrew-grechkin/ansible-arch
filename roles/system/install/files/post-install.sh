@@ -37,6 +37,7 @@ echo "$D_HOST"                              > /mnt/etc/hostname
 
 ### set font for console
 #echo FONT=ter-u16n >> /mnt/etc/vconsole.conf
+cp -f /etc/vconsole.conf                      /mnt/etc/vconsole.conf
 
 ### set correct environment (let's use personal preferences in ~/.pam_environment)
 #echo "EDITOR=vim"     >> /mnt/etc/environment

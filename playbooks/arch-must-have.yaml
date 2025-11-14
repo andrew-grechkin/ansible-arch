@@ -1,4 +1,4 @@
 ---
 - any_errors_fatal: true
   hosts: all
-  roles: [system/upgrade, has/apps/must-have, has/aur/apps/must-have]
+  roles: [system/upgrade, system/basic, has/apps/must-have, has/aur/apps/must-have]
