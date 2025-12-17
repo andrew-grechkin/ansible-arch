@@ -1,9 +1,4 @@
 ---
-- name: Install neovim packages
-  become: true
-  community.general.pacman:
-    name: [neovim, python-neovim]
-
 # use gem instead
 # - name: Install asciidoc
 #   become: true
@@ -20,7 +15,7 @@
 - name: Install devel packages
   become: true
   community.general.pacman:
-    name: [gdb, git-sizer, just, lazygit, ninja, rlwrap]
+    name: [gdb, git-sizer, ninja, rlwrap]
 
 - name: Install c/c++ support
   become: true
@@ -40,20 +35,3 @@
   become: true
   community.general.pacman:
     name: [luarocks]
-
-# use nvm instead
-# - name: Install node.js support
-#   become: true
-#   community.general.pacman:
-#     name: [npm]
-
-- name: Install python support
-  become: true
-  community.general.pacman:
-    name: [pre-commit, uv]
-
-# use rvm instead
-# - name: Install ruby
-#   become: true
-#   community.general.pacman:
-#     name: [ruby]

@@ -30,11 +30,6 @@
   community.general.pacman:
     name: [wezterm]
 
-- name: Install keyring (needed by many apps)
-  become: true
-  community.general.pacman:
-    name: [gnome-keyring, seahorse]
-
 - name: Install themes
   become: true
   community.general.pacman:

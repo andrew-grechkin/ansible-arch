@@ -174,7 +174,7 @@
     btrfs-progs cryptsetup lvm2 mdadm
     avahi bind inetutils networkmanager nss-mdns openssh rsync systemd-resolvconf
     grml-zsh-config git tmux vifm vim zsh zsh-completions
-    ansible
+    ansible just mise
   args:
     creates: /mnt/etc/pacman.conf
 

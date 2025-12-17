@@ -8,6 +8,4 @@
 
 - name: Install helpers
   aur:
-    name:
-      - yt-dlp
-      - yt-dlp-drop-in
+    name: [yt-dlp-ejs, yt-dlp-drop-in]
