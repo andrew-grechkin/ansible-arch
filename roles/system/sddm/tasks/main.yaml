@@ -21,10 +21,10 @@
     mode: '0644'
     owner: root
     group: root
-    src: '{{ ansible_distribution }}-kde_settings.conf'
+    src: '{{ ansible_facts["distribution"] }}-kde_settings.conf'
 
 - name: Include distribution specific tasks
-  ansible.builtin.include_tasks: '{{ ansible_distribution }}.yaml'
+  ansible.builtin.include_tasks: '{{ ansible_facts["distribution"] }}.yaml'
 
 - name: Populate service facts
   ansible.builtin.service_facts: null

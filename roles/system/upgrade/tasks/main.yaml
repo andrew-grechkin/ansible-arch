@@ -6,7 +6,7 @@
 
 - name: Update pacman mirrors
   register: pacman_mirrorlist
-  when: ((ansible_date_time.epoch|int - pacman_mirrorlist_stat.stat.mtime) > (4 * 60 * 60))
+  when: ((ansible_facts['date_time'].epoch|int - pacman_mirrorlist_stat.stat.mtime) > (4 * 60 * 60))
   become: true
   ansible.builtin.command: >
     reflector --country "{{ install_pacman_mirror_country }}" --latest 8 --protocol http --protocol https --sort rate

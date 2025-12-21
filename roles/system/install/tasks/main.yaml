@@ -51,7 +51,7 @@
 - name: Create and open the LUKS2 container on 2 {{ install_device }}
   when: install_encrypt | bool
   community.crypto.luks_device:
-    device: '{{ install_device }}2'
+    device: '{{ install_device }}p2'
     label: lvm-encrypted{{ install_suffix }}
     name: lvm-encrypted{{ install_suffix }}
     passphrase: '{{ userpass }}'
@@ -67,7 +67,7 @@
   when: not install_encrypt | bool
   community.general.lvg:
     vg: vg-arch{{ install_suffix }}
-    pvs: '{{ install_device }}2'
+    pvs: '{{ install_device }}p2'
 
 - name: Create root logical volume
   community.general.lvol:
@@ -87,7 +87,7 @@
 
 - name: Create a EFI filesystem on 1 {{ install_device }}
   community.general.filesystem:
-    dev: '{{ install_device }}1'
+    dev: '{{ install_device }}p1'
     fstype: vfat
     opts: -n EFI{{ install_suffix }}
 - name: Create a root filesystem on vg-arch-root{{ install_suffix }}
@@ -173,8 +173,8 @@
     base base-devel linux linux-firmware refind reflector
     btrfs-progs cryptsetup lvm2 mdadm
     avahi bind inetutils networkmanager nss-mdns openssh rsync systemd-resolvconf
-    grml-zsh-config git tmux vifm vim zsh zsh-completions
-    ansible just mise
+    git tmux vifm vim zsh zsh-completions
+    ansible grml-zsh-config just mise
   args:
     creates: /mnt/etc/pacman.conf
 
@@ -226,6 +226,14 @@
     "{{ default_hostname }}" "{{ default_locale }}" "{{ default_timezone }}"
   args:
     creates: /mnt/etc/locale.conf
+
+- name: Copy /etc additional files
+  ansible.posix.synchronize:
+    archive: false
+    compress: false
+    dest: /mnt/etc/
+    recursive: true
+    src: etc/
 
 - name: Update initcpio
   ansible.builtin.script: update-initcpio.sh "{{ install_encrypt | bool }}"

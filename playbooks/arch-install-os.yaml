@@ -4,7 +4,7 @@
   vars_prompt:
     - name: install_device
       prompt: Install device
-      default: /dev/sda
+      default: /dev/nvme0n1
       private: false
     - name: install_suffix
       prompt: Suffix for all device labels (make labels unique)

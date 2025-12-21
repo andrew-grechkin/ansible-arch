@@ -64,7 +64,7 @@ arch-chroot /mnt useradd -m -s /usr/bin/zsh -G network,systemd-journal,users,uuc
 arch-chroot /mnt usermod -p "$USER_PASS" "$USR_NAM"
 arch-chroot /mnt usermod -p "$ROOT_PASS" root
 
-cat <<HEREDOC > /mnt/etc/sudoers.d/additional
+cat <<EO_ADDITIONAL > /mnt/etc/sudoers.d/additional
 Defaults always_set_home
 Defaults env_reset
 Defaults timestamp_timeout = 30
@@ -83,34 +83,4 @@ Cmnd_Alias  SYSTEMD     = /usr/bin/journalctl, /usr/bin/systemctl
 
 %wheel      ALL         = (ALL) ALL
 %wheel      ALL         = (ALL) NOPASSWD: PKGMAN, SYSTEMD, KILL, POWER, NETWORK
-HEREDOC
-
-# copy server ssh keys
-#cp -f /etc/ssh/ssh_host_* /mnt/etc/ssh/
-
-# former base group consists of:
-#cryptsetup -- indirect dependency of base
-#device-mapper -- indirect dependency of base
-#dhcpcd
-#diffutils
-#e2fsprogs -- indirect dependency of base
-#jfsutils
-#less -- indirect dependency of base
-#linux
-#linux-firmware
-#logrotate
-#lvm2
-#man-db
-#man-pages
-#mdadm
-#nano
-#netctl
-#perl
-#reiserfsprogs
-#s-nail
-#sysfsutils
-#texinfo
-#usbutils
-#vi
-#which
-#xfsprogs
+EO_ADDITIONAL
