@@ -29,6 +29,6 @@
   aur:
     name: [ttf-iosevka]
 
-- name: Install additional fonts (aur)
-  aur:
-    name: [open-dyslexic-fonts, ttf-symbola-free]
+# - name: Install additional fonts (aur)
+#   aur:
+#     name: [open-dyslexic-fonts, ttf-symbola-free]

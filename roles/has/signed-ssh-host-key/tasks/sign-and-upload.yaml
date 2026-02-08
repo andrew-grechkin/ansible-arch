@@ -1,0 +1,84 @@
+---
+- name: Check status of host key and certificate for {{ key_file.path }}
+  ansible.builtin.stat:
+    path: '{{ item }}'
+  loop: ['{{ key_file.path }}', "{{ key_file.path | replace('.pub', '-cert.pub') }}"]
+  register: remote_stats
+
+- name: Define signing requirement
+  ansible.builtin.set_fact:
+    should_sign: >-
+      {{
+        remote_stats.results[1].stat.exists == False or
+        remote_stats.results[0].stat.mtime > remote_stats.results[1].stat.mtime
+      }}
+
+- name: Perform secure local signing
+  when: should_sign
+  block:
+    - name: Create local private temporary directory in user runtime dir
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: ssh-signing
+        path: "{{ lookup('env', 'XDG_RUNTIME_DIR') | default('/tmp') }}"
+      register: local_tmp
+      delegate_to: localhost
+      become: false
+
+    - name: Set local file paths
+      ansible.builtin.set_fact:
+        local_pub_path: '{{ local_tmp.path }}/{{ key_file.path | basename }}'
+        local_cert_path: "{{ local_tmp.path }}/{{ key_file.path | basename | replace('.pub', '-cert.pub') }}"
+
+    - name: Fetch remote public key to private local dir
+      ansible.builtin.fetch:
+        src: '{{ key_file.path }}'
+        dest: '{{ local_pub_path }}'
+        flat: true
+
+    - name: Generate certificate on localhost for {{ key_file.path | basename }}
+      community.crypto.openssh_cert:
+        public_key: '{{ local_pub_path }}'
+        path: '{{ local_cert_path }}'
+        signing_key: '{{ ca_key_path }}'
+        state: present
+        type: host
+        identifier: '{{ inventory_hostname }}'
+        principals: ['{{ inventory_hostname }}', '{{ ansible_host | default(inventory_hostname) }}']
+        valid_from: always
+        valid_to: forever
+      delegate_to: localhost
+      become: false
+
+    - name: Upload signed certificate to remote host
+      ansible.builtin.copy:
+        src: '{{ local_cert_path }}'
+        dest: "{{ key_file.path | replace('.pub', '-cert.pub') }}"
+        owner: root
+        group: root
+        mode: '0644'
+      notify: Restart SSH
+
+  always:
+    - name: Securely remove local temporary directory
+      ansible.builtin.file:
+        path: '{{ local_tmp.path }}'
+        state: absent
+      delegate_to: localhost
+      become: false
+      when: local_tmp is defined and local_tmp.path is defined
+
+- name: Ensure sshd_config.d directory exists
+  ansible.builtin.file:
+    path: /etc/ssh/sshd_config.d
+    state: directory
+    mode: '0755'
+
+- name: Configure sshd to use certificates
+  ansible.builtin.template:
+    src: 99-host-certs-conf.j2
+    dest: /etc/ssh/sshd_config.d/99-host-certs.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart SSH

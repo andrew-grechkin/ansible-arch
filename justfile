@@ -72,7 +72,15 @@ upgrade-all:
 upgrade-this:
 	ansible-role roles/system/upgrade -K
 
+# sign SSH host key
+sign-ssh-host-key host:
+	ansible-playbook -K playbooks/sign-ssh-host-key.yaml -i "$host,"
+
 # => -------------------------------------------------------------------------------------------------------------- {{{1
+
+# install necessary ansible modules
+prepare:
+    ansible-galaxy collection install community.crypto
 
 # edit vault encrypted file
 @edit file:

@@ -1,0 +1,4 @@
+# Managed by Ansible - Host Certificates Configuration
+{% for key in found_host_keys.files %}
+HostCertificate {{ key.path | replace('.pub', '-cert.pub') }}
+{% endfor %}

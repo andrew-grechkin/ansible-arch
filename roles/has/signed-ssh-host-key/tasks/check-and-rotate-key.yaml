@@ -1,0 +1,29 @@
+---
+- name: Get stats for {{ key_file.path | replace('.pub', '') }}
+  ansible.builtin.stat:
+    path: "{{ key_file.path | replace('.pub', '') }}"
+  register: private_key_stat
+
+- name: Determine if this specific key needs rotation
+  ansible.builtin.set_fact:
+    rotate_this_key: >-
+      {{
+        (ansible_facts['date_time'].epoch | int - private_key_stat.stat.mtime | int) > (rotation_threshold_days | int *
+      86400)
+      }}
+
+- name: Rotate key pair if expired
+  block:
+    - name: Remove expired key pair for {{ key_file.path }}
+      ansible.builtin.file:
+        path: '{{ item }}'
+        state: absent
+      loop: ['{{ key_file.path }}', "{{ key_file.path | replace('.pub', '') }}"]
+
+    - name: Regenerate the specific key type
+      ansible.builtin.command:
+        # Extracts 'rsa' or 'ed25519' from the filename
+        cmd: >
+          ssh-keygen -t {{ key_file.path | regex_replace('.*ssh_host_(.*)_key.pub', '\1') }}  -f {{ key_file.path | replace('.pub', '') }}
+          -N ""
+  when: rotate_this_key
