@@ -16,12 +16,12 @@
 #   become: true
 #   community.general.pacman:
 #     name: [alsa-utils, alsa-plugins]
-#    # alsa-tools
-#    # amixer sset Master    unmute
-#    # amixer sset Speaker   unmute
-#    # amixer sset Headphone unmute
-#    # alsamixer
-#    # speaker-test -c 2
+#  # alsa-tools
+#  # amixer sset Master    unmute
+#  # amixer sset Speaker   unmute
+#  # amixer sset Headphone unmute
+#  # alsamixer
+#  # speaker-test -c 2
 
 - name: Install bluetooth
   become: true
@@ -85,6 +85,25 @@
 #     insertafter: ^%sudo
 #     line: "{{ lookup('env','USER') }} ALL=NOPASSWD: /usr/bin/rsync"
 
+# - name: "create-remote-dirs"
+#   file:
+#     path: /dest/dir/{{item.path}}
+#     state: directory
+#     mode:  '0775'
+#   with_filetree: sourceDir/
+#   when: item.state == 'directory'
+# - name: "copy-files"
+#   copy:
+#     src: "{{item.src}}"
+#     dest: /dest/dir/{{item.path}}
+#     mode:  '0744'
+#   with_filetree: sourceDir/
+#  # combinations of 'is' and 'is not' can be used below.
+#   when: item.state == 'file'
+#         and item.path is not search("excludedDir/*")
+#         and item.path is not search("*.bak")
+#
+# this doesn't work over SSH. Need to investigate implementation above
 - name: Copy configs
   become: true
   ansible.posix.synchronize:
