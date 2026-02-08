@@ -1,0 +1,4 @@
+---
+- any_errors_fatal: true
+  hosts: all
+  roles: [system/disable-ipv6]

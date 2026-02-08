@@ -38,6 +38,10 @@ arch-install-os:
 
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 
+# disable IPv6 support
+proper-network host='.host':
+	ansible-playbook playbooks/proper-network.yaml -K -i "$host,"
+
 # provision all users and home directories
 add-home-users:
 	# ansible-playbook --vault-password-file=vault-pass -i localhost-vault.yaml playbooks/add-home-users.yaml
@@ -59,10 +63,6 @@ setup-kde-full:
 	ansible-role roles/has/app/podman -K
 
 # => -------------------------------------------------------------------------------------------------------------- {{{1
-
-# disable IPv6 support
-disable-ipv6:
-	ansible-role roles/system/disable-ipv6 -K
 
 # upgrade all machines
 upgrade-all:
