@@ -1,4 +1,4 @@
 ---
-- hosts: [localhost]
-  any_errors_fatal: true
+- any_errors_fatal: true
+  hosts: all
   roles: [system/upgrade, has/apps/must-have, has/apps/devel, has/apps/devel-work, has/aur/apps/must-have]

@@ -1,3 +1,4 @@
 ---
-- hosts: [localhost]
+- any_errors_fatal: true
+  hosts: all
   roles: [system/basic, has/apps/must-have]

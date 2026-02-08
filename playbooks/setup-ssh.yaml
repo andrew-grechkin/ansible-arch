@@ -1,8 +1,9 @@
 ---
-- name: Deploy SSH Host Certificates
+- any_errors_fatal: true
+  name: Deploy SSH Host Certificates
   hosts: all
   become: true
   vars:
-    ca_key_path: ~/.ssh/ssh-sk-ca-hosts-29526146
+    ca_key_path: ~/.ssh/id_ed25519_sk_rk_29526146:ca-hosts
     rotation_threshold_days: 30  # Actual key rotation frequency
   roles: [has/signed-ssh-host-key]

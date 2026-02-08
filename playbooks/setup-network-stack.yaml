@@ -1,4 +1,6 @@
 ---
 - any_errors_fatal: true
+  name: Setup network stack
   hosts: all
+  become: true
   roles: [system/disable-ipv6]

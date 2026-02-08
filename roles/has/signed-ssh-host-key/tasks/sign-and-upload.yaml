@@ -36,7 +36,7 @@
         dest: '{{ local_pub_path }}'
         flat: true
 
-    - name: Generate certificate on localhost for {{ key_file.path | basename }}
+    - name: Generate certificate (PLEASE touch yubkikey) on localhost for {{ key_file.path | basename }}
       community.crypto.openssh_cert:
         public_key: '{{ local_pub_path }}'
         path: '{{ local_cert_path }}'
