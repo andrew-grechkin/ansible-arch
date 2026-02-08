@@ -44,7 +44,7 @@
         state: present
         type: host
         identifier: '{{ inventory_hostname }}'
-        principals: ['{{ inventory_hostname }}', '{{ ansible_host | default(inventory_hostname) }}']
+        principals: [.host, localhost, '{{ inventory_hostname }}', '{{ ansible_host | default(inventory_hostname) }}']
         valid_from: always
         valid_to: forever
       delegate_to: localhost

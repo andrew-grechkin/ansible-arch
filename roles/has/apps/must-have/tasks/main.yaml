@@ -28,7 +28,7 @@
 - name: Install common tools
   become: true
   ansible.builtin.package:
-    name: [bat, dateutils, fwupd, lsof, moreutils, powertop, strace]
+    name: [bat, brightnessctl, dateutils, fwupd, lsof, moreutils, powertop, strace]
 
 - name: Install network tools
   become: true

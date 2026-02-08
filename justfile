@@ -11,20 +11,20 @@ export this := justfile()
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 
 # install development environment
-arch-devel host='.host':
-	ansible-playbook -Ki "$host," playbooks/arch-devel.yaml
+arch-devel host='localhost':
+	ansible-playbook -K --limit "$host" playbooks/arch-devel.yaml
 
 # install development environment + work environment
-arch-devel-work host='.host':
-	ansible-playbook -Ki "$host," playbooks/arch-add-trizen.yaml playbooks/arch-devel-work.yaml
+arch-devel-work host='localhost':
+	ansible-playbook -K --limit "$host" playbooks/arch-add-trizen.yaml playbooks/arch-devel-work.yaml
 
 # install must-have tools
-arch-must-have host='.host':
-	ansible-playbook -Ki "$host," playbooks/arch-add-trizen.yaml playbooks/arch-must-have.yaml
+arch-must-have host='localhost':
+	ansible-playbook -K --limit "$host" playbooks/arch-add-trizen.yaml playbooks/arch-must-have.yaml
 
 # install AUR helper (prereq)
-arch-add-trizen host='.host':
-	ansible-playbook -Ki "$host," playbooks/arch-add-trizen.yaml
+arch-add-trizen host='localhost':
+	ansible-playbook -K --limit "$host" playbooks/arch-add-trizen.yaml
 
 # install operating system on a fresh machine
 arch-install-os:
@@ -39,27 +39,27 @@ arch-install-os:
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 
 # setup network stack
-setup-network host='.host':
-	ansible-playbook -Ki "$host," playbooks/setup-network-stack.yaml
+setup-network host='localhost':
+	ansible-playbook -K --limit "$host" playbooks/setup-network-stack.yaml
 
 # sign SSH host key
-setup-ssh host='.host':
-	ansible-playbook -Ki "$host," playbooks/setup-ssh.yaml
+setup-ssh host='localhost':
+	ansible-playbook -K --limit "$host" playbooks/setup-ssh.yaml
 
 # provision all users and home directories
-add-home-users host='.host':
-	ansible-playbook -Ki "$host," --vault-password-file=vault-pass playbooks/add-home-users.yaml
+add-home-users host='localhost':
+	ansible-playbook -K --limit "$host" --vault-password-file=vault-pass playbooks/add-home-users.yaml
 
 # setup-grub:
 # 	ansible-playbook -K playbooks/setup-grub.yaml
 
 # install basic KDE environment
-setup-kde host='.host':
-	ansible-playbook -Ki "$host," playbooks/setup-kde-only.yaml
+setup-kde host='localhost':
+	ansible-playbook -K --limit "$host" playbooks/setup-kde-only.yaml
 
 # install full KDE environment
-setup-kde-full host='.host':
-	ansible-playbook -Ki "$host," playbooks/setup-kde.yaml
+setup-kde-full host='localhost':
+	ansible-playbook -K --limit "$host" playbooks/setup-kde.yaml
 
 # install podman
 @setup-podman:

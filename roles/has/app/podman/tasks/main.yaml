@@ -2,34 +2,24 @@
 - name: Install podman
   become: true
   community.general.pacman:
-    name: [buildah, docker-compose, fuse-overlayfs, podman-docker]
+    name: [buildah, docker-compose, fuse-overlayfs, podman, podman-docker]
+
+- name: Install microvm engine
+  become: true
+  community.general.pacman:
+    name: [krun]
 
 - name: Install distrobox
   become: true
   community.general.pacman:
     name: [distrobox]
 
-- name: Add user to subuid
+- name: Ensure user has subuid/subgid entries
   become: true
-  ansible.builtin.lineinfile:
-    create: true
-    group: root
-    owner: root
-    mode: '0644'
-    path: /etc/subuid
-    state: present
-    line: "{{ lookup('env', 'USER') }}:100000:65536"
-
-- name: Add user group to subgid
-  become: true
-  ansible.builtin.lineinfile:
-    create: true
-    group: root
-    owner: root
-    mode: '0644'
-    path: /etc/subgid
-    state: present
-    line: "{{ lookup('env', 'USER') }}:100000:65536"
+  ansible.builtin.command:
+    cmd: usermod -S {{ lookup('env', 'USER') }}
+  when: >
+    lookup('ansible.builtin.file', '/etc/subuid', errors='ignore') is not search('^' ~ lookup('env', 'USER') ~ ':')
 
 - name: Stat file
   ansible.builtin.stat:
