@@ -13,13 +13,13 @@ mkdir  -p                         "/mnt-${LAB}/${PREFIX}"
 btrfs subvolume create            "/mnt-${LAB}/${PREFIX}/.snapshots"
 mkdir  -p                         "/mnt-${LAB}/${PREFIX}/.snapshots/head"
 btrfs subvolume create            "$ROOT"
-btrfs subvolume create            "${ROOT}/motion"
-chgrp video                       "${ROOT}/motion"
-chmod u+rwX,g+rwXs,o-rwx          "${ROOT}/motion"
-chattr +C                         "${ROOT}/motion"
+# btrfs subvolume create            "${ROOT}/motion"
+# chgrp video                       "${ROOT}/motion"
+# chmod u+rwX,g+rwXs,o-rwx          "${ROOT}/motion"
+# chattr +C                         "${ROOT}/motion"
 
 if [[ "$PREFIX" = "@home" ]]; then
-	btrfs subvolume set-default   "$ROOT"
+    btrfs subvolume set-default   "$ROOT"
 fi
 
 # quota makes btrfs slow
