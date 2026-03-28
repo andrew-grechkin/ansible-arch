@@ -1,34 +1,45 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
-USR_NAM="$1"
-USR_UID="$2"
-USR_PAS="$3"
-
-D_HOST="$4"
-D_LANG="$5"
-D_TIME="$6"
+USR_PAS="$1"
+D_HOST="$2"
+D_LANG="$3"
+D_TIME="$4"
 
 ### Update pacman config
 sed -i 's|^#Color$|Color\nILoveCandy|'        /mnt/etc/pacman.conf
 sed -i 's|^#VerbosePkgLists|VerbosePkgLists|' /mnt/etc/pacman.conf
 
 ### set time sync and time zone
-ln -sf "/usr/share/zoneinfo/$D_TIME"          /mnt/etc/localtime
-arch-chroot /mnt hwclock --systohc --utc
+# ln -sf "/usr/share/zoneinfo/$D_TIME"          /mnt/etc/localtime
+# arch-chroot /mnt hwclock --systohc --utc
 
 ### configure language and location
-echo "LANG=$D_LANG"                        >> /mnt/etc/locale.conf
+# echo "LANG=$D_LANG"                        >> /mnt/etc/locale.conf
 
-sed -i "s|.*\(${D_LANG}\)|\1|"                /mnt/etc/locale.gen
-sed -i 's|.*\(en_US\.UTF-8\)|\1|'             /mnt/etc/locale.gen
-sed -i 's|.*\(nl_NL\.UTF-8\)|\1|'             /mnt/etc/locale.gen
-sed -i 's|.*\(ru_RU\.UTF-8\)|\1|'             /mnt/etc/locale.gen
-arch-chroot /mnt locale-gen
+for lang in "$D_LANG" "en_US.UTF-8" "nl_NL.UTF-8" "ru_RU.UTF-8"; do
+    sed -i "s|.*\(${lang}\)|\1|"              /mnt/etc/locale.gen
+done
+arch-chroot /mnt locale-gen >/dev/null
+
+ROOT_PASS=$(perl -MDigest::MD5=md5_hex -E '$pass=shift; $salt=md5_hex(rand); $opt="j9T"; print crypt($pass,"\$y\$${opt}\$${salt}\$")' "$USR_PAS")
+
+args=(
+    --hostname="$D_HOST"
+    --locale="$D_LANG"
+    --root-password-hashed="$ROOT_PASS" # doesn't work for some reason
+    --root-shell="/usr/bin/zsh" # doesn't work for some reason
+    --timezone="$D_TIME"
+    --copy-keymap
+)
+systemd-firstboot --force --root /mnt "${args[@]}"
+
+arch-chroot /mnt usermod -p "$ROOT_PASS" root
+arch-chroot /mnt chsh -s /usr/bin/zsh
 
 ### set hostname and network
-echo "$D_HOST"                              > /mnt/etc/hostname
+# echo "$D_HOST"                              > /mnt/etc/hostname
 
 # this is unnecessary as nss-myhostname is enabled in nsswitch.conf
 #echo "127.0.1.1 $(cat /mnt/etc/hostname).ams $(cat /mnt/etc/hostname)" >> /mnt/etc/hosts
@@ -37,7 +48,7 @@ echo "$D_HOST"                              > /mnt/etc/hostname
 
 ### set font for console
 #echo FONT=ter-u16n >> /mnt/etc/vconsole.conf
-cp -f /etc/vconsole.conf                      /mnt/etc/vconsole.conf
+# cp -f /etc/vconsole.conf                      /mnt/etc/vconsole.conf
 
 ### set correct environment (let's use personal preferences in ~/.pam_environment)
 #echo "EDITOR=vim"     >> /mnt/etc/environment
@@ -49,22 +60,81 @@ cp -f /etc/vconsole.conf                      /mnt/etc/vconsole.conf
 # sed -i 's| resolve | mdns4_minimal [NOTFOUND=return] resolve |' /mnt/etc/nsswitch.conf
 ln -sf /run/systemd/resolve/stub-resolv.conf /mnt/etc/resolv.conf
 
-arch-chroot /mnt systemctl enable NetworkManager
-arch-chroot /mnt systemctl enable avahi-daemon
-arch-chroot /mnt systemctl enable btrfs-scrub@-.timer
-arch-chroot /mnt systemctl enable btrfs-scrub@home.timer
-arch-chroot /mnt systemctl enable fstrim.timer
-arch-chroot /mnt systemctl enable sshd
-arch-chroot /mnt systemctl enable systemd-resolved
+units=(
+    NetworkManager
+    avahi-daemon
+    btrfs-scrub@-.timer
+    btrfs-scrub@home.timer
+    fstrim.timer
+    sshd
+    systemd-resolved
+    systemd-homed
+    systemd-homed-firstboot
+)
+arch-chroot /mnt systemctl enable "${units[@]}"
 
-USER_PASS=$(perl -MDigest::MD5=md5_hex -E '$pass=shift; $salt=md5_hex(rand); $opt="j9T"; print crypt($pass,"\$y\$${opt}\$${salt}\$")' "$USR_PAS")
-ROOT_PASS=$(perl -MDigest::MD5=md5_hex -E '$pass=shift; $salt=md5_hex(rand); $opt="j9T"; print crypt($pass,"\$y\$${opt}\$\$${salt}\$")' "$USR_PAS")
+cat << EO_DUMMY > /mnt/etc/credstore/home.create.dummy
+{
+	"disposition" : "regular",
+	"environment" : [
+		"EDITOR=vim",
+		"VISUAL=vim"
+	],
+	"memberOf" : [
+		"wheel"
+	],
+	"shell" : "/usr/bin/zsh",
+	"storage" : "directory",
+	"uid" : 60310,
+	"userName" : "dummy"
+}
+EO_DUMMY
 
-arch-chroot /mnt useradd -m -s /usr/bin/zsh -G network,systemd-journal,users,uucp,wheel -u "$USR_UID" "$USR_NAM"
-arch-chroot /mnt usermod -p "$USER_PASS" "$USR_NAM"
-arch-chroot /mnt usermod -p "$ROOT_PASS" root
+mkdir -p                                                      /mnt/etc/skel/git/private/
+git clone https://github.com/andrew-grechkin/ansible-arch.git /mnt/etc/skel/git/private/ansible-arch
+git clone https://github.com/andrew-grechkin/dotfiles.git     /mnt/etc/skel/git/private/dotfiles
 
-cat <<EO_ADDITIONAL > /mnt/etc/sudoers.d/additional
+# cat << EO_DUMMY | homectl register - --image-path=/home/dummy.homedir
+# {
+# 	"disposition" : "regular",
+# 	"environment" : [
+# 		"EDITOR=vim",
+# 		"VISUAL=vim"
+# 	],
+# 	"privileged" : {
+# 		"hashedPassword" : [
+# 			"$ROOT_PASS"
+# 		]
+# 	},
+# 	"memberOf" : [
+# 		"wheel"
+# 	],
+# 	"shell" : "/usr/bin/zsh",
+# 	"storage" : "directory",
+# 	"uid" : 60310,
+# 	"userName" : "dummy"
+# }
+# EO_DUMMY
+
+# mkdir -p /mnt/home/dummy.homedir/git/private
+# git clone https://github.com/andrew-grechkin/ansible-arch.git             /mnt/home/dummy.homedir/git/private/ansible-arch
+# git clone https://github.com/andrew-grechkin/dotfiles.git                 /mnt/home/dummy.homedir/git/private/dotfiles
+# cp -vf /var/lib/systemd/home/dummy.identity                               /mnt/home/dummy.homedir/.identity
+# cp -vf /mnt/etc/skel/.zshrc                                               /mnt/home/dummy.homedir/
+# jq -S 'del(.binding)' /var/lib/systemd/home/dummy.identity              > /mnt/home/dummy.homedir/.identity
+# chown "$(jq -r '"\(.uid):\(.uid)"' /mnt/home/dummy.homedir/.identity)" -R /mnt/home/dummy.homedir
+# chmod g-rwx,o-rwx                                                      -R /mnt/home/dummy.homedir
+
+mkdir -p                           /mnt/root/.config/
+cp -vaf /root/.config/{git,tmux}   /mnt/root/.config/
+cp -vaf /etc/skel/.zshrc           /mnt/root/
+rm -rvf --                         /mnt/etc/skel/*bash*
+
+# take keys from the running install image as they are autogenerated there on the fly
+# cp -fvar -- /var/lib/systemd/home /mnt/var/lib/systemd/
+# cp -fva  -- /etc/machine-id       /mnt/etc/machine-id
+
+cat << EO_ADDITIONAL > /mnt/etc/sudoers.d/additional
 Defaults always_set_home
 Defaults env_reset
 Defaults timestamp_timeout = 30

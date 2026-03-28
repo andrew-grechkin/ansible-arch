@@ -18,16 +18,8 @@
       prompt: Swap partition size
       default: 16G
       private: false
-    - name: username
-      prompt: New user name
-      default: dummy
-      private: false
-    - name: useruid
-      prompt: New user uid
-      default: '1000'
-      private: false
     - name: userpass
-      prompt: New user password
+      prompt: root password
       confirm: true
       private: true
     - name: install_encrypt
