@@ -65,6 +65,10 @@ setup-kde-full host='localhost':
 @setup-podman:
 	ansible-role roles/has/app/podman -K
 
+# enable zram
+@setup-zram:
+	ansible-role ./roles/has/device/zram -K
+
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 
 # upgrade all machines
