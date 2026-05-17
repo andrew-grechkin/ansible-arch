@@ -2,20 +2,25 @@
 # See fstab(5) for details.
 # vim: filetype=fstab
 
-# <file system>         <dir>                           <type>  <options>                                 <dump> <pass>
+# <file system>         <dir>                           <type>  <options>                                                       <dump> <pass>
 
 # swap
-LABEL=swap              none                            swap    nofail                                              0 0
+LABEL=swap              none                            swap    nofail                                                               0 0
 
 # root
-LABEL=root              /                               btrfs   defaults                                            0 0
-LABEL=root              /.snapshots                     btrfs   nofail,subvol=@/.snapshots                          0 0
-LABEL=root              /srv                            btrfs   nofail,subvol=@/srv,nodev,nosuid,noexec             0 0
-LABEL=root              /var                            btrfs   nofail,subvol=@/var,nodatacow                       0 0
+LABEL=root              /                               btrfs   relatime,lazytime                                                    0 0
+LABEL=root              /.snapshots                     btrfs   relatime,lazytime,nofail,nodev,nosuid,noexec,subvol=@/.snapshots     0 0
+LABEL=root              /srv                            btrfs   relatime,lazytime,nofail,nodev,nosuid,noexec,subvol=@/srv            0 0
+LABEL=root              /var                            btrfs   relatime,lazytime,nofail,subvol=@/var                                0 0
 
 # home
-LABEL=home              /home                           btrfs   nofail                                              0 0
-LABEL=home              /home/.snapshots                btrfs   nofail,subvol=@home/.snapshots                      0 0
+LABEL=home              /home                           btrfs   nofail                                                               0 0
+LABEL=home              /home/.snapshots                btrfs   nofail,subvol=@home/.snapshots                                       0 0
 
 # boot
-# LABEL=EFI               /boot                           vfat    nofail,nodev,nosuid,noexec,utf8                     0 2
+# LABEL=EFI               /boot                           vfat    nofail,nodev,nosuid,noexec,noatime,utf8                              0 2
+
+# zram
+# /dev/zram0              none                            swap    defaults,discard,pri=100,x-systemd.makefs                            0 0
+
+# efi

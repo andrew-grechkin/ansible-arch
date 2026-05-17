@@ -2,7 +2,7 @@
 - name: Install essential tools to make login possible
   become: true
   ansible.builtin.package:
-    name: [sudo, git, tmux, vim, zsh]
+    name: [git, sudo, tmux, vim, zsh]
 
 - name: Set root password
   become: true

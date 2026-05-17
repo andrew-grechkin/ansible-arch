@@ -1,0 +1,25 @@
+---
+- name: Install zram-generator
+  become: true
+  community.general.pacman:
+    name: [zram-generator]
+
+# man zram-generator.conf
+- name: Create zram0 configuration (swap)
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/systemd/zram-generator.conf.d/zram0.conf
+    mode: '0644'
+    content: |
+      [zram0]
+
+- name: Create zram1 configuration (/tmp)
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/systemd/zram-generator.conf.d/zram1.conf
+    mode: '0644'
+    content: |-
+      [zram1]
+      mount-point = /tmp
+      options = discard,nosuid,nodev,relatime,usrquota,X-mount.mode=1777
+      zram-size = min(ram / 2, 4096)
