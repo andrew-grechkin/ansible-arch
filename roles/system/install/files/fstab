@@ -19,3 +19,6 @@ LABEL=home              /home/.snapshots                btrfs   nofail,subvol=@h
 
 # boot
 # LABEL=EFI               /boot                           vfat    nofail,nodev,nosuid,noexec,utf8                     0 2
+
+# zram
+# /dev/zram0              none                            swap    defaults,discard,pri=100,x-systemd.makefs           0 0
