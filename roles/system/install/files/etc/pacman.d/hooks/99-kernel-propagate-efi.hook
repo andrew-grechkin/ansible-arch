@@ -2,25 +2,22 @@
 Type = Path
 Operation = Install
 Operation = Upgrade
-Operation = Remove
 Target = usr/lib/initcpio/*
 
 [Trigger]
 Type = Path
 Operation = Install
 Operation = Upgrade
-Operation = Remove
 Target = boot/*
 
 [Trigger]
 Type = Package
 Operation = Install
 Operation = Upgrade
-Operation = Remove
 Target = linux*
 
 [Action]
 Depends = rsync
-Description = Propagating /boot changes to /efi
+Description = Propagating /boot changes to /efi...
 When = PostTransaction
-Exec = /usr/bin/bash -c 'test -d /efi && /usr/bin/rsync -rtv --delete /boot/ /efi 1>/dev/null'
+Exec = /usr/bin/bash -c 'test -d /efi && /usr/bin/rsync -tv /boot/* /efi/ 1>/dev/null'

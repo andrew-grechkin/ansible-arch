@@ -1,0 +1,23 @@
+[Trigger]
+Type = Path
+Operation = Install
+Operation = Upgrade
+Target = usr/lib/initcpio/*
+
+[Trigger]
+Type = Path
+Operation = Install
+Operation = Upgrade
+Target = boot/*
+
+[Trigger]
+Type = Package
+Operation = Install
+Operation = Upgrade
+Target = linux*
+
+[Action]
+Description = Generating UKI snapshot for current linux kernel(s)
+When = PostTransaction
+Exec = /usr/local/bin/generate-uki post
+NeedsTargets
