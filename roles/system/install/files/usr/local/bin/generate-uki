@@ -1,0 +1,109 @@
+#!/usr/bin/env -S bash -Eeuo pipefail
+
+shopt -s nullglob
+
+MOUNT_PREFIX="${MOUNT_PREFIX:-}"
+MOUNT_POINT="${MOUNT_POINT:-efi}"
+
+target="$MOUNT_PREFIX/$MOUNT_POINT/EFI/Linux"
+mkdir -p -- "$target"
+
+while read -r package; do
+    [[ "$package" =~ ^linux ]] || continue
+
+    kernel="$MOUNT_PREFIX/boot/vmlinuz-$package"
+    ramfs="$MOUNT_PREFIX/boot/initramfs-$package.img"
+    [[ -r "$kernel" && -r "$ramfs" ]] || continue
+
+    echo "> creating UKI for: $package"
+
+    cmdline="$(cat /proc/cmdline)"
+    cmdline="${cmdline%%initrd*}"
+    cmdline="${cmdline%%rootflags=subvol*}"
+    subvol_name=''
+    subvol=''
+    if [[ -r /tmp/snap-pac-pre_root ]]; then
+        subvol_name="$(cat /tmp/snap-pac-pre_root)"
+        subvol="/.snapshots/$subvol_name/snapshot"
+        cmdline+="rootflags=subvol=@$subvol"
+        trap 'rm -f -- /tmp/snap-pac-pre_root; btrfs property set -ts "$subvol" ro false' EXIT
+        ( # run it in a subshell to prevent unexpected exits in case of error
+
+            echo "> cleaning up historical UKIs"
+
+            keep=5
+
+            declare -A existing_snapshots
+            while IFS= read -r snap_id; do
+                [[ -n "$snap_id" ]] && existing_snapshots["$snap_id"]=1
+            done < <(btrfs subvolume list / | grep -oP '@/\.snapshots/\K[0-9]+(?=/snapshot)')
+
+            files=()
+            while IFS= read -r -d '' line; do
+                files+=("$line")
+                echo "  > found file: $line"
+            done < <(find "$target" -maxdepth 1 -type f -name "subvol-*-${package}.efi" -print0 | sort -z -V)
+
+            # purge orphaned .efi files whose btrfs snapshot was already deleted
+            valid_files=()
+            for file in "${files[@]}"; do
+                filename=$(basename "$file")
+                snap_num=$(echo "$filename" | sed -E "s/^subvol-([0-9]+)-${package}\.efi$/\1/")
+
+                if [[ -n "${existing_snapshots[$snap_num]:-}" ]]; then
+                    valid_files+=("$file")
+                else
+                    echo -n "  > orphan: "
+                    rm -vf -- "$file"
+                fi
+            done
+
+            # enforce retention policy on surviving files
+            amount="${#valid_files[@]}"
+            (( amount <= keep )) && exit
+
+            to_delete=$(( amount - keep ))
+            for (( i=0; i<to_delete; i++ )); do
+                echo -n "  > retention: "
+                rm -vf -- "${valid_files[i]}"
+            done
+        )
+    fi
+
+    config=$(cat << EO_UKIFY
+[UKI]
+OSRelease=@$MOUNT_PREFIX/etc/os-release
+
+Linux=$kernel
+Initrd=$ramfs
+
+Cmdline=$cmdline
+EO_UKIFY
+    )
+
+    cpu=$(lscpu)
+    if [[ "$cpu" =~ GenuineIntel ]]; then
+        micro="$MOUNT_PREFIX/boot/intel-ucode.img"
+    elif [[ "$cpu" =~ AuthenticAMD ]]; then
+        micro="$MOUNT_PREFIX/boot/amd-ucode.img"
+    else
+        micro=''
+    fi
+
+    if [[ -n "$micro" && -r "$micro" ]]; then
+        config+=$'\n'"Microcode=$micro"$'\n'
+    fi
+
+    if [[ -n "${subvol_name:-}" ]]; then
+        args=(
+            --output="$target/subvol-${subvol_name}-${package}.efi"
+        )
+        cleanup+=("$package")
+    else
+        args=(
+            --output="$target/default-${package}.efi"
+        )
+    fi
+
+    ukify build --config=<(echo "$config") "${args[@]}"
+done

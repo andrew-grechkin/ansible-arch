@@ -1,0 +1,9 @@
+#!/bin/sh
+# Xsetup - run as root before the login dialog appears
+# sudoedit /usr/share/sddm/scripts/Xsetup
+
+# the bug in breeze for SDDM when multiple monitors are used
+# https://forums.opensuse.org/t/1-of-2-users-cant-login/193064/25
+if xrandr | grep -q "^DP-1 connected"; then
+    xrandr --output DP-2 --off
+fi
