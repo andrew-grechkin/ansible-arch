@@ -1,0 +1,64 @@
+#!/usr/bin/env -S bash -Eeuo pipefail
+
+MOUNT_PREFIX="${MOUNT_PREFIX:-}"
+MOUNT_POINT="${MOUNT_POINT:-efi}"
+
+target="$MOUNT_PREFIX/$MOUNT_POINT/EFI/Linux"
+mkdir -p -- "$target"
+
+while read -r package; do
+    [[ "$package" =~ ^linux ]] || continue
+
+    kernel="$MOUNT_PREFIX/boot/vmlinuz-$package"
+    ramfs="$MOUNT_PREFIX/boot/initramfs-$package.img"
+    [[ -r "$kernel" && -r "$ramfs" ]] || continue
+
+    echo "> creating UKI for: $package"
+
+    cmdline="$(cat /proc/cmdline)"
+    cmdline="${cmdline%%initrd*}"
+    cmdline="${cmdline%%rootflags=subvol*}"
+    if [[ -r /tmp/snap-pac-pre_root ]]; then
+        subvol_name="$(cat /tmp/snap-pac-pre_root)"
+        subvol="/.snapshots/$subvol_name/snapshot"
+        cmdline+="rootflags=subvol=@$subvol"
+        trap 'rm -f -- /tmp/snap-pac-pre_root' EXIT
+        # trap 'rm -f -- /tmp/snap-pac-pre_root; btrfs property set -ts "$subvol" ro false' EXIT
+    fi
+
+    config=$(cat << EO_UKIFY
+[UKI]
+OSRelease=@$MOUNT_PREFIX/etc/os-release
+
+Linux=$kernel
+Initrd=$ramfs
+
+Cmdline=$cmdline
+EO_UKIFY
+    )
+
+    cpu="$(lscpu)"
+    if [[ "$cpu" =~ GenuineIntel ]]; then
+        micro="$MOUNT_PREFIX/boot/intel-ucode.img"
+    elif [[ "$cpu" =~ AuthenticAMD ]]; then
+        micro="$MOUNT_PREFIX/boot/amd-ucode.img"
+    else
+        micro=''
+    fi
+
+    if [[ -n "$micro" && -r "$micro" ]]; then
+        config+=$'\n'"Microcode=$micro"$'\n'
+    fi
+
+    if [[ -n "${subvol_name:-}" ]]; then
+        args=(
+            --output="$target/subvol-${subvol_name}-${package}.efi"
+        )
+    else
+        args=(
+            --output="$target/default-${package}.efi"
+        )
+    fi
+
+    ukify build --config=<(echo "$config") "${args[@]}"
+done

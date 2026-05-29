@@ -20,14 +20,14 @@
     msg: The system may not be installed, {{ install_device }} is not empty
   when: install_device_info.partitions != []
 
-- name: Create a new primary partition with a size of 1GiB
+- name: Create a new primary partition with a size of 2GiB
   community.general.parted:
     device: '{{ install_device }}'
     number: 1
     label: gpt
     flags: [esp]
     state: present
-    part_end: 1GiB
+    part_end: 2GiB
 - name: Create a new primary partition for LVM
   when: not safe_disk_space_at_the_end | bool
   community.general.parted:
@@ -36,7 +36,7 @@
     label: gpt
     flags: [lvm]
     state: present
-    part_start: 1GiB
+    part_start: 2GiB
 - name: Create a new primary partition for LVM
   when: safe_disk_space_at_the_end | bool
   community.general.parted:
@@ -45,7 +45,7 @@
     label: gpt
     flags: [lvm]
     state: present
-    part_start: 1GiB
+    part_start: 2GiB
     part_end: -20GiB
 
 - name: Create and open the LUKS2 container on 2 {{ install_device }}
@@ -170,7 +170,7 @@
 - name: Run pacstrap
   ansible.builtin.command: >
     pacstrap /mnt
-    base base-devel linux linux-firmware refind reflector
+    base base-devel linux linux-firmware refind reflector systemd-ukify
     btrfs-progs cryptsetup lvm2 mdadm
     avahi bind inetutils networkmanager nss-mdns openssh rsync systemd-resolvconf
     git jq just less mise tmux unzip vifm vim zsh zsh-completions
@@ -201,6 +201,14 @@
 #     owner: root
 #     src: etc/systemd/resolved.conf.d/50-override.conf
 
+- name: Copy /usr additional files
+  ansible.posix.synchronize:
+    archive: false
+    compress: false
+    dest: /mnt/usr/
+    recursive: true
+    src: usr/
+
 - name: Install rEFInd
   ansible.builtin.script: install-refind.sh "{{ install_encrypt | bool }}" "{{ install_suffix }}"
   args:
@@ -210,7 +218,7 @@
   ansible.posix.synchronize:
     archive: false
     compress: false
-    dest: /mnt/boot/EFI/BOOT
+    dest: /mnt/boot/EFI/refind
     recursive: true
     src: refind/
 
@@ -263,14 +271,6 @@
   ansible.posix.synchronize:
     dest: /mnt/boot/
     src: /efi/
-- name: Copy pacman hook
-  become: true
-  ansible.builtin.copy:
-    dest: /mnt/usr/share/libalpm/hooks/99-kernel-propagate-efi.hook
-    mode: '0644'
-    owner: root
-    group: root
-    src: 99-kernel-propagate-efi.hook
 
 # - name: Checkout ansible scripts
 #   ansible.builtin.git:
