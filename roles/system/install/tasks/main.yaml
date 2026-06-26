@@ -230,7 +230,8 @@
 - name: Post install
   ansible.builtin.script: >
     post-install.sh
-    "{{ userpass }}" "{{ default_hostname }}" "{{ default_locale }}" "{{ default_timezone }}"
+    "{{ username }}" "{{ useruid }}" "{{ userpass }}"
+    "{{ default_hostname }}" "{{ default_locale }}" "{{ default_timezone }}"
   args:
     creates: /mnt/etc/locale.conf
 
@@ -274,19 +275,14 @@
 
 # - name: Checkout ansible scripts
 #   ansible.builtin.git:
-#     dest: /mnt/home/dummy/git/private/ansible-arch
+#     dest: /mnt/home/{{ username }}/git/private/ansible-arch
 #     repo: https://github.com/andrew-grechkin/ansible-arch.git
-#     version: main
+#     version: master
 #   environment:
 #     GIT_TERMINAL_PROMPT: '0'
 # - name: Change owner of the files
-#   ansible.builtin.command: chown -R "dummy:dummy" "/mnt/home/dummy/git"
+#   ansible.builtin.command: chown -R "{{ useruid }}:{{ useruid }}" "/mnt/home/{{ username }}/git"
 #   changed_when: false
-
-- name: Make sure machine will have a `firstboot`
-  ansible.builtin.file:
-    state: absent
-    path: /mnt/etc/machine-id
 
 # - name: Unmount all
 #   ansible.builtin.command: umount -R /mnt
