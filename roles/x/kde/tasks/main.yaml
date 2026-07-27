@@ -6,13 +6,13 @@
       - dolphin
       - ffmpegthumbs
       - gwenview
-      - kate
+      # - kate
       - kcharselect
       - kcolorchooser
       - kleopatra
       - konsole
       - kwalletmanager
-      - packagekit-qt6
+      # - packagekit-qt6
       - plasma-meta
       - plasma-x11-session
       - spectacle

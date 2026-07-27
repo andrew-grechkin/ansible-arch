@@ -1,9 +1,9 @@
 [Unit]
-Description=Mount NAS music share using NFS
+Description=Mount NAS public share using NFS
 
 [Mount]
-What=home.ams:/volume2/music
-Where=/media/nfs/home/music
+What=home.ams:/volumes/public
+Where=/media/nfs/home/public
 Type=nfs
 Options=noauto,user,x-systemd.automount,x-systemd.idle-timeout=10min
 

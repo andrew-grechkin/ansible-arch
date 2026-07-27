@@ -1,0 +1,9 @@
+[Unit]
+Description=Automount NAS encfs share using NFS
+
+[Automount]
+Where=/media/nfs/home/encfs
+TimeoutIdleSec=10min
+
+[Install]
+WantedBy=multi-user.target

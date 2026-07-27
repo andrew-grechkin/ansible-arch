@@ -1,21 +1,20 @@
 ---
-- name: Install video
+- name: Install mesa
   become: true
   community.general.pacman:
-    name: [mesa, vulkan-intel]
-    # name: [xf86-video-intel]
+    name: [mesa]
 
-- name: Install intel gpu
+- name: Install vaapi intel support (amd is built into mesa)
   become: true
   community.general.pacman:
-    name: [intel-gpu-tools]
+    name: [libva-utils, intel-media-driver]
 
-- name: Install vaapi support
+- name: Install 3D rendering amd gpu support for mesa
   become: true
   community.general.pacman:
-    name: [libva-intel-driver, libva-mesa-driver, libva-utils]
+    name: [vulkan-radeon]
 
-# - name: Install vdpau support
-#   become: true
-#   community.general.pacman:
-#     name: [libva-vdpau-driver, libvdpau-va-gl]
+- name: Install 3D rendering intel gpu support for mesa
+  become: true
+  community.general.pacman:
+    name: [vulkan-intel]

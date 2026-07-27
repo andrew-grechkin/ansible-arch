@@ -27,4 +27,6 @@
 
 - name: Prepare pacman
   become: true
-  ansible.builtin.script: prepare-pacman.sh
+  ansible.builtin.script: prepare-pacman
+  args:
+    removes: /var/lib/pacman
