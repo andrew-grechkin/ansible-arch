@@ -2,9 +2,11 @@
 - any_errors_fatal: true
   hosts: all
   roles:
+    - x/bspwm
     - x/kde
     - has/aur/apps/must-have
     - has/aur/app/google-chrome
+    - has/aur/app/kanata
     - has/app/snapper
     - has/apps/browser
     - has/apps/encryption

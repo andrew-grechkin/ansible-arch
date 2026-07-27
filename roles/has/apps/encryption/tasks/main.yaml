@@ -7,7 +7,7 @@
 - name: Encryption support
   become: true
   community.general.pacman:
-    name: [encfs, pass-otp]
+    name: [encfs]
 
 - name: Smartcard support
   become: true

@@ -22,10 +22,10 @@
   community.general.pacman:
     name: [clang, cmake, extra-cmake-modules, llvm]
 
-- name: Install go support
-  become: true
-  community.general.pacman:
-    name: [go]
+# - name: Install go support
+#   become: true
+#   community.general.pacman:
+#     name: [go]
 
 # - name: Install influxdb support
 #   community.general.pacman:

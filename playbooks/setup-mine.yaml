@@ -1,0 +1,4 @@
+---
+- any_errors_fatal: true
+  hosts: all
+  roles: [has/app/qemu, has/aur/app/opera, has/device/fprint, with/home/mounts2]

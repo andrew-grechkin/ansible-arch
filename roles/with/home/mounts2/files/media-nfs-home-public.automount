@@ -1,8 +1,8 @@
 [Unit]
-Description=Automount NAS music share using NFS
+Description=Automount NAS public share using NFS
 
 [Automount]
-Where=/media/nfs/home/music
+Where=/media/nfs/home/public
 TimeoutIdleSec=10min
 
 [Install]

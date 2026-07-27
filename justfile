@@ -38,6 +38,16 @@ arch-install-os:
 
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 
+# add common network mounts
+add-common-mounts host='localhost':
+	ansible-playbook -K --limit "$host" playbooks/add-mounts-common.yaml
+
+# add uncommon network mounts
+add-uncommon-mounts host='localhost':
+	ansible-playbook -K --limit "$host" playbooks/add-mounts-uncommon.yaml
+
+# => -------------------------------------------------------------------------------------------------------------- {{{1
+
 # setup network stack
 setup-network host='localhost':
 	ansible-playbook -K --limit "$host" playbooks/setup-network-stack.yaml
@@ -68,6 +78,10 @@ setup-kde-full host='localhost':
 # enable zram
 @setup-zram:
 	ansible-role ./roles/has/device/zram -K
+
+# install my applications
+setup-mine host='localhost':
+	ansible-playbook -K --limit "$host" playbooks/setup-mine.yaml
 
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 
