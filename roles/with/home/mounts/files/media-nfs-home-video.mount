@@ -2,7 +2,7 @@
 Description=Mount NAS video share using NFS
 
 [Mount]
-What=home.ams:/volume2/video
+What=home.ams:/volumes/cold/video
 Where=/media/nfs/home/video
 Type=nfs
 Options=noauto,user,x-systemd.automount,x-systemd.idle-timeout=10min

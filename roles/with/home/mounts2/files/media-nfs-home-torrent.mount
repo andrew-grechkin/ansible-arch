@@ -1,9 +1,9 @@
 [Unit]
-Description=Mount NAS homes share using NFS
+Description=Mount NAS torrent share using NFS
 
 [Mount]
-What=home.ams:/home
-Where=/media/nfs/home/homes
+What=home.ams:/volumes/var/torrent
+Where=/media/nfs/home/torrent
 Type=nfs
 Options=noauto,user,x-systemd.automount,x-systemd.idle-timeout=10min
 

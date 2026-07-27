@@ -1,0 +1,23 @@
+---
+- name: Copy mount files
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/{{ item }}
+    mode: '0644'
+    owner: root
+    group: root
+    src: '{{ item }}'
+  with_items:
+    - media-nfs-home-encfs.automount
+    - media-nfs-home-encfs.mount
+    - media-nfs-home-torrent.automount
+    - media-nfs-home-torrent.mount
+
+- name: Enable automounts
+  become: true
+  ansible.builtin.service:
+    name: '{{ item }}'
+    enabled: true
+  with_items:
+    - media-nfs-home-encfs.automount
+    - media-nfs-home-torrent.automount

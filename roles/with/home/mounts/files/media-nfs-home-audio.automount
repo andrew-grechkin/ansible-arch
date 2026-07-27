@@ -2,7 +2,7 @@
 Description=Automount NAS music share using NFS
 
 [Automount]
-Where=/media/nfs/home/music
+Where=/media/nfs/home/audio
 TimeoutIdleSec=10min
 
 [Install]

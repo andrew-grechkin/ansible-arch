@@ -3,14 +3,14 @@
   become: true
   community.general.pacman:
     name:
-      - pamixer
+      # - pamixer
       # - paprefs
       - pipewire-alsa
       - pipewire-jack
       - pipewire-pulse
       - pipewire-v4l2
       - pipewire-zeroconf
-      - pulsemixer
+      # - pulsemixer
 
 # - name: Install alsa
 #   become: true

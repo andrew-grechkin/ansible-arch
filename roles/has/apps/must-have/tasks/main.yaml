@@ -28,7 +28,8 @@
 - name: Install common tools
   become: true
   ansible.builtin.package:
-    name: [bat, brightnessctl, dateutils, fwupd, lsof, moreutils, powertop, strace]
+    name: [bat, dateutils, fwupd, lsof, moreutils, powertop, strace]
+    # name: [brightnessctl]
 
 - name: Install network tools
   become: true
@@ -107,7 +108,7 @@
   ansible.builtin.package:
     name: '{{ application_packages_python_additional }}'
 
-- name: Install Rust base
-  become: true
-  ansible.builtin.package:
-    name: [rust, grex]
+# - name: Install Rust base
+#   become: true
+#   ansible.builtin.package:
+#     name: [rust, grex]

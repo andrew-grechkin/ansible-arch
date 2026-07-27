@@ -1,0 +1,7 @@
+---
+- any_errors_fatal: true
+  hosts: all
+  roles:
+    - has/app/qemu
+    - has/aur/app/opera
+    - with/home/mounts2
