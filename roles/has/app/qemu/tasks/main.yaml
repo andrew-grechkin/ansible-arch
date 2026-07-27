@@ -1,0 +1,8 @@
+---
+- name: Install qemu
+  become: true
+  community.general.pacman:
+    name:
+      - qemu-desktop
+      - qemu-emulators-full
+      - qemu-guest-agent

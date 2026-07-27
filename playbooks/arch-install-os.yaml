@@ -12,7 +12,7 @@
       private: false
     - name: install_root_size
       prompt: Root partition size
-      default: 64G
+      default: 96G
       private: false
     - name: install_swap_size
       prompt: Swap partition size

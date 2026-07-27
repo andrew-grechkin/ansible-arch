@@ -1,0 +1,11 @@
+[Unit]
+Description=Mount NAS stuff share using NFS
+
+[Mount]
+What=home.ams:/volumes/stuff
+Where=/media/nfs/home/stuff
+Type=nfs
+Options=noauto,user,x-systemd.automount,x-systemd.idle-timeout=10min
+
+[Install]
+WantedBy=multi-user.target

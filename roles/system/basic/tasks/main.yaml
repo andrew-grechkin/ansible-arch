@@ -3,14 +3,14 @@
   become: true
   community.general.pacman:
     name:
-      - pamixer
+      # - pamixer
       # - paprefs
       - pipewire-alsa
       - pipewire-jack
       - pipewire-pulse
       - pipewire-v4l2
       - pipewire-zeroconf
-      - pulsemixer
+      # - pulsemixer
 
 # - name: Install alsa
 #   become: true
@@ -104,15 +104,16 @@
 #         and item.path is not search("*.bak")
 #
 # this doesn't work over SSH. Need to investigate implementation above
-- name: Copy configs
+
+- name: Copy /etc additional files
   become: true
-  ansible.posix.synchronize:
-    src: etc
-    dest: /
-    archive: false
-    compress: false
-    recursive: true
-  changed_when: false
+  ansible.builtin.copy:
+    src: etc/
+    dest: /etc/
+    owner: root
+    group: root
+    mode: '0644'
+    directory_mode: '0755'
 
 # - name: Disallow RSYNC for new super user without SUDO password
 #   become: true

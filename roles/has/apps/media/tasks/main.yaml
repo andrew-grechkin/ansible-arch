@@ -2,15 +2,15 @@
 - name: Audio encoding
   become: true
   community.general.pacman:
-    name: [ffmpeg, ffmpegthumbnailer, mac, opus-tools, vorbis-tools, wavpack]
+    name: [ffmpeg, mac, opus-tools, vorbis-tools, wavpack]
 
-- name: Video encoding
-  become: true
-  community.general.pacman:
-    name:
-      - gstreamer
-      - gst-plugins-bad
-      - gst-plugins-ugly
+# - name: Video encoding
+#   become: true
+#   community.general.pacman:
+#     name:
+#       - gstreamer
+#       - gst-plugins-bad
+#       - gst-plugins-ugly
 # a52dec jasper libdca libdv libmpeg2 libtheora libxv
 
 # - name: CD ripping support
@@ -79,11 +79,11 @@
 #   community.general.pacman:
 #     name:
 #       - audacious
-      # - mpd ncmpcpp mpc
+#     # - mpd ncmpcpp mpc
 # mkdir -p ~/.cache/mpd
 # _enable_user_services mpd
 
 - name: Video players (terminal)
   become: true
   community.general.pacman:
-    name: [mpv, mpv-mpris]
+    name: [mpv]

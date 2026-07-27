@@ -8,12 +8,12 @@
     group: root
     src: '{{ item }}'
   with_items:
+    - media-nfs-home-audio.automount
+    - media-nfs-home-audio.mount
     - media-nfs-home-doc.automount
     - media-nfs-home-doc.mount
     - media-nfs-home-homes.automount
     - media-nfs-home-homes.mount
-    - media-nfs-home-music.automount
-    - media-nfs-home-music.mount
     - media-nfs-home-video.automount
     - media-nfs-home-video.mount
 
@@ -23,7 +23,7 @@
     name: '{{ item }}'
     enabled: true
   with_items:
+    - media-nfs-home-audio.automount
     - media-nfs-home-doc.automount
     - media-nfs-home-homes.automount
-    - media-nfs-home-music.automount
     - media-nfs-home-video.automount
