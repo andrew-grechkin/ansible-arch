@@ -1,0 +1,12 @@
+---
+- name: Install reframe
+  aur:
+    name:
+      - reframe
+
+- name: Enable reframe service
+  become: true
+  service:
+    enabled: true
+    name: reframe-server@example
+    state: started
