@@ -11,8 +11,8 @@ D_LANG="$5"
 D_TIME="$6"
 
 ### Update pacman config
-sed -i 's|^#Color$|Color\nILoveCandy|'        /mnt/etc/pacman.conf
-sed -i 's|^#VerbosePkgLists|VerbosePkgLists|' /mnt/etc/pacman.conf
+perl -i -pe 's|^#Color$|Color\nILoveCandy|'        /mnt/etc/pacman.conf
+perl -i -pe 's|^#VerbosePkgLists|VerbosePkgLists|' /mnt/etc/pacman.conf
 
 ### set time sync and time zone
 # ln -sf "/usr/share/zoneinfo/$D_TIME"          /mnt/etc/localtime
@@ -22,7 +22,7 @@ sed -i 's|^#VerbosePkgLists|VerbosePkgLists|' /mnt/etc/pacman.conf
 # echo "LANG=$D_LANG"                        >> /mnt/etc/locale.conf
 
 for lang in "$D_LANG" "en_US.UTF-8" "nl_NL.UTF-8" "ru_RU.UTF-8"; do
-    sed -i "s|.*\(${lang}\)|\1|"              /mnt/etc/locale.gen
+    perl -i -pe "s|.*(${lang})|\1|"           /mnt/etc/locale.gen
 done
 arch-chroot /mnt locale-gen >/dev/null
 
@@ -57,20 +57,23 @@ arch-chroot /mnt chsh -s /usr/bin/zsh
 #echo "EDITOR=vim"     >> /mnt/etc/environment
 #echo "VISUAL=vim"     >> /mnt/etc/environment
 
-# sed -i 's|^use-ipv6=yes|use-ipv6=no|'                           /mnt/etc/avahi/avahi-daemon.conf
+# perl -i -pe 's|^use-ipv6=yes|use-ipv6=no|'                           /mnt/etc/avahi/avahi-daemon.conf
 
 ### configure mdns, enabled llmnr make all resolves to .local very slow
-# sed -i 's| resolve | mdns4_minimal [NOTFOUND=return] resolve |' /mnt/etc/nsswitch.conf
+# perl -i -pe 's| resolve | mdns4_minimal [NOTFOUND=return] resolve |' /mnt/etc/nsswitch.conf
 ln -sf /run/systemd/resolve/stub-resolv.conf /mnt/etc/resolv.conf
 
+arch-chroot /mnt systemctl disable wpa_supplicant
 units=(
     NetworkManager
     avahi-daemon
     btrfs-scrub@-.timer
     btrfs-scrub@home.timer
     fstrim.timer
+    iwd
     sshd
     systemd-resolved
+    systemd-timesyncd
 )
 arch-chroot /mnt systemctl enable "${units[@]}"
 

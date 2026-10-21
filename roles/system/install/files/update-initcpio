@@ -1,0 +1,19 @@
+#!/bin/bash
+
+mdadm --detail --scan >> /mnt/etc/mdadm.conf
+
+#HOOKS=(base udev autodetect <keyboard> consolefont modconf block <encrypt lvm2 resume> filesystems fsck)
+
+perl -i -pe 's{MODULES=\(\)}{MODULES=(vfat btrfs)}'                                          /mnt/etc/mkinitcpio.conf
+perl -i -pe 's{BINARIES=\(\)}{BINARIES=(lsblk vim cfdisk)}'                                  /mnt/etc/mkinitcpio.conf
+
+# NOTE: support both microcodes and autodetection during boot
+perl -i -pe 's{\bautodetect microcode\b}{microcode autodetect}'                              /mnt/etc/mkinitcpio.conf
+
+if [[ "$1" = "True" ]]; then
+    perl -i -pe 's{\bblock filesystems\b}{block mdadm_udev encrypt lvm2 resume filesystems}' /mnt/etc/mkinitcpio.conf
+else
+    perl -i -pe 's{\bblock filesystems\b}{block mdadm_udev lvm2 resume filesystems}'         /mnt/etc/mkinitcpio.conf
+fi
+
+arch-chroot /mnt mkinitcpio -n -P

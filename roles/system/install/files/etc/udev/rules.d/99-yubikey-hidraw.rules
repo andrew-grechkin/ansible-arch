@@ -1,0 +1,4 @@
+# yubikey-touch-detector starts with the systemd user manager at boot, before logind applies the session uaccess ACL to
+# the YubiKey FIDO hidraw device. Grant access to the standard admin group so the U2F watcher can open it at boot
+# instead of silently skipping the device until the service is restarted.
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1050", MODE="0660", GROUP="uinput", TAG+="uaccess"

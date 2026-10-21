@@ -1,0 +1,5 @@
+[General]
+Autostart=true
+Certificate=~/.local/share/krdpserver/krdp.crt
+CertificateKey=~/.local/share/krdpserver/krdp.key
+SystemUserEnabled=true

@@ -9,10 +9,10 @@
   community.general.pacman:
     name: [pdfgrep]
 
-- name: E-book reader
-  become: true
-  community.general.pacman:
-    name: [foliate]
+# - name: E-book reader
+#   become: true
+#   community.general.pacman:
+#     name: [foliate]
 
 #
 # - name: Install fb2 viewers

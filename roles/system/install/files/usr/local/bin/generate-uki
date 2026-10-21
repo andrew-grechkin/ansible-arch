@@ -48,7 +48,7 @@ while read -r package; do
             valid_files=()
             for file in "${files[@]}"; do
                 filename=$(basename "$file")
-                snap_num=$(echo "$filename" | sed -E "s/^subvol-([0-9]+)-${package}\.efi$/\1/")
+                snap_num=$(echo "$filename" | perl -pe "s/^subvol-([0-9]+)-${package}\.efi$/\1/")
 
                 if [[ -n "${existing_snapshots[$snap_num]:-}" ]]; then
                     valid_files+=("$file")

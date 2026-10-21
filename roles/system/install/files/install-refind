@@ -6,31 +6,16 @@ export MOUNT_POINT=boot
 refind-install --root "$MOUNT_PREFIX"
 # arch-chroot "$MOUNT_PREFIX" refind-install --usedefault "/dev/disk/by-label/EFI$2"
 
-CPU=$(lscpu)
-if [[ $CPU =~ GenuineIntel ]]; then
-    arch-chroot "$MOUNT_PREFIX" pacman -S --needed --noconfirm intel-ucode
-    INITRD_U='initrd=\intel-ucode.img'
-elif [[ $CPU =~ AuthenticAMD ]]; then
-    arch-chroot "$MOUNT_PREFIX" pacman -S --needed --noconfirm amd-ucode
-    INITRD_U='initrd=\amd-ucode.img'
-else
-    INITRD_U=''
-fi
-
 INITRD_K="initrd=\initramfs-%v.img"
 DRIVES="root=LABEL=root$2 resume=LABEL=swap$2"
 OPTIONS="nowatchdog splash quiet udev.log_priority=3"
 CRYPT="cryptdevice=LABEL=lvm-encrypted${2}:lvm:allow-discards"
 
 if [[ "$1" == "True" ]]; then
-    {
-        echo "\"Boot with crypt+ucode\" \"rw $DRIVES $OPTIONS $CRYPT $INITRD_U $INITRD_K\""
-    } > "$MOUNT_PREFIX/$MOUNT_POINT/refind_linux.conf"
+    echo "\"Boot with crypt\"       \"rw $DRIVES $OPTIONS $CRYPT $INITRD_K\""
 else
-    {
-        echo "\"Boot with ucode\"       \"rw $DRIVES $OPTIONS $INITRD_U $INITRD_K\""
-    } > "$MOUNT_PREFIX/$MOUNT_POINT/refind_linux.conf"
-fi
+    echo "\"Boot\"                  \"rw $DRIVES $OPTIONS $INITRD_K\""
+fi > "$MOUNT_PREFIX/$MOUNT_POINT/refind_linux.conf"
 
 cat << EO_REFIND_LINUX >> "$MOUNT_PREFIX/$MOUNT_POINT/refind_linux.conf"
 "Boot with defaults"    "rw $DRIVES $OPTIONS"
@@ -39,25 +24,12 @@ cat << EO_REFIND_LINUX >> "$MOUNT_PREFIX/$MOUNT_POINT/refind_linux.conf"
 "Boot to bash"          "rw $DRIVES init=/bin/bash"
 EO_REFIND_LINUX
 
-
 perl -i -plE "s{^(LABEL=\w+)}{\1$2}" "$MOUNT_PREFIX/etc/fstab"
 
 cat <<- "EOF" >> "$MOUNT_PREFIX/$MOUNT_POINT/EFI/refind/refind.conf"
-include next-theme/theme.conf
+include conf.d/site.conf
+include conf.d/theme.conf
 EOF
-
-modifications=(
-    "s{\A \#?timeout \s+ \d+ \z}{timeout 5}x"
-    "s{\A \#?use_nvram \s+ true \z}{use_nvram false}x"
-    "s{\A \#?showtools .+}{showtools install,bootorder,netboot,shell,memtest,gdisk,apple_recovery,windows_recovery,mok_tool,about,hidden_tags,shutdown,reboot,firmware,fwupdate}x"
-    "s{\A \#(dont_scan_dirs \s .+)}{\1,EFI/Linux}x"
-    "s{\A \#fold_linux_kernels \s .+}{fold_linux_kernels false}x"
-    "s{\A \#extra_kernel_version_strings \s .+}{extra_kernel_version_strings linux-lts,linux-zen,linux}x"
-)
-
-for mod in "${modifications[@]}"; do
-    perl -i -plE "$mod" "$MOUNT_PREFIX/$MOUNT_POINT/EFI/refind/refind.conf"
-done
 
 cp -f -- "$MOUNT_PREFIX/$MOUNT_POINT/EFI/refind/icons/os_arch.png" "$MOUNT_PREFIX/$MOUNT_POINT/vmlinuz-linux.png"
 

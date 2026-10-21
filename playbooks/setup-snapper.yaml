@@ -1,4 +1,4 @@
 ---
 - any_errors_fatal: true
   hosts: all
-  roles: [x/kde]
+  roles: [has/app/snapper]

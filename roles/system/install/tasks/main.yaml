@@ -29,7 +29,6 @@
     state: present
     part_end: 2GiB
 - name: Create a new primary partition for LVM
-  when: not safe_disk_space_at_the_end | bool
   community.general.parted:
     device: '{{ install_device }}'
     number: 2
@@ -37,16 +36,6 @@
     flags: [lvm]
     state: present
     part_start: 2GiB
-- name: Create a new primary partition for LVM
-  when: safe_disk_space_at_the_end | bool
-  community.general.parted:
-    device: '{{ install_device }}'
-    number: 2
-    label: gpt
-    flags: [lvm]
-    state: present
-    part_start: 2GiB
-    part_end: -20GiB
 
 - name: Create and open the LUKS2 container on 2 {{ install_device }}
   when: install_encrypt | bool
@@ -107,14 +96,14 @@
     opts: -L home{{ install_suffix }}
 
 - name: Prepare btrfs root partition
-  ansible.builtin.script: prepare-btrfs-root.sh "root{{ install_suffix }}" '@'
+  ansible.builtin.script: prepare-btrfs-root "root{{ install_suffix }}" '@'
 - name: Prepare btrfs home partition
-  ansible.builtin.script: prepare-btrfs-home.sh "home{{ install_suffix }}" '@home'
+  ansible.builtin.script: prepare-btrfs-home "home{{ install_suffix }}" '@home'
 
 - name: Mount root subvolume structure /
   ansible.posix.mount:
     fstype: btrfs
-    opts: subvol=@/.snapshots/1/snapshot
+    opts: subvol=@/.snapshots/head/snapshot
     path: /mnt
     src: LABEL=root{{ install_suffix }}
     state: ephemeral
@@ -171,8 +160,9 @@
   ansible.builtin.command: >
     pacstrap /mnt
     base base-devel linux linux-firmware refind reflector systemd-ukify
+    amd-ucode intel-ucode
     btrfs-progs cryptsetup lvm2 mdadm
-    avahi bind inetutils networkmanager nss-mdns openssh rsync systemd-resolvconf
+    avahi bind inetutils networkmanager iwd nss-mdns openssh rsync systemd-resolvconf
     git jq just less mise tmux unzip vifm vim zsh zsh-completions
     ansible
   args:
@@ -210,7 +200,7 @@
     src: usr/
 
 - name: Install rEFInd
-  ansible.builtin.script: install-refind.sh "{{ install_encrypt | bool }}" "{{ install_suffix }}"
+  ansible.builtin.script: install-refind "{{ install_encrypt | bool }}" "{{ install_suffix }}"
   args:
     creates: /boot/refind_linux.conf
 
@@ -229,7 +219,7 @@
 
 - name: Post install
   ansible.builtin.script: >
-    post-install.sh
+    post-install
     "{{ username }}" "{{ useruid }}" "{{ userpass }}"
     "{{ default_hostname }}" "{{ default_locale }}" "{{ default_timezone }}"
   args:
@@ -244,7 +234,7 @@
     src: etc/
 
 - name: Update initcpio
-  ansible.builtin.script: update-initcpio.sh "{{ install_encrypt | bool }}"
+  ansible.builtin.script: update-initcpio "{{ install_encrypt | bool }}"
 
 - name: Create /efi directory
   become: true
@@ -263,7 +253,7 @@
   ansible.posix.mount:
     fstab: /mnt/etc/fstab
     fstype: vfat
-    opts: nofail,nodev,nosuid,noexec,utf8
+    opts: nofail,nodev,nosuid,noexec,noatime,utf8
     path: /efi
     src: LABEL=EFI{{ install_suffix }}
     state: mounted

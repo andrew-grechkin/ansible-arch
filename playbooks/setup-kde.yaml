@@ -1,18 +1,4 @@
 ---
 - any_errors_fatal: true
   hosts: all
-  roles:
-    - x/bspwm
-    - x/kde
-    - has/aur/apps/must-have
-    - has/aur/app/google-chrome
-    - has/aur/app/kanata
-    - has/app/snapper
-    - has/apps/browser
-    - has/apps/encryption
-    - has/apps/media
-    - has/apps/network
-    - has/apps/viewer
-    - has/device/network
-    - has/device/video
-    - has/device/yubikey
+  roles: [wayland/kde]

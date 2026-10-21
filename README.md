@@ -10,5 +10,5 @@ Basic ansible scripts to install and setup Arch my way
 
 ### Setup
 
-* `ansible-playbook playbooks/setup-kde-min.yaml -K`
+* `ansible-playbook playbooks/setup-kde-full.yaml -K`
 * reboot
