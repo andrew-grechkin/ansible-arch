@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -e
+
+lab="${1:-home}"
+prefix="${2:-@}"
+
+umask 022
+
+mkdir                             "/mnt-${lab}"
+mount -L "$lab" -o subvolid=5     "/mnt-${lab}"
+
+mkdir -p                          "/mnt-${lab}/${prefix}"
+btrfs subvolume create            "/mnt-${lab}/${prefix}/.snapshots"
+chmod a+rX                        "/mnt-${lab}/${prefix}/.snapshots"
+mkdir -p                          "/mnt-${lab}/${prefix}/.snapshots/head"
+btrfs subvolume create            "/mnt-${lab}/${prefix}/.snapshots/head/snapshot"
+
+if [[ "$prefix" = "@home" ]]; then
+    btrfs subvolume set-default   "/mnt-${lab}/${prefix}/.snapshots/head/snapshot"
+
+    # NOTE: quota makes btrfs slow
+    #btrfs quota enable                "/mnt-${lab}"
+    #btrfs quota rescan -w             "/mnt-${lab}"
+fi
+
+mkdir -p                          "/mnt-${lab}/${prefix}/.snapshots/head/snapshot/.snapshots"
+
+umount                            "/mnt-${lab}"
+rmdir                             "/mnt-${lab}"

@@ -1,0 +1,32 @@
+---
+- name: Install KDE Plasma
+  become: true
+  community.general.pacman:
+    name:
+      - dolphin
+      - ffmpegthumbs
+      - gwenview
+      # - kate
+      - kcharselect
+      - kcolorchooser
+      - kleopatra
+      - konsole
+      - kwalletmanager
+      # - packagekit-qt6
+      - plasma-meta
+
+- name: Install additional packages
+  become: true
+  community.general.pacman:
+    name:
+      - fprintd
+      - geoclue
+      - kate
+      - system-config-printer
+      - wl-clipboard
+
+- name: Enable plasmalogin service
+  become: true
+  ansible.builtin.service:
+    name: plasmalogin
+    enabled: true

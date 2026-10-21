@@ -27,7 +27,7 @@ arch-add-trizen host='localhost':
 	ansible-playbook -K --limit "$host" playbooks/arch-add-trizen.yaml
 
 # install operating system on a fresh machine
-arch-install-os:
+@arch-install-os:
 	lsblk
 	ansible-playbook -i localhost-not-ready.yaml playbooks/arch-install-os.yaml
 
@@ -65,11 +65,11 @@ add-home-users host='localhost':
 
 # install basic KDE environment
 setup-kde host='localhost':
-	ansible-playbook -K --limit "$host" playbooks/setup-kde-only.yaml
+	ansible-playbook -K --limit "$host" playbooks/setup-kde.yaml
 
 # install full KDE environment
 setup-kde-full host='localhost':
-	ansible-playbook -K --limit "$host" playbooks/setup-kde.yaml
+	ansible-playbook -K --limit "$host" playbooks/setup-kde-full.yaml
 
 # install podman
 @setup-podman:
@@ -82,6 +82,30 @@ setup-kde-full host='localhost':
 # install my applications
 setup-mine host='localhost':
 	ansible-playbook -K --limit "$host" playbooks/setup-mine.yaml
+
+
+# => -------------------------------------------------------------------------------------------------------------- {{{1
+
+install-flatpak:
+    #!/usr/bin/env -S bash -Eeuo pipefail
+
+    apps=(
+        com.github.jeromerobert.pdfarranger
+        com.github.johnfactotum.Foliate
+        com.google.Chrome
+        com.opera.Opera
+        no.mifi.losslesscut
+        org.fooyin.fooyin
+        org.gimp.GIMP
+        org.gnome.Papers
+        org.gnome.SimpleScan
+        org.goldendict.GoldenDict
+        org.kde.CrowTranslate
+        org.kde.kdenlive
+        us.zoom.Zoom
+    )
+
+    sudo flatpak --system install -y "${apps[@]}"
 
 # => -------------------------------------------------------------------------------------------------------------- {{{1
 

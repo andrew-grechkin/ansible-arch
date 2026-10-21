@@ -16,7 +16,7 @@
       private: false
     - name: install_swap_size
       prompt: Swap partition size
-      default: 16G
+      default: 32G
       private: false
     - name: username
       prompt: New user name
@@ -30,14 +30,6 @@
       prompt: New user password
       confirm: true
       private: true
-    - name: install_encrypt
-      prompt: Use LUKS2
-      default: 'false'
-      private: false
-    - name: safe_disk_space_at_the_end
-      prompt: Safe 20GiB at the end of the disk
-      default: 'false'
-      private: false
     - name: default_hostname
       prompt: Default hostname
       default: arch
@@ -49,5 +41,9 @@
     - name: default_timezone
       prompt: Default timezone
       default: Europe/Amsterdam
+      private: false
+    - name: install_encrypt
+      prompt: Use LUKS2
+      default: 'false'
       private: false
   roles: [system/install]

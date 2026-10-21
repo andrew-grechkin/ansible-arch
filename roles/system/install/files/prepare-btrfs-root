@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# btrfs layout https://en.opensuse.org/SDB:BTRFS
+
+set -e
+
+lab="${1:-root}"
+prefix="${2:-@}"
+
+umask 022
+
+mkdir                             "/mnt-${lab}"
+mount  -L "$lab" -o subvolid=5    "/mnt-${lab}"
+
+mkdir -p                          "/mnt-${lab}/${prefix}"
+btrfs subvolume create            "/mnt-${lab}/${prefix}/.snapshots"
+chmod a+rX                        "/mnt-${lab}/${prefix}/.snapshots"
+mkdir -p                          "/mnt-${lab}/${prefix}/.snapshots/head"
+btrfs subvolume create            "/mnt-${lab}/${prefix}/.snapshots/head/snapshot"
+btrfs subvolume create            "/mnt-${lab}/${prefix}/srv"
+btrfs subvolume create            "/mnt-${lab}/${prefix}/var"
+chattr +C                         "/mnt-${lab}/${prefix}/var"
+
+cat <<EO_SNAPSHOT_INFO > "/mnt-${lab}/${prefix}/.snapshots/head/info.xml"
+<?xml version="1.0"?>
+<snapshot>
+  <type>single</type>
+  <num>1</num>
+  <date>$(/usr/bin/date --rfc-3339=seconds)</date>
+  <description>first root filesystem</description>
+</snapshot>
+EO_SNAPSHOT_INFO
+
+if [[ "$prefix" = "@" ]]; then
+    btrfs subvolume set-default   "/mnt-${lab}/${prefix}/.snapshots/head/snapshot"
+fi
+
+mkdir  -p                         "/mnt-${lab}/${prefix}/.snapshots/head/snapshot"/{.snapshots,boot,efi,home,srv,var}
+
+umount -R                         "/mnt-${lab}"
+rmdir                             "/mnt-${lab}"
