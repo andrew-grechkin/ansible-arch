@@ -1,0 +1,12 @@
+---
+- any_errors_fatal: true
+  hosts: all
+  roles:
+    - wayland/kde
+    - has/aur/apps/must-have
+    - has/aur/app/reframe
+    - has/apps/browser
+    - has/apps/encryption
+    - has/apps/media
+    - has/device/network
+    - has/device/yubikey
