@@ -1,0 +1,3 @@
+---
+dependencies:
+  - role: has/ssh/drop-in
