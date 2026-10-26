@@ -1,9 +1,15 @@
 ---
 - any_errors_fatal: true
-  name: Configure SSH
-  hosts: all
   become: true
+  hosts: all
+  name: Configure SSH
+  roles:
+    - has/ssh/agent
+    - has/ssh/ca
+    - has/ssh/known-hosts
+    - has/ssh/password
+    - has/ssh/signed-host-keys
+    - has/ssh/user
   vars:
     ca_key_path: ~/.ssh/id_ed25519_sk_rk_29526146:ca-hosts
     rotation_threshold_days: 30  # Actual key rotation frequency
-  roles: [has/signed-ssh-host-key, has/sshd-agent-socket]

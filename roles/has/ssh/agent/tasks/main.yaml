@@ -1,0 +1,11 @@
+---
+- name: Copy /etc/ssh additional files
+  become: true
+  ansible.builtin.copy:
+    src: etc/ssh/
+    dest: /etc/ssh/
+    owner: root
+    group: root
+    mode: '0644'
+    directory_mode: '0755'
+  notify: Restart SSH

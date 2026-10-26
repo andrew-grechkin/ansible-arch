@@ -68,12 +68,6 @@
       become: false
       when: local_tmp is defined and local_tmp.path is defined
 
-- name: Ensure sshd_config.d directory exists
-  ansible.builtin.file:
-    path: /etc/ssh/sshd_config.d
-    state: directory
-    mode: '0755'
-
 - name: Configure sshd to use certificates
   ansible.builtin.template:
     src: 99-host-certs-conf.j2
