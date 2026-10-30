@@ -2,6 +2,7 @@
 - name: Install mesa
   become: true
   community.general.pacman:
+    extra_args: --needed
     name: [mesa]
 
 - name: Install vaapi intel support (amd is built into mesa)
