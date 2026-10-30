@@ -9,4 +9,5 @@
     - has/apps/encryption
     - has/apps/media
     - has/device/network
+    - has/device/video
     - has/device/yubikey
